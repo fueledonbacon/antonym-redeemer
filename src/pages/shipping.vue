@@ -182,7 +182,7 @@ const completeOrder = async () => {
     address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
     amount: (orderDetails.price / ethPrice.USD).toString()
   }
-  const txHash = account.createTransaction(txdata)
+  const txHash = await account.createTransaction(txdata)
   const orderCompletion = await fetch('/.netlify/functions/complete-order', {
     method: 'POST',
     headers: { Accept: 'application/json' },
