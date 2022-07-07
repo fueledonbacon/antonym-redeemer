@@ -20,7 +20,7 @@ contract ProxyRegistry {
  * ERC1155Tradable - ERC1155 contract that whitelists an operator address, has create and mint functionality, and supports useful standards from OpenZeppelin,
   like _exists(), name(), symbol(), and totalSupply()
  */
-contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
+contract Materia is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   using Strings for uint256;
 
   address proxyRegistryAddress;
