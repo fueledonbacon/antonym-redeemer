@@ -6,33 +6,25 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 import './ERC1155.sol';
 import './ERC1155Metadata.sol';
-import './ERC1155MintBurn.sol';
+import './ERC1155Mint.sol';
 
 /**
  * @title ERC1155Tradable
  * ERC1155Tradable - ERC1155 contract that whitelists an operator address, has create and mint functionality, and supports useful standards from OpenZeppelin,
   like _exists(), name(), symbol(), and totalSupply()
  */
-contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
-  using Strings for uint256;
+contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
+  using Strings for uint8;
 
   
-  uint256 private _currentTokenID;
+  uint8 private _currentTokenID;
 
-  mapping (uint256 => uint256) public tokenSupply;
+  mapping (uint8 => uint16) public tokenSupply;
 
   // Contract name
   string public name;
   // Contract symbol
   string public symbol;
-
-  /**
-   * @dev Require_msgSender() to own more than 0 of the token id
-   */
-  modifier ownersOnly(uint256 _id) {
-    require(balances[msg.sender][_id] > 0, "ERC1155Tradable#ownersOnly: ONLY_OWNERS_ALLOWED");
-    _;
-  }
 
   constructor(
     string memory _name,
@@ -45,8 +37,8 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   }
 
   function uri(
-    uint256 _id
-  ) public view override returns (string memory) {
+    uint8 _id
+  ) public view returns (string memory) {
     require(_exists(_id), "ERC721Tradable#uri: NONEXISTENT_TOKEN");
     return bytes(baseMetadataURI).length > 0 ? string(abi.encodePacked(baseMetadataURI, _id.toString())) : "";
   }
@@ -57,8 +49,8 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     * @return amount of token in existence
     */
   function totalSupply(
-    uint256 _id
-  ) public view returns (uint256) {
+    uint8 _id
+  ) public view returns (uint16) {
     return tokenSupply[_id];
   }
 
@@ -81,10 +73,10 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     */
   function _create(
     address _initialOwner,
-    uint256 _initialSupply
-  ) internal returns (uint256) {
+    uint16 _initialSupply
+  ) internal returns (uint8) {
 
-    uint256 _id = getNextTokenID(); 
+    uint8 _id = getNextTokenID(); 
     _incrementTokenTypeId();
 
     _mint(_initialOwner, _id, _initialSupply, "");
@@ -100,8 +92,8 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     */
   function _mint(
     address _to,
-    uint256 _id,
-    uint256 _quantity
+    uint8 _id,
+    uint16 _quantity
   ) internal {
     _mint(_to, _id, _quantity, "");
     tokenSupply[_id] += _quantity;
@@ -121,7 +113,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     for (uint256 i = 0; i < _ids.length; i++) {
       uint256 _id = _ids[i];
       uint256 quantity = _quantities[i];
-      tokenSupply[_id] += quantity;
+      tokenSupply[uint8(_id)] += uint16(quantity);
     }
     _batchMint(_to, _ids, _quantities, "");
   }
@@ -132,7 +124,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     * @return bool whether the token exists
     */
   function _exists(
-    uint256 _id
+    uint8 _id
   ) internal view returns (bool) {
     return tokenSupply[_id] > 0;
   }
@@ -141,7 +133,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     * @dev calculates the next token ID based on value of _currentTokenID
     * @return uint256 for the next token ID
     */
-  function getNextTokenID() public view returns (uint256) {
+  function getNextTokenID() public view returns (uint8) {
     return _currentTokenID + 1;
   }
 

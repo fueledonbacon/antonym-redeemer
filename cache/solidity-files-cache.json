@@ -746,8 +746,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Tradable.sol": {
-      "lastModificationDate": 1657220462116,
-      "contentHash": "8f65e5c0a7b52ee3aa2f6f3fa3aac838",
+      "lastModificationDate": 1657233504187,
+      "contentHash": "4980970f7d7cd680ff34487f228f35c8",
       "sourceName": "contracts/erc1155/ERC1155Tradable.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -774,56 +774,16 @@
       },
       "imports": [
         "@openzeppelin/contracts/utils/Strings.sol",
-        "./IERC1155Tradable.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
         "./ERC1155.sol",
         "./ERC1155Metadata.sol",
-        "./ERC1155MintBurn.sol",
-        "../Ownable.sol"
+        "./ERC1155Mint.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC1155Tradable",
-        "OwnableDelegateProxy",
-        "ProxyRegistry"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/IERC1155Tradable.sol": {
-      "lastModificationDate": 1657220404289,
-      "contentHash": "f6bb4638a280ce064d66f1de42ee194c",
-      "sourceName": "contracts/erc1155/IERC1155Tradable.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC1155.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC1155Tradable"
+        "ERC1155Tradable"
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Metadata.sol": {
@@ -864,80 +824,6 @@
         "ERC1155Metadata"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155MintBurn.sol": {
-      "lastModificationDate": 1657220404285,
-      "contentHash": "1c93dc306f7dfb15ce57f8a6b78bb4b5",
-      "sourceName": "contracts/erc1155/ERC1155MintBurn.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./ERC1155.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC1155MintBurn"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Ownable.sol": {
-      "lastModificationDate": 1657220503540,
-      "contentHash": "1cb66021720d983eb2a20bb0ab826655",
-      "sourceName": "contracts/Ownable.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
-      ]
-    },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/IERC1155Metadata.sol": {
       "lastModificationDate": 1657220404285,
       "contentHash": "f6a15a428aa4dae1014e7e934d7a6d83",
@@ -971,6 +857,229 @@
       ],
       "artifacts": [
         "IERC1155Metadata"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
+      "lastModificationDate": 1657236393990,
+      "contentHash": "2ace8b6206fbbb162bc82a4edf5e9bef",
+      "sourceName": "contracts/Materia.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol",
+        "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
+        "./erc1155/ERC1155Tradable.sol",
+        "./FashionNFT.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Materia"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol": {
+      "lastModificationDate": 1657219709867,
+      "contentHash": "a6c043c18ceaf0499c284c8b65b313f4",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ECDSA.sol",
+        "../Address.sol",
+        "../../interfaces/IERC1271.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SignatureChecker"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+      "lastModificationDate": 1657219708467,
+      "contentHash": "1dfb7cf7c7e2edae73403d50a59cc967",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ECDSA"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/interfaces/IERC1271.sol": {
+      "lastModificationDate": 1657219709367,
+      "contentHash": "8fe867b95c856b204f954a1910e28a1e",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC1271.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1271"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.sol": {
+      "lastModificationDate": 1657219709715,
+      "contentHash": "04d20a7656ab3b219a40d6dad3669ab5",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MerkleProof"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Mint.sol": {
+      "lastModificationDate": 1657233451916,
+      "contentHash": "e7eb3241d654d691bb48b13f4a8d3973",
+      "sourceName": "contracts/erc1155/ERC1155Mint.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC1155.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC1155Mint"
       ]
     }
   }
