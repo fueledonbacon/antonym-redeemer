@@ -2,29 +2,24 @@
 pragma solidity ^0.8.0; 
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 import './IERC1155Tradable.sol';
 import './ERC1155.sol';
 import './ERC1155Metadata.sol';
 import './ERC1155MintBurn.sol';
-import "../Ownable.sol";
- 
-contract OwnableDelegateProxy { }
-
-contract ProxyRegistry {
-  mapping(address => OwnableDelegateProxy) public proxies;
-}
 
 /**
  * @title ERC1155Tradable
  * ERC1155Tradable - ERC1155 contract that whitelists an operator address, has create and mint functionality, and supports useful standards from OpenZeppelin,
   like _exists(), name(), symbol(), and totalSupply()
  */
-contract Materia is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
+contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   using Strings for uint256;
 
-  address proxyRegistryAddress;
+  
   uint256 private _currentTokenID;
+
   mapping (uint256 => address) public creators;
   mapping (uint256 => uint256) public tokenSupply;
 
@@ -53,14 +48,11 @@ contract Materia is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata,
   constructor(
     string memory _name,
     string memory _symbol,
-    string memory _metadataURI,
-    address _proxyRegistryAddress,
-    address owner
-  ) Ownable(owner) {
+    string memory _metadataURI
+  ) {
     name = _name;
     symbol = _symbol;
-    proxyRegistryAddress = _proxyRegistryAddress;
-    isAllowedToCreate[owner] = true;
+    isAllowedToCreate[msg.sender] = true;
     _setBaseMetadataURI(_metadataURI);
   }
 
@@ -172,22 +164,6 @@ contract Materia is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata,
       uint256 id = _ids[i];
       _setCreator(_to, id);
     }
-  }
-
-  /**
-   * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-free listings.
-   */
-  function isApprovedForAll(
-    address _owner,
-    address _operator
-  ) public override(ERC1155, IERC1155) view returns (bool isOperator) {
-    // Whitelist OpenSea proxy contract for easy trading.
-    ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
-    if (address(proxyRegistry.proxies(_owner)) == _operator) {
-      return true;
-    }
-
-    return ERC1155.isApprovedForAll(_owner, _operator);
   }
 
   /**
