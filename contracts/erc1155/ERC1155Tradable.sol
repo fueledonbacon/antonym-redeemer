@@ -19,7 +19,6 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   
   uint256 private _currentTokenID;
 
-  mapping (uint256 => address) public creators;
   mapping (uint256 => uint256) public tokenSupply;
 
   // Contract name
@@ -80,14 +79,13 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
     * @param _initialSupply amount to supply the first owner
     * @return The newly created token ID
     */
-  function create(
+  function _create(
     address _initialOwner,
     uint256 _initialSupply
-  ) external returns (uint256) {
+  ) internal returns (uint256) {
 
     uint256 _id = getNextTokenID(); 
     _incrementTokenTypeId();
-    creators[_id] =_msgSender();
 
     _mint(_initialOwner, _id, _initialSupply, "");
     tokenSupply[_id] = _initialSupply;
@@ -122,7 +120,6 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   ) internal {
     for (uint256 i = 0; i < _ids.length; i++) {
       uint256 _id = _ids[i];
-      require(creators[_id] ==_msgSender(), "ERC1155Tradable#batchMint: ONLY_CREATOR_ALLOWED");
       uint256 quantity = _quantities[i];
       tokenSupply[_id] += quantity;
     }
