@@ -15,6 +15,8 @@ contract Materia is ERC1155Tradable {
     uint64 private _start;
     uint64 private _end;
 
+    address private _signatureChecker;
+
     bool private _allowMinting;
 
     mapping(uint256 => bool) private isAntonymTokenUsed;
@@ -24,12 +26,15 @@ contract Materia is ERC1155Tradable {
         string memory _symbol,
         string memory _metadataURI,
         uint64 start,
-        uint64 end
+        uint64 end,
+        address signatureChecker
     ) ERC1155Tradable(_name, _symbol, _metadataURI) {
         require(start > block.timestamp, "Start cannot be in the past");
         require(end > start && end > block.timestamp, "Wrong end deadline");
+        require(signatureChecker != address(0), "Wrong SignatureChecker");
         _start = start;
         _end = end;
+        _signatureChecker = signatureChecker;
     }
 
     //TODO: set metadata verification
@@ -60,4 +65,27 @@ contract Materia is ERC1155Tradable {
     function getAmountMinted(uint8 tokenId) external view returns (uint16) {
         //TODO: return amount minted if tokenId 1 = Materia, tokenId2 = PrimaMateria
     }
+
+
+    /** OnlyOwner Functions */
+    function setAllowMinting(bool allow) external onlyOwner {
+        _allowMinting = allow;
+    }
+
+    function setSignatureChecker(address signatureChecker) external onlyOwner {
+        require(signatureChecker != address(0), "Wrong SignatureChecker");
+        _signatureChecker = signatureChecker;
+    }
+
+    function setStart(uint64 start) external onlyOwner {
+        require(start > block.timestamp, "Start cannot be in the past");
+        require(_end > start, "Start is greater than end");
+        _start = start;
+    }
+
+    function setDeadline(uint64 end) external onlyOwner {
+        require(end > _start && end > block.timestamp, "Wrong end deadline");
+        _end = end;
+    }
+    /********************************************* */
 }
