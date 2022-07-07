@@ -84,11 +84,6 @@ contract Materia is ERC1155Tradable {
         }
     }
 
-    function getAmountMinted(uint8 tokenId) external view returns (uint16) {
-        require(tokenId > 0 && tokenId <= 2, "Wrong token id");
-        return tokenSupply[tokenId]; 
-    }
-
     /**Private and Internal Functions */
     function _verifyMerkle(bytes32 leaf, bytes32[] memory proof) private view returns (bool) {
         return MerkleProof.verify(proof, _merkleRoot, leaf);
@@ -97,7 +92,6 @@ contract Materia is ERC1155Tradable {
     function _verifySignature(address account, uint256 tokenId, bytes memory signature) private view returns (bool) {
         bytes32 hashedValue = keccak256(abi.encodePacked(account, tokenId));
         return _signer.isValidSignatureNow(hashedValue, signature);
-
     }
 
     /** OnlyOwner Functions */
@@ -108,12 +102,6 @@ contract Materia is ERC1155Tradable {
     function setSigner(address signer) external onlyOwner {
         require(signer != address(0), "Wrong signer");
         _signer = signer;
-    }
-
-    function setStart(uint64 start) external onlyOwner {
-        require(start > block.timestamp, "Start cannot be in the past");
-        require(_end > start, "Start is greater than end");
-        _start = start;
     }
 
     function setDeadline(uint64 end) external onlyOwner {

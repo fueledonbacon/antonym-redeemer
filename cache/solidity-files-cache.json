@@ -860,8 +860,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657236393990,
-      "contentHash": "2ace8b6206fbbb162bc82a4edf5e9bef",
+      "lastModificationDate": 1657236669762,
+      "contentHash": "b6188d64a90ef251dee3662eff450a8c",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
