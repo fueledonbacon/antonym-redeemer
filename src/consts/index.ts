@@ -17,11 +17,12 @@ export { default as zones } from './zones.json'
 export const { PrivacyPolicy, TermsOfUse } = legal
 
 const {
-  VITE_CONTRACT_ADDRESS = ''
+  VITE_CONTRACT_ADDRESS = '', VITE_CHAIN_ID = '4', VITE_PAYMENT_ADDRESS
 } = import.meta.env
 
 export const smartContract = {
   contractAddress: VITE_CONTRACT_ADDRESS,
-  chainId: '4',
+  chainId: VITE_CHAIN_ID,
+  paymentAddress: VITE_PAYMENT_ADDRESS,
   abi: antonym_abi.abi
 }

@@ -94,7 +94,7 @@ import * as Toast from 'vue-toastification'
 import { JsonRpcSigner } from '@ethersproject/providers'
 
 import { isValidEmail } from '@/utils/validators'
-import { zones } from '@/consts'
+import { smartContract, zones } from '@/consts'
 import cart from '@/use/cart'
 import order from '@/use/order'
 import account from '@/use/account'
@@ -179,7 +179,7 @@ const completeOrder = async () => {
   const orderDetails = order.order
   const ethPrice = await getEthPrice()
   const txdata = {
-    address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
+    address: smartContract.paymentAddress,
     amount: (orderDetails.price / ethPrice.USD).toString()
   }
   const txHash = await account.createTransaction(txdata)
