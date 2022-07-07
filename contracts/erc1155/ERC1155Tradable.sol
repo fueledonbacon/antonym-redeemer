@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-import './IERC1155Tradable.sol';
 import './ERC1155.sol';
 import './ERC1155Metadata.sol';
 import './ERC1155MintBurn.sol';
@@ -14,7 +13,7 @@ import './ERC1155MintBurn.sol';
  * ERC1155Tradable - ERC1155 contract that whitelists an operator address, has create and mint functionality, and supports useful standards from OpenZeppelin,
   like _exists(), name(), symbol(), and totalSupply()
  */
-contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
+contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable {
   using Strings for uint256;
 
   
@@ -23,19 +22,10 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
   mapping (uint256 => address) public creators;
   mapping (uint256 => uint256) public tokenSupply;
 
-  mapping(address => bool) public isAllowedToCreate;
   // Contract name
   string public name;
   // Contract symbol
   string public symbol;
-
-  /**
-   * @dev Require_msgSender() to be the creator of the token id
-   */
-  modifier creatorOnly(uint256 _id) {
-    require(creators[_id] ==_msgSender() && isAllowedToCreate[_msgSender()], "ERC1155Tradable#creatorOnly: ONLY_CREATOR_ALLOWED");
-    _;
-  }
 
   /**
    * @dev Require_msgSender() to own more than 0 of the token id
@@ -52,7 +42,6 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
   ) {
     name = _name;
     symbol = _symbol;
-    isAllowedToCreate[msg.sender] = true;
     _setBaseMetadataURI(_metadataURI);
   }
 
@@ -85,15 +74,6 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
   }
 
   /**
-  * @dev Sets address allowed to create 
-  * @param _account account to allow/disallow
-  * @param _allow true to allow, false to remove
-  */
-  function setAllowToCreate(address _account, bool _allow) public onlyOwner {
-    isAllowedToCreate[_account] = _allow;
-  }
-
-  /**
     * @dev Creates a new token type and assigns _initialSupply to an address
     * NOTE: remove onlyOwner if you want third parties to create new tokens on your contract (which may change your IDs)
     * @param _initialOwner address of the first owner of the token
@@ -103,8 +83,7 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
   function create(
     address _initialOwner,
     uint256 _initialSupply
-  ) external override returns (uint256) {
-    require(isAllowedToCreate[_msgSender()], "Not allowed");
+  ) external returns (uint256) {
 
     uint256 _id = getNextTokenID(); 
     _incrementTokenTypeId();
@@ -121,11 +100,11 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
     * @param _id          Token ID to mint
     * @param _quantity    Amount of tokens to mint
     */
-  function mint(
+  function _mint(
     address _to,
     uint256 _id,
     uint256 _quantity
-  ) public override creatorOnly(_id) {
+  ) internal {
     _mint(_to, _id, _quantity, "");
     tokenSupply[_id] += _quantity;
   }
@@ -136,11 +115,11 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
     * @param _ids         Array of ids to mint
     * @param _quantities  Array of amounts of tokens to mint per id
     */
-  function batchMint(
+  function _batchMint(
     address _to,
     uint256[] memory _ids,
     uint256[] memory _quantities
-  ) public override {
+  ) internal {
     for (uint256 i = 0; i < _ids.length; i++) {
       uint256 _id = _ids[i];
       require(creators[_id] ==_msgSender(), "ERC1155Tradable#batchMint: ONLY_CREATOR_ALLOWED");
@@ -151,40 +130,14 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
   }
 
   /**
-    * @dev Change the creator address for given tokens
-    * @param _to   Address of the new creator
-    * @param _ids  Array of Token IDs to change creator
-    */
-  function setCreator(
-    address _to,
-    uint256[] memory _ids
-  ) public override {
-    require(_to != address(0), "ERC1155Tradable#setCreator: INVALID_ADDRESS.");
-    for (uint256 i = 0; i < _ids.length; i++) {
-      uint256 id = _ids[i];
-      _setCreator(_to, id);
-    }
-  }
-
-  /**
-    * @dev Change the creator address for given token
-    * @param _to   Address of the new creator
-    * @param _id  Token IDs to change creator of
-    */
-  function _setCreator(address _to, uint256 _id) internal creatorOnly(_id)
-  {
-      creators[_id] = _to;
-  }
-
-  /**
-    * @dev Returns whether the specified token exists by checking to see if it has a creator
+    * @dev Returns whether the specified token exists by checking the token supply
     * @param _id uint256 ID of the token to query the existence of
     * @return bool whether the token exists
     */
   function _exists(
     uint256 _id
   ) internal view returns (bool) {
-    return creators[_id] != address(0);
+    return tokenSupply[_id] > 0;
   }
 
   /**
@@ -213,7 +166,7 @@ contract ERC1155Tradable is IERC1155Tradable, ERC1155, ERC1155MintBurn, ERC1155M
    * @return `true` if the contract implements `_interfaceID` and
    */
   function supportsInterface(bytes4 _interfaceID) public override(ERC1155, ERC1155Metadata) virtual view returns (bool) {
-    if (_interfaceID == type(IERC1155).interfaceId || _interfaceID == type(IERC1155Tradable).interfaceId) {
+    if (_interfaceID == type(IERC1155).interfaceId) {
       return true;
     }
     return super.supportsInterface(_interfaceID);
