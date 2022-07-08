@@ -91,6 +91,29 @@ describe("Materia ERC1155 Contract", function () {
         //signs token 1 and tries to mint token2
         let messageHash = await materia.messageHash(signers[1].address, 1);
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
+        /*
+        const antonym1on1TokenIds = [
+            270,  397,  474,  545,  965, 1106, 1224,
+            1275, 1280, 1940, 2598, 2626, 2657, 2670,
+            2818, 2928, 3138, 3147, 3288, 3333, 3516,
+            3681, 3760, 4297, 4336, 4501, 4509, 4513,
+            4864, 5229, 5537, 5769, 6271, 6307, 6448,
+            6531, 6554, 7012, 7132, 7165, 7495, 7555,
+            7627, 7724, 7764, 8301, 8387, 8397, 8492,
+            8683, 8763, 8876
+        ]
+
+        const merkleRoot = merkleTree(antonym1on1TokenIds);
+        */
+        //devolver la firma al usuario
+        //materia.connect(signers[1]).mintMateria(1, signature)
+
+        // const getProof = (merkleRoot, tokenId) => {
+        //     return merkleRoot.getHexProof(hashData(tokenId));
+        // }
+        //const proof = getProof(merkleRoot, 10);
+        //materia.connect(signers[1]).mintPrimaMateria(9, signature, proof)
+
         await expect(
             materia.connect(signers[1]).mintMateria(2, signature)
         ).to.be.revertedWith('Wrong signature');
