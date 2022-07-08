@@ -34,13 +34,13 @@ describe("Materia ERC1155 Contract", function () {
         }))
         await antonym.deployed();
 
-        const Lib = await ethers.getContractFactory("VerifySignature");
+        const Lib = await ethers.getContractFactory("VerifySignatureMock");
         const lib = await Lib.deploy();
         await lib.deployed();
 
         const Materia = await ethers.getContractFactory("MateriaMock", {
             libraries: {
-                VerifySignature: lib.address,
+                VerifySignatureMock: lib.address,
             },
         });
 
@@ -89,7 +89,10 @@ describe("Materia ERC1155 Contract", function () {
         await timeIncreaseTo(timestamp + 60*5+10)
 
         //signs token 1 and tries to mint token2
+        //                                        //userAccAddress, antonymTokenId
         let messageHash = await materia.messageHash(signers[1].address, 1);
+
+        //              privatekey
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
         /*
         const antonym1on1TokenIds = [
@@ -102,12 +105,14 @@ describe("Materia ERC1155 Contract", function () {
             7627, 7724, 7764, 8301, 8387, 8397, 8492,
             8683, 8763, 8876
         ]
-
-        const merkleRoot = merkleTree(antonym1on1TokenIds);
+        
         */
-        //devolver la firma al usuario
+        //para mintar Materia:
+        //devolver la firma al usuario y luego llamar funcion:
         //materia.connect(signers[1]).mintMateria(1, signature)
 
+        //para mintar Prima Materia:
+        //const merkleRoot = merkleTree(antonym1on1TokenIds);
         // const getProof = (merkleRoot, tokenId) => {
         //     return merkleRoot.getHexProof(hashData(tokenId));
         // }
