@@ -43,7 +43,6 @@ describe("Materia ERC1155 Contract", function () {
                 VerifySignature: lib.address,
             },
         });
-        
 
         merkleRoot = merkleTree();
         merkleRoot2 = merkleTree2()

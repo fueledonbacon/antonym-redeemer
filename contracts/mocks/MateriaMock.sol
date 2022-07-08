@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 import "../erc1155/ERC1155Tradable.sol";
 import "../FashionNFT.sol";
-import "../VerifySignature.sol";
+import "./VerifySignatureMock.sol";
 /**
  * @title Materia
  */
@@ -101,11 +101,11 @@ contract MateriaMock is ERC1155Tradable {
     }
 
     function _verifySignature(address account, uint256 tokenId, bytes memory signature) private view returns (bool) {
-        return VerifySignature.verify(_signer, account, tokenId, signature);
+        return VerifySignatureMock.verify(_signer, account, tokenId, signature);
     }
 
     function messageHash(address account, uint256 tokenId) public pure returns (bytes32) {
-        return VerifySignature.getMessageHash(account, tokenId);
+        return VerifySignatureMock.getMessageHash(account, tokenId);
     }
 
     /** OnlyOwner Functions */

@@ -21,6 +21,10 @@ module.exports = {
     rinkeby: {
       url: `https://eth-rinkeby.alchemyapi.io/v2/${ALCHEMY_RINKEBY_API_KEY}`,
       accounts: [CONTRACT_OWNER_PRIVATE_KEY]
+    },
+    mainnet: {
+      url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_MAINNET_API_KEY}`,
+      accounts: [CONTRACT_OWNER_PRIVATE_KEY]
     }
   },
   mocha: {

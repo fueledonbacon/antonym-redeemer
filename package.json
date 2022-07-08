@@ -9,6 +9,7 @@
     "lint": "eslint src --ext js,ts,vue src",
     "prepare": "husky install"
   },
+  "type": "module",
   "dependencies": {
     "@mdi/font": "^6.7.96",
     "@metamask/detect-provider": "^1.2.0",
@@ -25,6 +26,7 @@
     "mitt": "^3.0.0",
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.1",
+    "node-fetch": "^3.2.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16",
     "vue-tippy": "^6.0.0-alpha.58",
