@@ -14,12 +14,12 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: 'd03672d1d4fa46bb892afe8ef72cea37'
+      infuraId: smartContract.infuraID
     }
   }
 }
 const web3Modal = new Web3Modal({
-  network: 'rinkeby', // optional
+  network: smartContract.chainNetwork,
   cacheProvider: true, // optional
   providerOptions // required
 })
@@ -94,11 +94,11 @@ const getContract = async () => {
 }
 
 const connect = async () => {
-  await detectEthereumProvider()
-
   network.value = await provider.value?.getNetwork() || null
 
+  // const [account] = await provider.value?.send('eth_requestAccounts', [])
   const [account] = await provider.value?.send('eth_requestAccounts', [])
+
   if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
@@ -177,32 +177,19 @@ const setAccount = async (newAccount: string) => {
 }
 
 const init = async () => {
-  // // Avoid this on server side
-  // const provider = new WalletConnectProvider({
-  //   infuraId: '27e484dcd9e3efcfd25a83a78777cdf1'
-
-  // })
-  // //  Enable session (triggers QR Code modal)
-  // const web3Provider = new providers.Web3Provider(provider)
-  // await provider.enable()
-  // //  Wrap with Web3Provider from ethers.js
-  const instance = await web3Modal.connect()
-  const provider = new ethers.providers.Web3Provider(instance)
   if (typeof window.ethereum === 'undefined') {
-    const signer = provider.getSigner()
+    window.ethereum = await web3Modal.connect()
   }
 
-  const eth: any = await detectEthereumProvider()
-
   if (!listenersCreated.value) {
-    eth.on('accountsChanged', ([newAddress]: string[]) => {
+    window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
       cart.clear()
       wallet.clear()
 
       setAccount(newAddress)
     })
 
-    eth.on('chainChanged', (chainId: string) => {
+    window.ethereum.on('chainChanged', (chainId: string) => {
       cart.clear()
       wallet.clear()
       window.location.reload()
@@ -211,7 +198,7 @@ const init = async () => {
     listenersCreated.value = true
   }
 
-  provider.value = markRaw(new ethers.providers.Web3Provider(eth))
+  provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum))
   network.value = await provider.value.getNetwork()
   const [account] = await provider.value.listAccounts()
 
