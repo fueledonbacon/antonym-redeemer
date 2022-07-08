@@ -1154,6 +1154,46 @@
       "artifacts": [
         "VerifySignature"
       ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
+      "lastModificationDate": 1657289017245,
+      "contentHash": "f0df56e8f78aa762dd3613d030771030",
+      "sourceName": "contracts/mocks/MateriaMock.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
+        "../erc1155/ERC1155Tradable.sol",
+        "../FashionNFT.sol",
+        "../VerifySignature.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MateriaMock"
+      ]
     }
   }
 }
