@@ -37,4 +37,6 @@ Materia deployed to address: 0xcbDBB600E004c03F6Bae36162f2628CEf3E24999
 </div>
 
 ## Mainnet
+Paste in the contracts deployed on mainnet (VerifySignature, Materia)
+
 
