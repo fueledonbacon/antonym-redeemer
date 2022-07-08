@@ -1,602 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/ERC721A.sol": {
-      "lastModificationDate": 1657216399421,
-      "contentHash": "4e4b456c250498baaa6d386720f3c39c",
-      "sourceName": "contracts/ERC721A.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
-        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
-        "@openzeppelin/contracts/utils/Address.sol",
-        "@openzeppelin/contracts/utils/Context.sol",
-        "@openzeppelin/contracts/utils/Strings.sol",
-        "@openzeppelin/contracts/utils/introspection/ERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.4"
-      ],
-      "artifacts": [
-        "ERC721A"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1657219049500,
-      "contentHash": "ec99d946db3685a3630554aa6055bd7f",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../../utils/introspection/IERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC721"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1657219049504,
-      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC721Receiver"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1657219049504,
-      "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../IERC721.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC721Metadata"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
-      "lastModificationDate": 1657219049500,
-      "contentHash": "f4dd06783f321aa26179bc2b6e361c29",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../IERC721.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC721Enumerable"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1657219048872,
-      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
-      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1657219048908,
-      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
-      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Context"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1657219049548,
-      "contentHash": "cf46906c4035f51639a22265066a9e78",
-      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Strings"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1657219049072,
-      "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC165"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1657219049456,
-      "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC165"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/FashionNFT.sol": {
-      "lastModificationDate": 1657216399421,
-      "contentHash": "1d4b95e8a64b62286bbcd351e0d82774",
-      "sourceName": "contracts/FashionNFT.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./ERC721A.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.9"
-      ],
-      "artifacts": [
-        "Antonym"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1657219049536,
-      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/TheMutantMushies.sol": {
-      "lastModificationDate": 1657219166811,
-      "contentHash": "16aba2ef4a42ae2d368e8c8d5cbfc507",
-      "sourceName": "contracts/TheMutantMushies.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/Counters.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "TheMutantMushies"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
-      "lastModificationDate": 1657219048912,
-      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
-      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Counters"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1657219049204,
-      "contentHash": "79ff1a7eb801a525aa315fb7a679eede",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC721.sol",
-        "./IERC721Receiver.sol",
-        "./extensions/IERC721Metadata.sol",
-        "../../utils/Address.sol",
-        "../../utils/Context.sol",
-        "../../utils/Strings.sol",
-        "../../utils/introspection/ERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/MultisigOwnable.sol": {
-      "lastModificationDate": 1657219103461,
-      "contentHash": "622f4c889c5cecb0b69bf1faef646436",
-      "sourceName": "contracts/MultisigOwnable.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "MultisigOwnable"
-      ]
-    },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155.sol": {
       "lastModificationDate": 1657220409985,
       "contentHash": "f954f4334eaaea783389040f48fbe0ac",
@@ -745,8 +149,115 @@
         "IERC1155Receiver"
       ]
     },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1657219708231,
+      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1657219708635,
+      "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC165"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1657219709395,
+      "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC165"
+      ]
+    },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Tradable.sol": {
-      "lastModificationDate": 1657233504187,
+      "lastModificationDate": 1657236390190,
       "contentHash": "4980970f7d7cd680ff34487f228f35c8",
       "sourceName": "contracts/erc1155/ERC1155Tradable.sol",
       "solcConfig": {
@@ -784,6 +295,78 @@
       ],
       "artifacts": [
         "ERC1155Tradable"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1657219709895,
+      "contentHash": "cf46906c4035f51639a22265066a9e78",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Strings"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1657219709735,
+      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Metadata.sol": {
@@ -824,6 +407,78 @@
         "ERC1155Metadata"
       ]
     },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Mint.sol": {
+      "lastModificationDate": 1657233451916,
+      "contentHash": "e7eb3241d654d691bb48b13f4a8d3973",
+      "sourceName": "contracts/erc1155/ERC1155Mint.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC1155.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC1155Mint"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1657219708303,
+      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/IERC1155Metadata.sol": {
       "lastModificationDate": 1657220404285,
       "contentHash": "f6a15a428aa4dae1014e7e934d7a6d83",
@@ -857,6 +512,344 @@
       ],
       "artifacts": [
         "IERC1155Metadata"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
+      "lastModificationDate": 1657289017245,
+      "contentHash": "f0df56e8f78aa762dd3613d030771030",
+      "sourceName": "contracts/mocks/MateriaMock.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
+        "../erc1155/ERC1155Tradable.sol",
+        "../FashionNFT.sol",
+        "../VerifySignature.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MateriaMock"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.sol": {
+      "lastModificationDate": 1657219709715,
+      "contentHash": "04d20a7656ab3b219a40d6dad3669ab5",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MerkleProof"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/FashionNFT.sol": {
+      "lastModificationDate": 1657216399421,
+      "contentHash": "1d4b95e8a64b62286bbcd351e0d82774",
+      "sourceName": "contracts/FashionNFT.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC721A.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Antonym"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/VerifySignature.sol": {
+      "lastModificationDate": 1657255649996,
+      "contentHash": "7f2f38593fcb32ca5018b972179a2974",
+      "sourceName": "contracts/VerifySignature.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "VerifySignature"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/ERC721A.sol": {
+      "lastModificationDate": 1657216399421,
+      "contentHash": "4e4b456c250498baaa6d386720f3c39c",
+      "sourceName": "contracts/ERC721A.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+        "@openzeppelin/contracts/utils/Address.sol",
+        "@openzeppelin/contracts/utils/Context.sol",
+        "@openzeppelin/contracts/utils/Strings.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "ERC721A"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1657219709507,
+      "contentHash": "ec99d946db3685a3630554aa6055bd7f",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1657219709535,
+      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Receiver"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+      "lastModificationDate": 1657219709527,
+      "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Metadata"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
+      "lastModificationDate": 1657219709515,
+      "contentHash": "f4dd06783f321aa26179bc2b6e361c29",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Enumerable"
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
@@ -899,10 +892,10 @@
         "Materia"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol": {
-      "lastModificationDate": 1657219709867,
-      "contentHash": "a6c043c18ceaf0499c284c8b65b313f4",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol",
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/TheMutantMushies.sol": {
+      "lastModificationDate": 1657219166811,
+      "contentHash": "16aba2ef4a42ae2d368e8c8d5cbfc507",
+      "sourceName": "contracts/TheMutantMushies.sol",
       "solcConfig": {
         "version": "0.8.13",
         "settings": {
@@ -927,58 +920,21 @@
         }
       },
       "imports": [
-        "./ECDSA.sol",
-        "../Address.sol",
-        "../../interfaces/IERC1271.sol"
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC721/ERC721.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "SignatureChecker"
+        "TheMutantMushies"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
-      "lastModificationDate": 1657219708467,
-      "contentHash": "1dfb7cf7c7e2edae73403d50a59cc967",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../Strings.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ECDSA"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/interfaces/IERC1271.sol": {
-      "lastModificationDate": 1657219709367,
-      "contentHash": "8fe867b95c856b204f954a1910e28a1e",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC1271.sol",
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
+      "lastModificationDate": 1657219708315,
+      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
+      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.13",
         "settings": {
@@ -1007,48 +963,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC1271"
+        "Counters"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.sol": {
-      "lastModificationDate": 1657219709715,
-      "contentHash": "04d20a7656ab3b219a40d6dad3669ab5",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "MerkleProof"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Mint.sol": {
-      "lastModificationDate": 1657233451916,
-      "contentHash": "e7eb3241d654d691bb48b13f4a8d3973",
-      "sourceName": "contracts/erc1155/ERC1155Mint.sol",
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+      "lastModificationDate": 1657219708903,
+      "contentHash": "79ff1a7eb801a525aa315fb7a679eede",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
         "version": "0.8.13",
         "settings": {
@@ -1073,13 +994,19 @@
         }
       },
       "imports": [
-        "./ERC1155.sol"
+        "./IERC721.sol",
+        "./IERC721Receiver.sol",
+        "./extensions/IERC721Metadata.sol",
+        "../../utils/Address.sol",
+        "../../utils/Context.sol",
+        "../../utils/Strings.sol",
+        "../../utils/introspection/ERC165.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC1155Mint"
+        "ERC721"
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/AntonymMock.sol": {
@@ -1120,45 +1047,10 @@
         "AntonymMock"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/VerifySignature.sol": {
-      "lastModificationDate": 1657255649996,
-      "contentHash": "7f2f38593fcb32ca5018b972179a2974",
-      "sourceName": "contracts/VerifySignature.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "VerifySignature"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
-      "lastModificationDate": 1657289017245,
-      "contentHash": "f0df56e8f78aa762dd3613d030771030",
-      "sourceName": "contracts/mocks/MateriaMock.sol",
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/MultisigOwnable.sol": {
+      "lastModificationDate": 1657219103461,
+      "contentHash": "622f4c889c5cecb0b69bf1faef646436",
+      "sourceName": "contracts/MultisigOwnable.sol",
       "solcConfig": {
         "version": "0.8.13",
         "settings": {
@@ -1183,16 +1075,13 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
-        "../erc1155/ERC1155Tradable.sol",
-        "../FashionNFT.sol",
-        "../VerifySignature.sol"
+        "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "MateriaMock"
+        "MultisigOwnable"
       ]
     }
   }

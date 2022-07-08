@@ -4,7 +4,6 @@ const { ethers, waffle } = require("hardhat");
 const {MerkleTree} = require("merkletreejs");
 const { getLatestTimestamp, timeIncreaseTo } = require("../scripts/time");
 
-const NULL_ADDRESS = '0x0000000000000000000000000000000000000000'
 const NULL_SIGNATURE = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 const provider = waffle.provider;
@@ -269,8 +268,6 @@ describe("Materia ERC1155 Contract", function () {
         await expect(
             materia.connect(signers[4]).mintPrimaMateria(30, signature, proof3)
         ).to.be.revertedWith("Amount Prima Materia exceeded")
-
-
     })
 })
 
