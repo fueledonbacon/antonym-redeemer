@@ -78,7 +78,7 @@ const resolveNFT = async (token: { id: number, uri: string }) => {
       headers: {
         'Content-type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        origin: 'localhost:8888'
+        origin: window.location.host
       },
       body: JSON.stringify({
         nftURI: token.uri,
