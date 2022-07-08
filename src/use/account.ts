@@ -1,13 +1,28 @@
 import { computed, markRaw, reactive, ref } from 'vue'
 import * as Toast from 'vue-toastification'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { ethers } from 'ethers'
+import { ethers, providers } from 'ethers'
+import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
+import Web3Modal from 'web3modal'
 
 import wallet from './wallet'
 import { CHAINID_CONFIG_MAP, getCurrency } from '@/utils/metamask'
 import { smartContract } from '@/consts'
 import cart from './cart'
 
+const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider, // required
+    options: {
+      infuraId: 'd03672d1d4fa46bb892afe8ef72cea37'
+    }
+  }
+}
+const web3Modal = new Web3Modal({
+  network: 'rinkeby', // optional
+  cacheProvider: true, // optional
+  providerOptions // required
+})
 const activeAccount = ref('')
 const balance = ref('')
 const contract = ref(null as ethers.Contract | null)
@@ -117,7 +132,6 @@ const switchNetwork = async (newChainId: string) => {
     ])
 
     await init()
-
     // Create a minor delay to let the wallet reset to new network
     return new Promise((resolve) => {
       setTimeout(() => resolve(''), 1000)
@@ -163,8 +177,20 @@ const setAccount = async (newAccount: string) => {
 }
 
 const init = async () => {
-  // Avoid this on server side
-  if (typeof window.ethereum === 'undefined') { return }
+  // // Avoid this on server side
+  // const provider = new WalletConnectProvider({
+  //   infuraId: '27e484dcd9e3efcfd25a83a78777cdf1'
+
+  // })
+  // //  Enable session (triggers QR Code modal)
+  // const web3Provider = new providers.Web3Provider(provider)
+  // await provider.enable()
+  // //  Wrap with Web3Provider from ethers.js
+  const instance = await web3Modal.connect()
+  const provider = new ethers.providers.Web3Provider(instance)
+  if (typeof window.ethereum === 'undefined') {
+    const signer = provider.getSigner()
+  }
 
   const eth: any = await detectEthereumProvider()
 
