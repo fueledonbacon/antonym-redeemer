@@ -35,9 +35,9 @@ const networkName = computed(() => network.value?.name)
 const chainId = computed(() => network.value?.chainId.toString())
 const accountCompact = computed(() => activeAccount.value
   ? `${
-      activeAccount.value.substring(0, 4)
+      activeAccount.value?.substring(0, 4)
     }...${
-      activeAccount.value.substring(activeAccount.value.length - 4)
+      activeAccount.value?.substring(activeAccount.value.length - 4)
     }`
   : 'Connect'
 )
@@ -95,10 +95,7 @@ const getContract = async () => {
 
 const connect = async () => {
   network.value = await provider.value?.getNetwork() || null
-
-  // const [account] = await provider.value?.send('eth_requestAccounts', [])
-  const [account] = await provider.value?.send('eth_requestAccounts', [])
-
+  const account = provider.value?.getSigner()._address
   if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
@@ -198,12 +195,16 @@ const init = async () => {
     listenersCreated.value = true
   }
 
-  provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum))
+  provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum, null))
   network.value = await provider.value.getNetwork()
-  const [account] = await provider.value.listAccounts()
-
+  let [account] = await provider.value.listAccounts()
   if (account) {
-    await setAccount(account)
+    await setAccount(account[0])
+  } else {
+    account = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    })
+    await setAccount(account[0])
   }
 }
 
