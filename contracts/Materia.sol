@@ -6,18 +6,19 @@ https://fueledonbacon.com
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
+
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 import "./erc1155/ERC1155Tradable.sol";
 import "./FashionNFT.sol";
-
+import "./VerifySignature.sol";
 /**
  * @title Materia
  */
 contract Materia is ERC1155Tradable {
 
-    using SignatureChecker for address;
+    uint16 private constant MAX_MATERIA = 10000;
+    uint16 private constant MAX_PRIMA_MATERIA = 52;
 
     // gas optimization we pack these in a 256 bits slot
     uint64 private _start;
@@ -27,15 +28,15 @@ contract Materia is ERC1155Tradable {
     address private _signer;
     address private _antonym;
 
-    bool private _allowMinting;
+    bool private _allowMinting = true;
 
     mapping(uint256 => bool) private isAntonymTokenUsed;
     mapping(uint256 => bool) private isAntonym1on1TokenUsed;
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
-        require(_start >= block.timestamp, "Minting not yet started");
-        require(_end < block.timestamp, "Minting already ended");
+        require(_start <= block.timestamp, "Minting not yet started");
+        require(_end > block.timestamp, "Minting already ended");
         _;
     }
 
@@ -63,10 +64,12 @@ contract Materia is ERC1155Tradable {
 
     //TODO: set metadata verification
     function mintMateria(uint256 antonymTokenId, bytes memory signature) external canMint {
+        require(tokenSupply[1] + 1 <= MAX_MATERIA, "Amount Materia exceeded");
         require(!isAntonymTokenUsed[antonymTokenId], "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
+        isAntonymTokenUsed[antonymTokenId] = true;
         if (!_exists(1)) {
             _create(account, 1);
         } else {
@@ -76,12 +79,15 @@ contract Materia is ERC1155Tradable {
 
     //TODO: set metadata verification
     function mintPrimaMateria(uint256 antonymTokenId, bytes memory signature, bytes32[] calldata proof) external canMint {
+        require(tokenSupply[2] + 1 <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
         require(!isAntonym1on1TokenUsed[antonymTokenId], "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
+        require(_exists(1), "A Materia should be created first");
         bytes32 leaf = keccak256(abi.encodePacked(antonymTokenId));
         require(_verifyMerkle(leaf, proof), "Invalid merkle proof");
+        isAntonym1on1TokenUsed[antonymTokenId] = true;
         if (!_exists(2)) {
             _create(account, 1);
         } else {
@@ -95,12 +101,15 @@ contract Materia is ERC1155Tradable {
     }
 
     function _verifySignature(address account, uint256 tokenId, bytes memory signature) private view returns (bool) {
-        bytes32 hashedValue = keccak256(abi.encodePacked(account, tokenId));
-        return _signer.isValidSignatureNow(hashedValue, signature);
+        return VerifySignature.verify(_signer, account, tokenId, signature);
+    }
+
+    function messageHash(address account, uint256 tokenId) public pure returns (bytes32) {
+        return VerifySignature.getMessageHash(account, tokenId);
     }
 
     /** OnlyOwner Functions */
-    function setAllowMinting(bool allow) external onlyOwner {
+    function allowMinting(bool allow) external onlyOwner {
         _allowMinting = allow;
     }
 
@@ -114,25 +123,24 @@ contract Materia is ERC1155Tradable {
         _end = end;
     }
 
-    function mintBatch(address to) external onlyOwner {
+    function mintBatchMateria(address to, uint16 amountMateria, uint16 amountPrimaMateria) external onlyOwner {
         require(_allowMinting, "Minting is Paused");
         require(_end < block.timestamp, "Deadline not yet over");
-        uint16 amountMateriaMinted = tokenSupply[1];
-        uint256 amountMateriaToMint = 10000 - amountMateriaMinted;
-        uint256 amountPrimaMateriaMinted = tokenSupply[2];
-        uint256 amountPrimaMateriaToMint = 52 - amountPrimaMateriaMinted;
+        require(tokenSupply[1] + amountMateria <= MAX_MATERIA, "Amount Materia exceeded");
+        require(tokenSupply[2] + amountPrimaMateria <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
 
         uint256[] memory tokenIds = new uint256[](2);
         tokenIds[0] = 1;
         tokenIds[1] = 2;
 
         uint256[] memory amounts = new uint256[](2);
-        amounts[0] = amountMateriaToMint;
-        amounts[1] = amountPrimaMateriaToMint;
+        amounts[0] = amountMateria;
+        amounts[1] = amountPrimaMateria;
 
         _batchMint(to, tokenIds, amounts);
-
     }
+
+
 
     /********************************************* */
 }

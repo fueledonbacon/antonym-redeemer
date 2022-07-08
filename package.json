@@ -21,7 +21,7 @@
     "dotenv": "^16.0.1",
     "email-validator": "^2.0.4",
     "ethers": "^5.6.9",
-    "merkletreejs": "^0.2.32",
+    "merkletreejs": "^0.2.30",
     "mitt": "^3.0.0",
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.1",

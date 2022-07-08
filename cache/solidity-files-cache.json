@@ -860,8 +860,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657236761189,
-      "contentHash": "d72403ecbbde89ef70f5350fc322c7b1",
+      "lastModificationDate": 1657260123373,
+      "contentHash": "76afa98a1e9e62ed4d3a9b82088f1b56",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -887,10 +887,10 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol",
         "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
         "./erc1155/ERC1155Tradable.sol",
-        "./FashionNFT.sol"
+        "./FashionNFT.sol",
+        "./VerifySignature.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -1118,6 +1118,41 @@
       ],
       "artifacts": [
         "AntonymMock"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/VerifySignature.sol": {
+      "lastModificationDate": 1657255649996,
+      "contentHash": "7f2f38593fcb32ca5018b972179a2974",
+      "sourceName": "contracts/VerifySignature.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "VerifySignature"
       ]
     }
   }
