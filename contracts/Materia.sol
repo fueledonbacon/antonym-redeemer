@@ -1,3 +1,8 @@
+/*
+Crafted with love by
+Fueled on Bacon
+https://fueledonbacon.com
+*/
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -35,7 +40,7 @@ contract Materia is ERC1155Tradable {
     }
 
     constructor(
-        string memory _name,
+        string memory _name,    
         string memory _symbol,
         string memory _metadataURI,
         uint64 start,

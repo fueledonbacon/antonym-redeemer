@@ -860,8 +860,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657236669762,
-      "contentHash": "b6188d64a90ef251dee3662eff450a8c",
+      "lastModificationDate": 1657236761189,
+      "contentHash": "d72403ecbbde89ef70f5350fc322c7b1",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -1080,6 +1080,44 @@
       ],
       "artifacts": [
         "ERC1155Mint"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/AntonymMock.sol": {
+      "lastModificationDate": 1657238093438,
+      "contentHash": "b7aa6d17842c9c71c9e9b9bfcde2d277",
+      "sourceName": "contracts/mocks/AntonymMock.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC721A.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "AntonymMock"
       ]
     }
   }
