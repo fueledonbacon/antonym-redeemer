@@ -14,6 +14,7 @@
     >
       Antonym
     </router-link>
+    <main-checker />
     <main-connect />
   </header>
 </template>
