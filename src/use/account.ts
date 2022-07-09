@@ -178,32 +178,35 @@ const init = async () => {
     window.ethereum = await web3Modal.connect()
   }
 
-  if (!listenersCreated.value) {
-    window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
-      cart.clear()
-      wallet.clear()
+  // if (!listenersCreated.value) {
+  //   window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
+  //     cart.clear()
+  //     wallet.clear()
 
-      setAccount(newAddress)
-    })
+  //     setAccount(newAddress)
+  //   })
 
-    window.ethereum.on('chainChanged', (chainId: string) => {
-      cart.clear()
-      wallet.clear()
-      window.location.reload()
-    })
+  //   window.ethereum.on('chainChanged', (chainId: string) => {
+  //     cart.clear()
+  //     wallet.clear()
+  //     window.location.reload()
+  //   })
 
-    listenersCreated.value = true
+  //   listenersCreated.value = true
+  // }
+  // const library = new ethers.providers.Web3Provider(provider.value)
+  // window.ethereum = provider.value
+  // const signer = await library.listAccounts();
+  // console.log(signer)
+
+  provider.value = new ethers.providers.Web3Provider(window.ethereum)
+  let account = await provider.value.listAccounts()
+  if (!account) {
+    await provider.value.send('eth_requestAccounts')
+    account = await provider.value.listAccounts()
   }
-
-  provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum, null))
-  network.value = await provider.value.getNetwork()
-  let [account] = await provider.value.listAccounts()
-  if (account) {
-    await setAccount(account[0])
-  } else {
-    account = await window.ethereum.request({
-      method: 'eth_requestAccounts'
-    })
+  // network.value = await provider.value.getNetwork()
+  if (account[0]) {
     await setAccount(account[0])
   }
 }
