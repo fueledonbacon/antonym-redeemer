@@ -1,13 +1,28 @@
 import { computed, markRaw, reactive, ref } from 'vue'
 import * as Toast from 'vue-toastification'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { ethers } from 'ethers'
+import { ethers, providers } from 'ethers'
+import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
+import Web3Modal from 'web3modal'
 
 import wallet from './wallet'
 import { CHAINID_CONFIG_MAP, getCurrency } from '@/utils/metamask'
 import { smartContract } from '@/consts'
 import cart from './cart'
 
+const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider, // required
+    options: {
+      infuraId: smartContract.infuraID
+    }
+  }
+}
+const web3Modal = new Web3Modal({
+  network: smartContract.chainNetwork,
+  cacheProvider: true, // optional
+  providerOptions // required
+})
 const activeAccount = ref('')
 const balance = ref('')
 const contract = ref(null as ethers.Contract | null)
@@ -20,9 +35,9 @@ const networkName = computed(() => network.value?.name)
 const chainId = computed(() => network.value?.chainId.toString())
 const accountCompact = computed(() => activeAccount.value
   ? `${
-      activeAccount.value.substring(0, 4)
+      activeAccount.value?.substring(0, 4)
     }...${
-      activeAccount.value.substring(activeAccount.value.length - 4)
+      activeAccount.value?.substring(activeAccount.value.length - 4)
     }`
   : 'Connect'
 )
@@ -79,12 +94,12 @@ const getContract = async () => {
 }
 
 const connect = async () => {
-  await detectEthereumProvider()
-
   network.value = await provider.value?.getNetwork() || null
 
+  // const account = provider.value?.getSigner()._address
+
   const [account] = await provider.value?.send('eth_requestAccounts', [])
-  // const account = "0x924380504e4ad99d17deb006900c1e4a4dbeeb89";
+
   if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
@@ -118,7 +133,6 @@ const switchNetwork = async (newChainId: string) => {
     ])
 
     await init()
-
     // Create a minor delay to let the wallet reset to new network
     return new Promise((resolve) => {
       setTimeout(() => resolve(''), 1000)
@@ -164,20 +178,19 @@ const setAccount = async (newAccount: string) => {
 }
 
 const init = async () => {
-  // Avoid this on server side
-  if (typeof window.ethereum === 'undefined') { return }
-
-  const eth: any = await detectEthereumProvider()
+  if (typeof window.ethereum === 'undefined') {
+    window.ethereum = await web3Modal.connect()
+  }
 
   if (!listenersCreated.value) {
-    eth.on('accountsChanged', ([newAddress]: string[]) => {
+    window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
       cart.clear()
       wallet.clear()
 
       setAccount(newAddress)
     })
 
-    eth.on('chainChanged', (chainId: string) => {
+    window.ethereum.on('chainChanged', (chainId: string) => {
       cart.clear()
       wallet.clear()
       window.location.reload()
@@ -186,13 +199,18 @@ const init = async () => {
     listenersCreated.value = true
   }
 
-  provider.value = markRaw(new ethers.providers.Web3Provider(eth))
+  provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum, null))
   network.value = await provider.value.getNetwork()
-  const [account] = await provider.value.listAccounts()
-  // const account = "0x924380504e4ad99d17deb006900c1e4a4dbeeb89";
+
+  let [account] = await provider.value.listAccounts()
 
   if (account) {
-    await setAccount(account)
+    await setAccount(account[0])
+  } else {
+    account = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    })
+    await setAccount(account[0])
   }
 }
 
