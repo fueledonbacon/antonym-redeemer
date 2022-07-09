@@ -95,7 +95,11 @@ const getContract = async () => {
 
 const connect = async () => {
   network.value = await provider.value?.getNetwork() || null
-  const account = provider.value?.getSigner()._address
+
+  // const account = provider.value?.getSigner()._address
+
+  const [account] = await provider.value?.send('eth_requestAccounts', [])
+
   if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
@@ -197,7 +201,9 @@ const init = async () => {
 
   provider.value = markRaw(new ethers.providers.Web3Provider(window.ethereum, null))
   network.value = await provider.value.getNetwork()
+
   let [account] = await provider.value.listAccounts()
+
   if (account) {
     await setAccount(account[0])
   } else {

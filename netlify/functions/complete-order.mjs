@@ -33,7 +33,7 @@ export const handler = async function (event, context) {
 		await updateOrder(id, paymentData) // UPDATE RECORD IN OUR COLLECTION
 		await completeOrder(id) // UPDATE FROM DRAFT TO ORDER SHOPIFY
 		if (hasBlack) {
-			userRedeemBlack(ethAddress)
+			await userRedeemBlack(ethAddress)
 		}
 		return { statusCode: 200, body: 'OK' }
 	} catch (error) {
