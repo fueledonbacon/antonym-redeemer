@@ -54,15 +54,15 @@ const createTransaction = async (
 
 const getAccountNFT = async () => {
   try {
-    if (!activeAccount.value) {
-      // Wallet undefined
-      return
-    }
+    // if (!activeAccount.value) {
+    //   // Wallet undefined
+    //   return
+    // }
 
     // Getting NFT of the account
+    const account = provider.value?.getSigner()
     const accContract = await getContract()
-    wallet.balance = +(await accContract?.balanceOf(activeAccount.value)) || 0
-
+    wallet.balance = +(await accContract?.balanceOf(account)) || 0
     const start = wallet.tokens.length
     if (start === wallet.balance) {
       // already loaded all of them
@@ -94,13 +94,12 @@ const getContract = async () => {
 }
 
 const connect = async () => {
-  network.value = await provider.value?.getNetwork() || null
-
+  // network.value = await provider.value?.getNetwork() || null
   // const account = provider.value?.getSigner()._address
 
-  const [account] = await provider.value?.send('eth_requestAccounts', [])
-
-  if (account) {
+  let [account] = await provider.value.listAccounts()
+  if (!account) {
+    [account] = await provider.value?.send('eth_requestAccounts', [])
     await setAccount(account)
     await wallet.getAccountDetails()
     await getAccountNFT()
@@ -148,9 +147,8 @@ const switchNetwork = async (newChainId: string) => {
 
 const setContract = async () => {
   if (chainId.value !== smartContract.chainId) {
-    await switchNetwork(smartContract.chainId)
+    // await switchNetwork(smartContract.chainId)
   }
-
   if (!activeAccount.value) {
     await connect()
   }
@@ -166,10 +164,10 @@ const setAccount = async (newAccount: string) => {
   if (newAccount) {
     // Set Account
     activeAccount.value = newAccount
-    const accountBalance = await provider.value?.getBalance(newAccount)
-    balance.value = `${
-      (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
-    } ${getCurrency(network.value?.chainId.toString() || '')}`
+    // const accountBalance = await provider.value?.getBalance(newAccount)
+    // balance.value = `${
+    //   (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
+    // } ${getCurrency(network.value?.chainId.toString() || '')}`
 
     await setContract()
   } else {
@@ -204,15 +202,15 @@ const init = async () => {
   // console.log(signer)
 
   provider.value = new ethers.providers.Web3Provider(window.ethereum)
-  let account = await provider.value.listAccounts()
+  let [account] = await provider.value.listAccounts()
   if (!account) {
-    await provider.value.send('eth_requestAccounts')
-    account = await provider.value.listAccounts()
+    [account] = await provider.value.send('eth_requestAccounts', [])
   }
   // network.value = await provider.value.getNetwork()
-  if (account[0]) {
-    await setAccount(account[0])
+  if (account) {
+    await setAccount(account)
   }
+  await getAccountNFT()
 }
 
 export default reactive({
