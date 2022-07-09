@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     IntroCarousel: typeof import('./src/components/intro/carousel.vue')['default']
     LegalContents: typeof import('./src/components/legal/contents.vue')['default']
     LegalItem: typeof import('./src/components/legal/item.vue')['default']
+    MainChecker: typeof import('./src/components/main/checker.vue')['default']
     MainConnect: typeof import('./src/components/main/connect.vue')['default']
     MainFooter: typeof import('./src/components/main/footer.vue')['default']
     MainHeader: typeof import('./src/components/main/header.vue')['default']

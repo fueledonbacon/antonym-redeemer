@@ -14,6 +14,13 @@ const client = new MongoClient(URI, {
   serverApi: ServerApiVersion.v1,
 });
 
+export const findToken = async (tokenID) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("tokens");
+  const document = await collection.findOne({ tokenID: tokenID });
+  return document;
+}
 export const findOrFetch = async (tokenuri, ownerAddress) => {
   await client.connect();
   let nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
