@@ -95,7 +95,11 @@ const getContract = async () => {
 
 const connect = async () => {
   network.value = await provider.value?.getNetwork() || null
-  const account = provider.value?.getSigner()._address
+
+  // const account = provider.value?.getSigner()._address
+
+  const [account] = await provider.value?.send('eth_requestAccounts', [])
+
   if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
