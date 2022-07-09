@@ -59,7 +59,6 @@
         class="home__link flex items-center <sm:w-full justify-between animate-pulse ml-auto"
         :to="{ name: 'Intro' }"
       >
-   
         Begin Redemption
         <img
           class="ml-2"
