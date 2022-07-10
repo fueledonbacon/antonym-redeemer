@@ -244,7 +244,12 @@ const confirm = async () => {
     }
     order.order = orderInfo
 
-    await completeOrder()
+    // await completeOrder()
+    cart.clear()
+    // order.completeOrder()
+    wallet.clearTokens()
+
+    setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
       position: Toast.POSITION.TOP_RIGHT,
