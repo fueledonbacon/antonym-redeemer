@@ -77,7 +77,33 @@
               I have read and understood the above
             </span>
           </label>
-          <hr class="mt-4 mb-8">
+          <hr class="mt-4 mb-4">
+          <div class="mb-4 shipping-info">
+            <div class="grid grid-cols-2 ">
+              <div class="grid grid-rows-4">
+                <span>
+                  Subtotal
+                </span>
+                <span class="row-span-2">
+                  Processing Fee
+                </span>
+                <span class="font-bold" >
+                  Total
+                </span>
+              </div>
+              <div class="grid grid-rows-4 text-right">
+                <span>
+                  Complimentary
+                </span>
+                <span class="row-span-2">
+                  ${{order.order.price || 0}}
+                </span>
+                <span class="font-bold">
+                  ${{order.order.price || 0}}
+                </span>
+              </div>
+            </div>
+          </div>
           <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
             :class="{ 'cursor-not-allowed': !form.agree }" :disabled="!form.agree" @click="confirm">
             Confirm transactions
