@@ -194,8 +194,7 @@ const init = async () => {
     }
     listenersCreated.value = true
   }
-  network.value = await provider.value.getNetwork()
-  const [account] = await provider.value.send('eth_requestAccounts', [])
+  const account = await window.ethereum?.send('eth_requestAccounts')
   if (account) {
     await setAccount(account)
   }
