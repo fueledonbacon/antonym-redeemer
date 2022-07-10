@@ -2,27 +2,27 @@ import { computed, markRaw, reactive, ref } from 'vue'
 import * as Toast from 'vue-toastification'
 import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers, providers } from 'ethers'
-import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
-import Web3Modal from 'web3modal'
+// import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
+// import Web3Modal from 'web3modal'
 
 import wallet from './wallet'
 import { CHAINID_CONFIG_MAP, getCurrency } from '@/utils/metamask'
 import { smartContract } from '@/consts'
 import cart from './cart'
 
-const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider, // required
-    options: {
-      infuraId: smartContract.infuraID
-    }
-  }
-}
-const web3Modal = new Web3Modal({
-  network: smartContract.chainNetwork,
-  cacheProvider: true, // optional
-  providerOptions // required
-})
+// const providerOptions = {
+//   walletconnect: {
+//     package: WalletConnectProvider, // required
+//     options: {
+//       infuraId: smartContract.infuraID
+//     }
+//   }
+// }
+// const web3Modal = new Web3Modal({
+//   network: smartContract.chainNetwork,
+//   cacheProvider: true, // optional
+//   providerOptions // required
+// })
 const activeAccount = ref('')
 const balance = ref('')
 const contract = ref(null as ethers.Contract | null)
@@ -54,15 +54,15 @@ const createTransaction = async (
 
 const getAccountNFT = async () => {
   try {
-    // if (!activeAccount.value) {
-    //   // Wallet undefined
-    //   return
-    // }
+    if (!activeAccount.value) {
+      // Wallet undefined
+      return
+    }
 
     // Getting NFT of the account
-    const account = provider.value?.getSigner()
     const accContract = await getContract()
-    wallet.balance = +(await accContract?.balanceOf(account)) || 0
+    wallet.balance = +(await accContract?.balanceOf(activeAccount.value)) || 0
+
     const start = wallet.tokens.length
     if (start === wallet.balance) {
       // already loaded all of them
@@ -94,12 +94,13 @@ const getContract = async () => {
 }
 
 const connect = async () => {
-  // network.value = await provider.value?.getNetwork() || null
+  network.value = await provider.value?.getNetwork() || null
+
   // const account = provider.value?.getSigner()._address
 
-  let [account] = await provider.value.listAccounts()
-  if (!account) {
-    [account] = await provider.value?.send('eth_requestAccounts', [])
+  const [account] = await provider.value?.send('eth_requestAccounts', [])
+
+  if (account) {
     await setAccount(account)
     await wallet.getAccountDetails()
     await getAccountNFT()
@@ -147,8 +148,9 @@ const switchNetwork = async (newChainId: string) => {
 
 const setContract = async () => {
   if (chainId.value !== smartContract.chainId) {
-    // await switchNetwork(smartContract.chainId)
+    await switchNetwork(smartContract.chainId)
   }
+
   if (!activeAccount.value) {
     await connect()
   }
@@ -164,53 +166,39 @@ const setAccount = async (newAccount: string) => {
   if (newAccount) {
     // Set Account
     activeAccount.value = newAccount
-    // const accountBalance = await provider.value?.getBalance(newAccount)
-    // balance.value = `${
-    //   (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
-    // } ${getCurrency(network.value?.chainId.toString() || '')}`
+    const accountBalance = await provider.value?.getBalance(newAccount)
+    balance.value = `${
+      (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
+    } ${getCurrency(network.value?.chainId.toString() || '')}`
 
     await setContract()
   } else {
     disconnect()
   }
 }
-
 const init = async () => {
-  if (typeof window.ethereum === 'undefined') {
-    window.ethereum = await web3Modal.connect()
+  const eth: any = await detectEthereumProvider()
+
+  if (!listenersCreated.value) {
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
+        cart.clear()
+        wallet.clear()
+      })
+      window.ethereum.on('chainChanged', (chainId: string) => {
+        cart.clear()
+        wallet.clear()
+        window.location.reload()
+      })
+      provider.value = markRaw(new ethers.providers.Web3Provider(eth))
+    }
+    listenersCreated.value = true
   }
-
-  // if (!listenersCreated.value) {
-  //   window.ethereum.on('accountsChanged', ([newAddress]: string[]) => {
-  //     cart.clear()
-  //     wallet.clear()
-
-  //     setAccount(newAddress)
-  //   })
-
-  //   window.ethereum.on('chainChanged', (chainId: string) => {
-  //     cart.clear()
-  //     wallet.clear()
-  //     window.location.reload()
-  //   })
-
-  //   listenersCreated.value = true
-  // }
-  // const library = new ethers.providers.Web3Provider(provider.value)
-  // window.ethereum = provider.value
-  // const signer = await library.listAccounts();
-  // console.log(signer)
-
-  provider.value = new ethers.providers.Web3Provider(window.ethereum)
-  let [account] = await provider.value.listAccounts()
-  if (!account) {
-    [account] = await provider.value.send('eth_requestAccounts', [])
-  }
-  // network.value = await provider.value.getNetwork()
+  network.value = await provider.value.getNetwork()
+  const [account] = await provider.value.send('eth_requestAccounts', [])
   if (account) {
     await setAccount(account)
   }
-  await getAccountNFT()
 }
 
 export default reactive({
