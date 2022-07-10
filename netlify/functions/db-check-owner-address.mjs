@@ -4,7 +4,7 @@ import { ethers } from 'ethers'
 import { getAllNFTs } from '../../common/db-handlers.mjs'
 import { updateFile } from '../../common/aws-helper.mjs'
 import { updateOrder } from '../../common/orders-helper.mjs'
-import * as abi from '../../artifacts/contracts/ANTONYM/ANTONYM_ABI.json'
+import abi from '../../contracts/antonym_abi.json'
 
 export const handler = async (event, context) => {
 	try {
