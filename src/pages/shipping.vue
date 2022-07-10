@@ -57,18 +57,13 @@
         <div
           class="lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
           <h6 class="font-bold uppercase">
-            Final steps
+            PRE-ORDER REQUEST
           </h6>
           <p class="text-sm mt-4">
-            Once an Antonym has been received for it’s physical,
-            it’s status will irreversibly reflect as redeemed on the blockchain and within it’s metadata.
-            <br><br>
-            After signing this transaction with your wallet,
-            your order and delivery information will be submitted to Antonym and your redemption will be completed.
-            <br><br>
-            Your personal information will not be stored on-chain,
-            nor will Antonym store or otherwise preserve your data for any purposes
-            that do not pertain to the redemption process.
+            Once you submit your transaction, your order will be reserved and queued for processing.  Once your order is
+            ready for fulfillment, you will receive an e-mail with instructions to configure shipping and complete your
+            order!
+
           </p>
 
           <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
@@ -87,7 +82,7 @@
                 <span class="row-span-2">
                   Processing Fee
                 </span>
-                <span class="font-bold" >
+                <span class="font-bold">
                   Total
                 </span>
               </div>
@@ -96,17 +91,17 @@
                   Complimentary
                 </span>
                 <span class="row-span-2">
-                  ${{order.order.price || 0}}
+                  $ 0
                 </span>
                 <span class="font-bold">
-                  ${{order.order.price || 0}}
+                  $ 0
                 </span>
               </div>
             </div>
           </div>
           <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
             :class="{ 'cursor-not-allowed': !form.agree }" :disabled="!form.agree" @click="confirm">
-            Confirm transactions
+            Confirm pre-order
           </button>
         </div>
       </div>
