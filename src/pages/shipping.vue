@@ -73,7 +73,7 @@
             </span>
           </label>
           <hr class="mt-4 mb-4">
-          <div class="mb-4 shipping-info">
+          <div class="mb-4 shipping-info hidden">
             <div class="grid grid-cols-2 ">
               <div class="grid grid-rows-4">
                 <span>
