@@ -126,8 +126,8 @@ const router = useRouter()
 const toast = Toast.useToast && Toast.useToast()
 
 const countries = zones.map((zone, idx) => ({
-  label: zone.countries[0].name,
-  value: zone.countries[0].code
+  label: zone.Country,
+  value: zone.Country
 }))
 
 const form = reactive({
