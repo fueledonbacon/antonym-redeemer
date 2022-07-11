@@ -19,7 +19,6 @@ declare module '@vue/runtime-core' {
     MainFooter: typeof import('./src/components/main/footer.vue')['default']
     MainHeader: typeof import('./src/components/main/header.vue')['default']
     MainStatusChecker: typeof import('./src/components/main/status-checker.vue')['default']
-    MainVerifyTokenStatus: typeof import('./src/components/main/verify-token-status.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

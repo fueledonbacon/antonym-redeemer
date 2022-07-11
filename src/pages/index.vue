@@ -2,7 +2,7 @@
   <main class="home page justify-end">
     <transition>
       <div
-        v-if="!(noAntonym && showDialog)"
+        v-if="!dialogVisible"
         class="home__title"
       >
         Welcome to Brand3
@@ -33,7 +33,13 @@
               The connected wallet does not hold any Antonyms that are eligible for redemption.
               Please make sure that you are connected with a wallet that holds at least one genesis Antonym.
             </p>
-            <a class="text-md md:text-lg lg:text-xl xl:text-2xl underline">Buy on OpenSea</a>
+            <a
+              class="text-md md:text-lg lg:text-xl xl:text-2xl underline"
+              href="https://opensea.io/collection/antonymgenesis"
+              target="_blank"
+            >
+              Buy on OpenSea
+            </a>
           </div>
         </div>
       </div>
@@ -55,7 +61,6 @@
       </ul>
 
       <router-link
-        v-if="wallet.balance"
         class="home__link flex items-center <sm:w-full justify-between animate-pulse ml-auto"
         :to="{ name: 'Intro' }"
       >
@@ -97,9 +102,8 @@ const socialLinks = [
 ]
 
 const showDialog = ref(true)
-const noAntonym = computed(() => {
-  return account.activeAccount && wallet.balance === 0 && wallet.balanceChecked
-})
+const noAntonym = computed(() => account.activeAccount && wallet.balance === 0)
+const dialogVisible = computed(() => noAntonym.value && showDialog.value)
 </script>
 
 <style>
