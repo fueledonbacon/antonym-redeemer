@@ -103,6 +103,10 @@ const noAntonym = computed(() => {
 </script>
 
 <style>
+.home.page {
+  background-size: 60%;
+}
+
 @media (min-width: 768px) {
   .home.page {
     background-size: auto 90%;
