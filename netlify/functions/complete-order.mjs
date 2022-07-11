@@ -1,6 +1,10 @@
 import { updateFile } from "../../common/aws-helper.mjs";
 // import { completeOrder, updateOrder } from "../../common/orders-helper.mjs";
-import { updateToken, refreshMeta } from "../../common/token-handler.mjs";
+// import {
+//   updateToken,
+//   refreshMeta,
+//   findToken,
+// } from "../../common/token-handler.mjs";
 import { userRedeemBlack } from "../../common/users.mjs";
 import { utils } from "ethers";
 
@@ -10,7 +14,7 @@ export const handler = async function (event, context) {
   let ethAddress = utils.getAddress(address);
 
   try {
-    let hasBlack = redeemItems.some((item) => item.trait_type === "black");
+    // let hasBlack = redeemItems.some((item) => item.trait_type === "black");
     // UPDATE EACH AWS KEYs FILE
 
     let regularItems = redeemItems.filter(
@@ -21,11 +25,22 @@ export const handler = async function (event, context) {
     );
 
     console.debug(tokens);
-    for (let index = 0; index < tokens.length; index++) {
-      await updateFile(tokens[index].tokenID, redeemItems[index].size);
-      await updateToken(tokens[index].tokenID, { redeemed: true });
-      await refreshMeta(tokens[index].tokenID);
-    }
+
+    // for (let index = 0; index < tokens.length; index++) {
+    //   const token = await findToken(tokens[index]);
+    //   if (token && token.redeemed) {
+    //     return {
+    //       statusCode: 400,
+    //       body: `Token ${token.tokenID} already redeemed`,
+    //     };
+    //   }
+    // }
+
+    // for (let index = 0; index < tokens.length; index++) {
+    //   await updateFile(tokens[index].tokenID, redeemItems[index].size);
+    //   await updateToken(tokens[index].tokenID, { redeemed: true });
+    //   await refreshMeta(tokens[index].tokenID);
+    // }
 
     // paymentData = {
     // 	payerAddress: ethAddress,
@@ -35,9 +50,9 @@ export const handler = async function (event, context) {
 
     // await updateOrder(id, paymentData); // UPDATE RECORD IN OUR COLLECTION
     // await completeOrder(id) // UPDATE FROM DRAFT TO ORDER SHOPIFY
-    if (hasBlack) {
-      userRedeemBlack(ethAddress);
-    }
+    // if (hasBlack) {
+    //   await userRedeemBlack(ethAddress);
+    // }
     return { statusCode: 200, body: "OK" };
   } catch (error) {
     return { statusCode: 500, body: error.toString() };

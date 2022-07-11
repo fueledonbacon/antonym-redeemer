@@ -210,6 +210,9 @@ const createOrder = async () => {
       items: [...cart.items]
     })
   })
+  if (res.status !== 200) {
+    throw new Error('Could not create draft order')
+  }
 
   return res.json()
 }
@@ -221,6 +224,7 @@ const getEthPrice = async () => {
   ).then(response => response.json())
 }
 
+// TODO: Move this to order completion page
 const completeOrder = async () => {
   const orderDetails = order.order
   // CHANGE: removing shipping charge for now
@@ -241,7 +245,7 @@ const completeOrder = async () => {
     })
   })
 
-  if (orderCompletion) {
+  if (orderCompletion.status === 200) {
     cart.clear()
     order.completeOrder()
     wallet.clearTokens()
@@ -252,6 +256,8 @@ const completeOrder = async () => {
       pauseOnHover: true,
       icon: true
     })
+  } else {
+    throw new Error('Order could not be completed')
   }
 }
 
@@ -269,7 +275,7 @@ const confirm = async () => {
     }
     order.order = orderInfo
 
-    await completeOrder()
+    // await completeOrder()
     setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
