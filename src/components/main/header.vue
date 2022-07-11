@@ -8,13 +8,17 @@
       'theme--dark': isBlack
     }"
   >
-    <router-link
-      class="font-tenebras text-2xl md:text-3xl xl:text-5xl uppercase  mt-2 xl:mt-4 xl:mb-2 mr-auto"
-      :to="{ name: 'Catalogue' }"
-    >
-      Antonym
-    </router-link>
-    <main-connect />
+    <div class="flex items-center">
+      <router-link
+        class="font-tenebras text-2xl md:text-3xl xl:text-5xl uppercase  mt-2 xl:mt-4 xl:mb-2 mr-auto"
+        :to="{ name: 'Catalogue' }"
+      >
+        Antonym
+      </router-link>
+      <main-status-checker class="<md:hidden mr-8" />
+      <main-connect />
+    </div>
+    <main-status-checker class="md:hidden mt-4" />
   </header>
 </template>
 
