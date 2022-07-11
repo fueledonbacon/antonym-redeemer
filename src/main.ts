@@ -8,11 +8,13 @@ import 'vue-toastification/dist/index.css'
 import '@mdi/font/css/materialdesignicons.min.css'
 
 import App from './App.vue'
+import { VueDapp } from 'vue-dapp'
 
 export const createApp = ViteSSG(
   App,
   { routes },
   ({ app }) => {
+    app.use(VueDapp)
     app.use(Toast)
     app.use(VueTippy, {
       component: 'v-tippy'

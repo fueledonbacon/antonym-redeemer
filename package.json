@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": " vite-ssg build",
     "preview": "vite preview",
     "lint": "eslint src --ext js,ts,vue src",
