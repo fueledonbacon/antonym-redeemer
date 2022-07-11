@@ -76,7 +76,7 @@ const check = async () => {
   if (response === true) {
     form.message = 'STATUS: REDEEMED'
   } else {
-    form.message = 'STATUS: UNREEDEMED'
+    form.message = 'STATUS: UNREDEEMED'
   }
 }
 
