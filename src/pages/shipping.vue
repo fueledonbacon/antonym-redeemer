@@ -249,7 +249,6 @@ const completeOrder = async () => {
         redeemItems: cart.items
       })
     })
-
   } catch (e) {
     throw new Error('Order could not be completed')
   }
@@ -273,7 +272,7 @@ const confirm = async () => {
 
     cart.clear()
     setTimeout(() => router.push({ name: 'Thanks' }), 1000)
-    await account.getAccountNFT()
+    await account.getAccountNFT(true)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
       position: Toast.POSITION.TOP_RIGHT,
