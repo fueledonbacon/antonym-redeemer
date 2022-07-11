@@ -223,19 +223,20 @@ const getEthPrice = async () => {
 
 const completeOrder = async () => {
   const orderDetails = order.order
-  const ethPrice = await getEthPrice()
-  const txdata = {
-    address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
-    amount: (orderDetails.price / ethPrice.USD).toString()
-  }
-  const txHash = account.createTransaction(txdata)
+  // CHANGE: removing shipping charge for now
+  // const ethPrice = await getEthPrice()
+  // const txdata = {
+  //   address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
+  //   amount: (orderDetails.price / ethPrice.USD).toString()
+  // }
+  // const txHash = account.createTransaction(txdata)
   const orderCompletion = await fetch('/.netlify/functions/complete-order', {
     method: 'POST',
     headers: { Accept: 'application/json' },
     body: JSON.stringify({
       id: orderDetails.id,
       address: account.activeAccount,
-      txhash: txHash,
+      // txhash: txHash,
       redeemItems: cart.items
     })
   })
@@ -251,7 +252,6 @@ const completeOrder = async () => {
       pauseOnHover: true,
       icon: true
     })
-    
   }
 }
 
@@ -269,7 +269,7 @@ const confirm = async () => {
     }
     order.order = orderInfo
 
-    // await completeOrder()
+    await completeOrder()
     setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
