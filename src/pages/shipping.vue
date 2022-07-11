@@ -35,7 +35,7 @@
                 v-model="form.country"
                 title="Country/Region"
                 :invalid="!form.fresh && validation.country"
-                :options="countries"
+                :options="zones"
               />
             </div>
           </div>
@@ -98,18 +98,11 @@
           class="lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0"
         >
           <h6 class="font-bold uppercase">
-            Final steps
+            Pre-Order Request
           </h6>
           <p class="text-sm mt-4">
-            Once an Antonym has been received for it’s physical,
-            it’s status will irreversibly reflect as redeemed on the blockchain and within it’s metadata.
-            <br><br>
-            After signing this transaction with your wallet,
-            your order and delivery information will be submitted to Antonym and your redemption will be completed.
-            <br><br>
-            Your personal information will not be stored on-chain,
-            nor will Antonym store or otherwise preserve your data for any purposes
-            that do not pertain to the redemption process.
+            Once your submit your transaction, your order will be reserved and queued for processing.
+            Once your order is ready for fulfillment, you will receive instructions to configure shipping and complete your order!
           </p>
 
           <label
@@ -133,7 +126,7 @@
             :disabled="!form.agree"
             @click="confirm"
           >
-            Confirm transactions
+            Submit Pre-Order
           </button>
         </div>
       </div>
@@ -147,7 +140,7 @@ import * as Toast from 'vue-toastification'
 import { JsonRpcSigner } from '@ethersproject/providers'
 
 import { isValidEmail } from '@/utils/validators'
-import { zones } from '@/consts'
+import { countries } from '@/consts'
 import cart from '@/use/cart'
 import order from '@/use/order'
 import account from '@/use/account'
@@ -157,9 +150,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const toast = Toast.useToast && Toast.useToast()
 
-const countries = zones.map((zone, idx) => ({
-  label: zone.countries[0].name,
-  value: zone.countries[0].code
+const zones = countries.map(({ name, code }) => ({
+  label: name,
+  value: code
 }))
 
 const form = reactive({
@@ -258,7 +251,6 @@ const completeOrder = async () => {
       pauseOnHover: true,
       icon: true
     })
-    setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   }
 }
 
@@ -276,7 +268,8 @@ const confirm = async () => {
     }
     order.order = orderInfo
 
-    await completeOrder()
+    // await completeOrder()
+    setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
       position: Toast.POSITION.TOP_RIGHT,

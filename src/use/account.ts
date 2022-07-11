@@ -7,9 +7,10 @@ import { CHAINID_CONFIG_MAP, getCurrency } from '@/utils/metamask'
 import { smartContract } from '@/consts'
 import cart from './cart'
 import { useBoard, useEthers, useEthersHooks } from 'vue-dapp'
+import { getEthereum } from '@/utils/web3'
+
 const { address: activeAccount, isActivated, provider, network, signer } = useEthers()
 const { onActivated, onDeactivated, onChanged } = useEthersHooks()
-
 const { open: openDappConnectionBoard } = useBoard()
 
 const balance = ref('')
@@ -171,8 +172,21 @@ export default reactive({
 
 export const useAccount = () => {
   const toast = Toast.useToast && Toast.useToast()
+  const msg = 'Please connect using a browser with Metamask, or connect on mobile using the Metamask mobile'
 
   const toggleWallet = async () => {
+    if (!getEthereum()) {
+      toast.warning(msg, {
+        position: Toast.POSITION.TOP_RIGHT,
+        timeout: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        icon: true
+      })
+
+      return
+    }
+
     try {
       if (!activeAccount.value) {
         openDappConnectionBoard()
