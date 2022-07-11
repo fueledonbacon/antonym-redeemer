@@ -79,6 +79,9 @@ const getContract = async () => {
 }
 
 const connect = async () => {
+  if (notUsingMetamask()) {
+    return
+  }
   await detectEthereumProvider()
 
   network.value = await provider.value?.getNetwork() || null
@@ -162,9 +165,27 @@ const setAccount = async (newAccount: string) => {
   }
 }
 
+const notUsingMetamask = () => {
+  const toast = Toast.useToast && Toast.useToast()
+
+  if (!window.ethereum) {
+    toast.info('Connect from a browser with Metamask, or from the Metamask browser on mobile', {
+      position: Toast.POSITION.TOP_RIGHT,
+      timeout: 5000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      icon: true
+    })
+    return true
+  } else {
+    return false
+  }
+}
+
 const init = async () => {
-  // Avoid this on server side
-  if (typeof window.ethereum === 'undefined') { return }
+  if (notUsingMetamask()) {
+    return
+  }
 
   const eth: any = await detectEthereumProvider()
 
