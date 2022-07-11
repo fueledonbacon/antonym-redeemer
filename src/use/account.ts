@@ -38,7 +38,7 @@ const createTransaction = async (
   })
 }
 
-const getAccountNFT = async () => {
+export const getAccountNFT = async (breakCache = false) => {
   try {
     if (!activeAccount.value) {
       // Wallet undefined
@@ -47,9 +47,13 @@ const getAccountNFT = async () => {
 
     // Getting NFT of the account
     const accContract = await getContract()
+    if (breakCache) {
+      wallet.clearTokens()
+    }
     wallet.balance = +(await accContract?.balanceOf(activeAccount.value)) || 0
 
-    const start = wallet.tokens.length
+    const start = breakCache ? 0 : wallet.tokens.length
+
     if (start === wallet.balance) {
       // already loaded all of them
       return
@@ -203,6 +207,7 @@ export default reactive({
   accountCompact,
 
   createTransaction,
+  getAccountNFT,
   connect,
   init
 })
