@@ -6,14 +6,14 @@ import layouts from 'vite-plugin-vue-layouts'
 import components from 'unplugin-vue-components/vite'
 import viteESLint from '@ehutch79/vite-eslint'
 import windiCSS from 'vite-plugin-windicss'
+import environmentPlugin from 'vite-plugin-environment'
 
 import './stub/ssg'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    global: {},
-    process: { env: {} }
+    global: window
   },
   plugins: [
     windiCSS(),
@@ -24,6 +24,7 @@ export default defineConfig({
       directoryAsNamespace: true,
       dts: true
     }),
+    environmentPlugin(process.env),
     // Turn on Dev ESLint for development mode only
     ...(process.env.NODE_ENV === 'development'
       ? [viteESLint({ include: ['src/**/*.vue', 'src/**/*.ts'] })]

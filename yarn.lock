@@ -6842,6 +6842,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vite-plugin-environment@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-environment/-/vite-plugin-environment-1.1.1.tgz#c442b42eefcccd610d7882e6dd5ccbc29e26dfa5"
+  integrity sha512-kbUAZaqmiHap+7aqRfMolRGzCGhJSU45qDjgLM11DpSDzmiI5JL4EzdyAIUZ4g0WrO88EV2cdcq2fpNYuJ17Pg==
+
 vite-plugin-pages@^0.24.2:
   version "0.24.2"
   resolved "https://registry.yarnpkg.com/vite-plugin-pages/-/vite-plugin-pages-0.24.2.tgz#9b7201fac8f58d6d5a295a4898b14aec11d061c8"
