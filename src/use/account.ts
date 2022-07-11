@@ -1,6 +1,5 @@
 import { computed, markRaw, reactive, ref } from 'vue'
 import * as Toast from 'vue-toastification'
-import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers } from 'ethers'
 
 import wallet from './wallet'
@@ -13,13 +12,8 @@ const { onActivated, onDeactivated, onChanged } = useEthersHooks()
 
 const { open: openDappConnectionBoard } = useBoard()
 
-// const activeAccount = ref('')
 const balance = ref('')
 const contract = ref(null as ethers.Contract | null)
-// const network = ref(null as ethers.providers.Network | null)
-// const provider = ref(null as ethers.providers.Web3Provider | null)
-const listenersCreated = ref(false)
-
 const hexChainId = computed(() => '0x' + network.value?.chainId.toString(16))
 const networkName = computed(() => network.value?.name)
 const chainId = computed(() => network.value?.chainId.toString())
@@ -97,8 +91,6 @@ onChanged(async () => {
 })
 
 const disconnect = () => {
-  // activeAccount.value = ''
-  // balance.value = ''
   cart.clear()
   wallet.clear()
 }
@@ -142,7 +134,6 @@ const setContract = async () => {
   }
 
   if (!activeAccount.value) {
-    // await connect()
     return
   }
 
@@ -154,10 +145,10 @@ const setContract = async () => {
 }
 
 const setAccount = async (newAccount: string) => {
-  if (newAccount) {
+  if (activeAccount.value) {
     // Set Account
-    activeAccount.value = newAccount
-    const accountBalance = await provider.value?.getBalance(newAccount)
+    // activeAccount.value = newAccount
+    const accountBalance = await provider.value?.getBalance(activeAccount.value)
     balance.value = `${
       (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
     } ${getCurrency(network.value?.chainId.toString() || '')}`

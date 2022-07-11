@@ -36,6 +36,9 @@ export default defineConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 1024
+    chunkSizeWarningLimit: 1024,
+    rollupOptions: {
+      external: ['vue-dapp']
+    }
   }
 })
