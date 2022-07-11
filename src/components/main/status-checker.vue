@@ -37,11 +37,11 @@
           >
             <i
               v-if="form.status"
-              class="text-base mdi mdi-check-circle mr-1"
+              class="text-base mdi mdi-close-circle mr-1"
             />
             <i
               v-else
-              class="text-base mdi mdi-close-circle mr-1"
+              class="text-base mdi mdi-check-circle mr-1"
             />
             <span v-if="form.status">
               STATUS: REDEEMED
