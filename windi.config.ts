@@ -70,7 +70,7 @@ export default defineConfig({
 
     // Home Page
     'home': 'relative flex flex-col items-stretch bg-home <md:bg-home-mobile bg-white bg-bottom bg-no-repeat <md:bg-center <md:bg-auto',
-    'home__title': 'my-auto  text-black font-bold text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center uppercase',
+    'home__title': 'my-auto  text-black md:mix-blend-exclusion lg:text-white  font-bold text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center uppercase',
     'home__link': 'text-dark text-sm md:text-md lg:text-lg 2xl:text-2xl uppercase',
 
     // Catalogue Page
