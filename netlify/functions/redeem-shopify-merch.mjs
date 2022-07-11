@@ -12,8 +12,8 @@ import {
   createUser,
   getUser,
   userHasRedeemedBlack,
+  userRedeemBlack,
 } from "../../common/users.mjs";
-import { userRedeemBlack } from "../../common/users.mjs";
 import { utils } from "ethers";
 
 const adminToken = process.env.VITE_SHOPIFY_ADMIN_TOKEN;
@@ -60,16 +60,11 @@ export const handler = async (event) => {
     shipitems = [];
 
     // check for antonym redemption
-    let hasBlack = redeemItems.some((item) => item.trait_type === "black");
+    let hasBlack = items.some((item) => item.trait_type === "black");
     if (hasBlack) {
       const hasRedeemedBlack = await userHasRedeemedBlack(normalizedAddress);
-      if (!hasRedeemedBlack) {
-        await userRedeemBlack(ethAddress);
-      } else {
-        return {
-          statusCode: 401,
-          body: "User has already redeemed Antonym black.",
-        };
+      if (hasRedeemedBlack) {
+        throw new Error("User has already redeemed black");
       }
     }
 
@@ -118,6 +113,9 @@ export const handler = async (event) => {
       await updateToken(tokens[index].tokenID, { redeemed: true });
       // await refreshMeta(tokens[index].tokenID);
     }
+    if (hasBlack) {
+      await userRedeemBlack(normalizedAddress);
+    }
 
     // verify ownership
     tokens.forEach(async (element) => {
@@ -140,8 +138,8 @@ export const handler = async (event) => {
           },
           shipping_line: {
             custom: true,
-            title: `STANDARD - ${ShippingPrice} - ${address.country} `,
-            price: ShippingPrice,
+            title: `STANDARD - ${address.country} `,
+            price: 0,
             code: "Standard",
           },
           shipping_address: {
@@ -170,6 +168,6 @@ export const handler = async (event) => {
 
     return { statusCode: 200, body: JSON.stringify(data.body.draft_order) };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify(error) };
+    return { statusCode: 500, body: error.toString() };
   }
 };

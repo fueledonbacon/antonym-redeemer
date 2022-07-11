@@ -101,8 +101,10 @@
             Pre-Order Request
           </h6>
           <p class="text-sm mt-4">
-            Once your submit your transaction, your order will be reserved and queued for processing.
-            Once your order is ready for fulfillment, you will receive instructions to configure shipping and complete your order!
+            Once your submit your transaction, your order will be reserved and
+            queued for processing. Once your order is ready for fulfillment, you
+            will receive instructions to configure shipping and complete your
+            order!
           </p>
 
           <label
@@ -171,7 +173,8 @@ const form = reactive({
 })
 
 const validation = computed(() => ({
-  email: !(form.email && isValidEmail(form.email)) && 'Please enter a valid email',
+  email:
+    !(form.email && isValidEmail(form.email)) && 'Please enter a valid email',
   country: !form.country && 'Please enter a valid country code',
   firstName: !form.firstName && 'Please enter a valid first name',
   lastName: !form.lastName && 'Please enter a valid last name',
@@ -181,10 +184,12 @@ const validation = computed(() => ({
   zip: !form.zip && 'Please enter a valid zip code'
 }))
 
-const isValidForm = computed(() => !Object.values(validation.value).find((invalid) => !!invalid))
+const isValidForm = computed(
+  () => !Object.values(validation.value).find((invalid) => !!invalid)
+)
 
 const createOrder = async () => {
-  const signer = await account.provider?.getSigner() as JsonRpcSigner
+  const signer = (await account.provider?.getSigner()) as JsonRpcSigner
   const message = `I'm signing to redeem this Antonym toy  at ${new Date()}`
   const signature = await signer.signMessage(message)
 
@@ -220,50 +225,41 @@ const getEthPrice = async () => {
   return await fetch(
     'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD',
     { method: 'GET' }
-
-  ).then(response => response.json())
+  ).then((response) => response.json())
 }
 
 // TODO: Move this to order completion page
 const completeOrder = async () => {
-  const orderDetails = order.order
-  // CHANGE: removing shipping charge for now
-  // const ethPrice = await getEthPrice()
-  // const txdata = {
-  //   address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
-  //   amount: (orderDetails.price / ethPrice.USD).toString()
-  // }
-  // const txHash = account.createTransaction(txdata)
-  const orderCompletion = await fetch('/.netlify/functions/complete-order', {
-    method: 'POST',
-    headers: { Accept: 'application/json' },
-    body: JSON.stringify({
-      id: orderDetails.id,
-      address: account.activeAccount,
-      // txhash: txHash,
-      redeemItems: cart.items
-    })
-  })
+  try {
+    const orderDetails = order.order
+    // CHANGE: removing shipping charge for now
+    // const ethPrice = await getEthPrice()
+    // const txdata = {
+    //   address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
+    //   amount: (orderDetails.price / ethPrice.USD).toString()
+    // }
+    // const txHash = account.createTransaction(txdata)
 
-  if (orderCompletion.status === 200) {
-    cart.clear()
-    order.completeOrder()
-    wallet.clearTokens()
-    toast.success('Your toy has been redeemed!', {
-      position: Toast.POSITION.TOP_RIGHT,
-      timeout: 5000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      icon: true
+    const orderCompletion = await fetch('/.netlify/functions/complete-order', {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: JSON.stringify({
+        id: orderDetails.id,
+        address: account.activeAccount,
+        // txhash: txHash,
+        redeemItems: cart.items
+      })
     })
-  } else {
+  } catch (e) {
     throw new Error('Order could not be completed')
   }
 }
 
 const confirm = async () => {
   form.fresh = false
-  if (!isValidForm.value) { return }
+  if (!isValidForm.value) {
+    return
+  }
 
   try {
     await account.provider?.getSigner()
@@ -275,7 +271,16 @@ const confirm = async () => {
     }
     order.order = orderInfo
 
-    // await completeOrder()
+    cart.clear()
+    wallet.clearTokens()
+
+    toast.success('Your Antonym has been redeemed!', {
+      position: Toast.POSITION.TOP_RIGHT,
+      timeout: 5000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      icon: true
+    })
     setTimeout(() => router.push({ name: 'Thanks' }), 1000)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
