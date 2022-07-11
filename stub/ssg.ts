@@ -1,5 +1,9 @@
 import path from 'path'
 
+const ssrHead = {
+  appendChild () { }
+}
+
 const ssrHistory = {
   state: {},
   replaceState () { },
@@ -31,6 +35,7 @@ const ssrNavigator = { userAgent: '' }
 
 const ssrDocument = {
   baseURI: 'file:' + path.resolve(__dirname, '../node_modules/vite-ssg/dist'),
+  head: ssrHead,
   body: {},
   addEventListener () {},
   removeEventListener () {},
@@ -57,6 +62,7 @@ const ssrDocument = {
       children: [],
       childNodes: [],
       style: {},
+      appendChild () {},
       setAttribute () {},
       getElementsByTagName () {
         return []
@@ -69,10 +75,12 @@ const ssrDocument = {
   importNode () {
     return null
   },
+  createTextNode () { },
   location: ssrLocation
 }
 
 const ssrWindow = {
+  mockWindow: true,
   document: ssrDocument,
   navigator: ssrNavigator,
   location: ssrLocation,

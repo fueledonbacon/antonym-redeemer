@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     CatalogueNftModal: typeof import('./src/components/catalogue/nft-modal.vue')['default']
     CatalogueWalletModal: typeof import('./src/components/catalogue/wallet-modal.vue')['default']
     CatalogueWalletView: typeof import('./src/components/catalogue/wallet-view.vue')['default']
+    DappBoard: typeof import('./src/components/dapp/board.vue')['default']
     IntroCarousel: typeof import('./src/components/intro/carousel.vue')['default']
     LegalContents: typeof import('./src/components/legal/contents.vue')['default']
     LegalItem: typeof import('./src/components/legal/item.vue')['default']

@@ -1,5 +1,6 @@
 <template>
   <router-view />
+  <dapp-board />
 </template>
 
 <style>

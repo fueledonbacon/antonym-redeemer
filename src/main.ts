@@ -1,6 +1,7 @@
 import { ViteSSG } from 'vite-ssg'
 import Toast from 'vue-toastification'
 import VueTippy from 'vue-tippy'
+import { VueDapp } from 'vue-dapp'
 import { routes } from './router'
 
 import 'virtual:windi.css'
@@ -14,6 +15,7 @@ export const createApp = ViteSSG(
   { routes },
   ({ app }) => {
     app.use(Toast)
+    app.use(VueDapp)
     app.use(VueTippy, {
       component: 'v-tippy'
     })

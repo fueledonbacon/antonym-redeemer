@@ -11,6 +11,10 @@ import './stub/ssg'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: {},
+    process: { env: {} }
+  },
   plugins: [
     windiCSS(),
     vue(),

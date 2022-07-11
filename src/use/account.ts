@@ -1,20 +1,19 @@
 import { computed, markRaw, reactive, ref } from 'vue'
 import * as Toast from 'vue-toastification'
-import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers } from 'ethers'
 
 import wallet from './wallet'
 import { CHAINID_CONFIG_MAP, getCurrency } from '@/utils/metamask'
 import { smartContract } from '@/consts'
 import cart from './cart'
+import { useBoard, useEthers, useEthersHooks } from 'vue-dapp'
+const { address: activeAccount, isActivated, provider, network, signer } = useEthers()
+const { onActivated, onDeactivated, onChanged } = useEthersHooks()
 
-const activeAccount = ref('')
+const { open: openDappConnectionBoard } = useBoard()
+
 const balance = ref('')
 const contract = ref(null as ethers.Contract | null)
-const network = ref(null as ethers.providers.Network | null)
-const provider = ref(null as ethers.providers.Web3Provider | null)
-const listenersCreated = ref(false)
-
 const hexChainId = computed(() => '0x' + network.value?.chainId.toString(16))
 const networkName = computed(() => network.value?.name)
 const chainId = computed(() => network.value?.chainId.toString())
@@ -39,7 +38,7 @@ const createTransaction = async (
 
 const getAccountNFT = async () => {
   try {
-    if (!activeAccount.value) {
+    if (!isActivated) {
       // Wallet undefined
       return
     }
@@ -78,27 +77,25 @@ const getContract = async () => {
   } catch (err) {}
 }
 
-const connect = async () => {
-  await detectEthereumProvider()
+onActivated(async () => {
+  await setAccount(activeAccount.value)
+  await wallet.getAccountDetails()
+  await getAccountNFT()
+})
 
-  network.value = await provider.value?.getNetwork() || null
-
-  const [account] = await provider.value?.send('eth_requestAccounts', [])
-  if (account) {
-    await setAccount(account)
-    await wallet.getAccountDetails()
-    await getAccountNFT()
-  } else {
-    // Account not returned
-  }
-}
+onChanged(async () => {
+  disconnect()
+  await setAccount(activeAccount.value)
+  await wallet.getAccountDetails()
+  await getAccountNFT()
+})
 
 const disconnect = () => {
-  activeAccount.value = ''
-  balance.value = ''
   cart.clear()
   wallet.clear()
 }
+
+onDeactivated(disconnect)
 
 const switchNetwork = async (newChainId: string) => {
   if (
@@ -116,7 +113,7 @@ const switchNetwork = async (newChainId: string) => {
       { chainId: config.chainId }
     ])
 
-    await init()
+    // await init()
 
     // Create a minor delay to let the wallet reset to new network
     return new Promise((resolve) => {
@@ -137,7 +134,7 @@ const setContract = async () => {
   }
 
   if (!activeAccount.value) {
-    await connect()
+    return
   }
 
   contract.value = new ethers.Contract(
@@ -148,10 +145,10 @@ const setContract = async () => {
 }
 
 const setAccount = async (newAccount: string) => {
-  if (newAccount) {
+  if (activeAccount.value) {
     // Set Account
-    activeAccount.value = newAccount
-    const accountBalance = await provider.value?.getBalance(newAccount)
+    // activeAccount.value = newAccount
+    const accountBalance = await provider.value?.getBalance(activeAccount.value)
     balance.value = `${
       (+ethers.utils.formatEther(accountBalance?.toString() || '')).toFixed(3)
     } ${getCurrency(network.value?.chainId.toString() || '')}`
@@ -162,38 +159,6 @@ const setAccount = async (newAccount: string) => {
   }
 }
 
-const init = async () => {
-  // Avoid this on server side
-  if (typeof window.ethereum === 'undefined') { return }
-
-  const eth: any = await detectEthereumProvider()
-
-  if (!listenersCreated.value) {
-    eth.on('accountsChanged', ([newAddress]: string[]) => {
-      cart.clear()
-      wallet.clear()
-
-      setAccount(newAddress)
-    })
-
-    eth.on('chainChanged', (chainId: string) => {
-      cart.clear()
-      wallet.clear()
-      window.location.reload()
-    })
-
-    listenersCreated.value = true
-  }
-
-  provider.value = markRaw(new ethers.providers.Web3Provider(eth))
-  network.value = await provider.value.getNetwork()
-  const [account] = await provider.value.listAccounts()
-
-  if (account) {
-    await setAccount(account)
-  }
-}
-
 export default reactive({
   activeAccount,
   provider,
@@ -201,9 +166,7 @@ export default reactive({
   networkName,
   accountCompact,
 
-  createTransaction,
-  connect,
-  init
+  createTransaction
 })
 
 export const useAccount = () => {
@@ -212,7 +175,7 @@ export const useAccount = () => {
   const toggleWallet = async () => {
     try {
       if (!activeAccount.value) {
-        await connect()
+        openDappConnectionBoard()
       } else {
         await disconnect()
       }
@@ -231,5 +194,3 @@ export const useAccount = () => {
     toggleWallet
   }
 }
-
-init()
