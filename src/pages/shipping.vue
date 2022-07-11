@@ -251,7 +251,6 @@ const completeOrder = async () => {
       pauseOnHover: true,
       icon: true
     })
-    
   }
 }
 
