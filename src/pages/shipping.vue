@@ -146,7 +146,6 @@ import { countries } from '@/consts'
 import cart from '@/use/cart'
 import order from '@/use/order'
 import account from '@/use/account'
-import wallet from '@/use/wallet'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -250,7 +249,6 @@ const completeOrder = async () => {
         redeemItems: cart.items
       })
     })
-
   } catch (e) {
     throw new Error('Order could not be completed')
   }
@@ -273,16 +271,8 @@ const confirm = async () => {
     order.order = orderInfo
 
     cart.clear()
-    wallet.clearTokens()
-
-    toast.success('Your Antonym has been redeemed!', {
-      position: Toast.POSITION.TOP_RIGHT,
-      timeout: 5000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      icon: true
-    })
     setTimeout(() => router.push({ name: 'Thanks' }), 1000)
+    await account.getAccountNFT(true)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
       position: Toast.POSITION.TOP_RIGHT,
