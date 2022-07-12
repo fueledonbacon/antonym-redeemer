@@ -249,7 +249,6 @@ const completeOrder = async () => {
         redeemItems: cart.items
       })
     })
-
   } catch (e) {
     throw new Error('Order could not be completed')
   }

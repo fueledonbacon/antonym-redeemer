@@ -22,7 +22,7 @@ export const getShippingPrice = async (_weight, _country) => {
   }
 };
 
-export const storeOrder = async (orderID, address) => {
+export const storeOrder = async (orderID, address, tokenIDs) => {
   const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
   const db = client.db(dbName);
   const collection = db.collection("orders");
@@ -32,6 +32,7 @@ export const storeOrder = async (orderID, address) => {
     payerAddress: null,
     payment_tx: null,
     order_id: orderID,
+    token_ids: tokenIDs,
   });
   await client.close();
   return true;
