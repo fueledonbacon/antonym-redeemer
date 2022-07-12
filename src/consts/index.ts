@@ -13,12 +13,12 @@ export const BlackItemsPerSizeMap: Record<string, number> = {
 
 export { default as capsules } from './capsules.json'
 export { default as intro } from './intro.json'
-export { default as zones } from './zones.json'
+export { default as countries } from './countries.json'
 export const { PrivacyPolicy, TermsOfUse } = legal
 
 const {
   VITE_CONTRACT_ADDRESS = '',
-  VITE_CHAIN_ID = ''
+  VITE_CHAIN_ID = '4'
 } = import.meta.env
 
 export const smartContract = {

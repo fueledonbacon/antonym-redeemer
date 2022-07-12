@@ -18,10 +18,10 @@
         </a>
 
         <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold uppercase mt-9">
-          Redemption confirmation:<br class="sm:hidden"> {{ capsule.capsule_trait }}
+          Reservation confirmation:<br class="sm:hidden"> {{ capsule.capsule_trait }}
         </h2>
         <p class="text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl mt-2">
-          To complete the redemption process and proceed to check-out,
+          To complete the reservation process and proceed to check-out,
           please select the Antonyms that you would like to use for this transaction.
           This action is not reversible.
         </p>

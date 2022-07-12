@@ -16,13 +16,13 @@ const client = new MongoClient(URI, {
 
 export const findOrFetch = async (tokenuri, ownerAddress) => {
   await client.connect();
-  let nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
+  const nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
   const db = client.db(dbName);
   const collection = db.collection("tokens");
   const document = await collection.findOne({ tokenID: nftID });
   if (document == null) {
     try {
-      nftmeta = await fetchNft(tokenuri);
+      const nftmeta = await fetchNft(tokenuri);
 
       const nftObj = JSON.parse(nftmeta);
       collection.insertOne({ ...nftObj, tokenID: nftID, owner: ownerAddress });
@@ -39,29 +39,23 @@ export const updateToken = async (tokenID, _data) => {
   const db = client.db(dbName);
   const collection = db.collection("tokens");
 
-  await collection.updateOne({ tokenID: tokenID }, { $set: { ..._data } });
+  await collection.updateOne({ tokenID }, { $set: { ..._data } });
   await client.close();
   return true;
 };
 export const refreshMeta = async (tokenID) => {
-  if (process.env.VITE_CHAIN_NETWORK === "rinkeby") {
-    await https.get(
-      `https://testnets-api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
-    );
-  } else {
-    await https.get(
-      `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
-    );
-  }
+  https.get(
+    `https://testnets-api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
+  );
 };
 export const getTokenOwner = async (tokenID) => {
-  let provider = new ethers.providers.InfuraProvider(
+  const provider = new ethers.providers.InfuraProvider(
     process.env.VITE_CHAIN_NETWORK,
     process.env.VITE_INFURA_PROJECT
   );
   // const signer = new ethers.Wallet(
-  // 	process.env.VITE_CONTRACT_OWNER_PRIVATE_KEY,
-  // 	provider
+  //   process.env.VITE_CONTRACT_OWNER_PRIVATE_KEY,
+  //   provider
   // )
   const contract = new ethers.Contract(
     process.env.VITE_CONTRACT_ADDRESS,
@@ -85,4 +79,12 @@ const fetchNft = async (tokenuri) => {
     });
   };
   return await httpRequest(tokenuri);
+};
+
+export const findToken = async (tokenID) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("tokens");
+  const document = await collection.findOne({ tokenID });
+  return document;
 };

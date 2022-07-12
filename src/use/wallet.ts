@@ -16,9 +16,9 @@ export type Token = {
 const tokens = ref([] as Token[])
 const capsuleTypes = ref({} as Record<string, boolean>)
 const loadingIdx = ref(0)
-const balance = ref(null as number | null)
+const balance = ref(-1 as number)
 const blackRedeemed = ref(false)
-const balanceChecked = computed(() => balance.value !== null)
+const balanceChecked = computed(() => balance.value >= 0)
 
 const redeemableTokens = computed(
   () => tokens.value.filter(isRedeemable)
@@ -50,13 +50,13 @@ const clear = () => {
   tokens.value = []
   capsuleTypes.value = {}
   loadingIdx.value = 0
-  balance.value = null
+  balance.value = -1
 }
 
 const clearTokens = () => {
   tokens.value = []
   loadingIdx.value = 0
-  balance.value = null
+  balance.value = -1
 }
 
 const getAccountDetails = async () => {
