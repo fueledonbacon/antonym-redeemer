@@ -515,8 +515,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
-      "lastModificationDate": 1657298209108,
-      "contentHash": "9e586a7ec55303269f4a6335b07465bd",
+      "lastModificationDate": 1657646245693,
+      "contentHash": "62f6b051d73b52055977d3f36d6eab7d",
       "sourceName": "contracts/mocks/MateriaMock.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -853,8 +853,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657260123373,
-      "contentHash": "76afa98a1e9e62ed4d3a9b82088f1b56",
+      "lastModificationDate": 1657646100074,
+      "contentHash": "cb5ba1bb63670780e9c749ae68dbf49e",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",

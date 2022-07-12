@@ -62,7 +62,9 @@ contract MateriaMock is ERC1155Tradable {
         _antonym = antonym;
     }
 
-    //TODO: set metadata verification
+    /// @notice mints materia 
+    /// @param antonymTokenId used for the minting process
+    /// @param signature received from the server
     function mintMateria(uint256 antonymTokenId, bytes memory signature) external canMint {
         require(tokenSupply[1] + 1 <= MAX_MATERIA, "Amount Materia exceeded");
         require(!isAntonymTokenUsed[antonymTokenId], "Token already used");
@@ -77,7 +79,10 @@ contract MateriaMock is ERC1155Tradable {
         }
     }
 
-    //TODO: set metadata verification
+    /// @notice mints prima materia 
+    /// @param antonymTokenId used for the minting process, this should be a 1/1 skin token
+    /// @param signature received from the server
+    /// @param proof merkleproof of the 1/1 skin token
     function mintPrimaMateria(uint256 antonymTokenId, bytes memory signature, bytes32[] calldata proof) external canMint {
         require(tokenSupply[2] + 1 <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
         require(!isAntonym1on1TokenUsed[antonymTokenId], "Token already used");
@@ -123,6 +128,10 @@ contract MateriaMock is ERC1155Tradable {
         _end = end;
     }
 
+    ///@notice mints batches of materia and prima materia after minting deadline is over
+    ///@param to the batch tokens receiver
+    ///@param amountMateria amount to mint
+    ///@param amountPrimaMateria amount of prima materia to mint
     function mintBatchMateria(address to, uint16 amountMateria, uint16 amountPrimaMateria) external onlyOwner {
         require(_allowMinting, "Minting is Paused");
         require(_end < block.timestamp, "Deadline not yet over");
