@@ -143,7 +143,7 @@ export const handler = async (event) => {
       type: DataType.JSON,
     });
 
-    await storeOrder(data.body.draft_order.id);
+    await storeOrder(data.body.draft_order.id, normalizedAddress);
     if ((await getUser(normalizedAddress)) == null) {
       await createUser({
         address: normalizedAddress,
