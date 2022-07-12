@@ -142,6 +142,7 @@ export const handler = async (event) => {
             city: address.city,
             country: address.country,
           },
+          email: email
         },
       },
       type: DataType.JSON,
