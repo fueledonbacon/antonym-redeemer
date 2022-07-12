@@ -47,7 +47,7 @@
           transaction.
         </p>
       </div>
-      <div>
+      <div class="text-[8px] lg:text-[10px] xl:text-[12px] 2xl:text-[14px]">
         <h5 class="uppercase mt-10">
           Questions? Contact Us
         </h5>
