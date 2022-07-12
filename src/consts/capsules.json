@@ -4,14 +4,14 @@
     "capsule_number": "001",
 		"image": "/images/catalogue/abstract.png",
 		"name": "Send Me Flowers",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "analog",
     "capsule_number": "002",
 		"image": "/images/catalogue/analog.png",
 		"name": "Ctrlfreak",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "arcade",
@@ -32,28 +32,28 @@
     "capsule_number": "005",
 		"image": "/images/catalogue/bc.png",
 		"name": "Eat Prey",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "carousel",
     "capsule_number": "006",
 		"image": "/images/catalogue/carousel.png",
 		"name": "Bad Day",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "cr3ature",
     "capsule_number": "007",
 		"image": "/images/catalogue/cr3ature.png",
 		"name": "Leer",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "dante",
     "capsule_number": "008",
 		"image": "/images/catalogue/dante.png",
 		"name": "I Was Wrong",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "deco",
@@ -74,28 +74,28 @@
     "capsule_number": "011",
 		"image": "/images/catalogue/elements.png",
 		"name": "Wisp",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "emo",
     "capsule_number": "012",
 		"image": "/images/catalogue/emo.png",
 		"name": "Lolita",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "feudal",
     "capsule_number": "013",
 		"image": "/images/catalogue/feudal.png",
 		"name": "Cavalier",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "fright",
     "capsule_number": "014",
 		"image": "/images/catalogue/fright.png",
 		"name": "Incantations",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "g3ometric",
@@ -116,21 +116,21 @@
     "capsule_number": "017",
 		"image": "/images/catalogue/gallery.png",
 		"name": "Munch",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "greenpoint",
     "capsule_number": "018",
 		"image": "/images/catalogue/greenpoint.png",
 		"name": "You Can Fly",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "gross",
     "capsule_number": "019",
 		"image": "/images/catalogue/gross.png",
 		"name": "Opinion",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
     {
 		"capsule_trait": "moma",
@@ -145,21 +145,21 @@
     "capsule_number": "021",
 		"image": "/images/catalogue/nirvana.png",
 		"name": "Psycho",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "sand",
     "capsule_number": "022",
 		"image": "/images/catalogue/sand.png",
 		"name": "Eye Of Horus",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "scribbles",
     "capsule_number": "023",
 		"image": "/images/catalogue/scribbles.png",
 		"name": "Rough Notes",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "signs",
@@ -173,28 +173,28 @@
     "capsule_number": "025",
 		"image": "/images/catalogue/st3am.png",
 		"name": "Mechanism",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "stickers",
     "capsule_number": "026",
 		"image": "/images/catalogue/stickers.png",
 		"name": "Happy",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "uwu",
     "capsule_number": "027",
 		"image": "/images/catalogue/uwu.png",
 		"name": "Rainbow Road",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "vhs",
     "capsule_number": "028",
 		"image": "/images/catalogue/vhs.png",
 		"name": "Shippit",
-		"type": "rubberized mate"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "woodstock",
