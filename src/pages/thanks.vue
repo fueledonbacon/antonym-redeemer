@@ -15,9 +15,9 @@
         <p class="mt-6">
           We are working with our fulfillment partners to retrieve the best
           possible shipping rates to customers. To accomplish this, we will be
-          working in waves to process and ship orders out.
+          working in waves to process reserved orders and send out shipping options.
         </p>
-        <div class="grid >xs:grid-rows-3 sm:grid-cols-3 gap-4 my-12 font-bold text-base sm:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] w-full max-w-[34rem]">
+        <!-- <div class="grid >xs:grid-rows-3 sm:grid-cols-3 gap-4 my-12 font-bold text-base sm:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] w-full max-w-[34rem]">
           <div>
             <h4>Wave 1</h4>
             <p>July 11-20, 2022</p>
@@ -30,8 +30,8 @@
             <h4>Wave 3</h4>
             <p>ONGOING</p>
           </div>
-        </div>
-        <p>
+        </div> -->
+        <p class="mt-4">
           Once your order is queued for fulfillment, you will receive an e-mail
           with instructions to complete redemption, requiring you to select your
           shipping option and submit your order.
@@ -47,11 +47,11 @@
           transaction.
         </p>
       </div>
-      <div class="text-[8px] lg:text-[10px] xl:text-[12px] 2xl:text-[14px]">
-        <h5 class="uppercase mt-10">
+      <div class="text-[10px] xl:text-[12px] 2xl:text-[14px]">
+        <h5 class="uppercase mt-20">
           Questions? Contact Us
         </h5>
-        <p class="text-sm">
+        <p class="text-[8px] xl:text-[10px] 2xl:text-[12px] mt-1">
           <a href="https://DISCORD.GG/ANTONYMNFT/">DISCORD.GG/ANTONYMNFT</a>
         </p>
       </div>
