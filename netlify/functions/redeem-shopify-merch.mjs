@@ -1,5 +1,3 @@
-const https = require("https");
-
 import { Shopify, DataType } from "@shopify/shopify-api";
 import {
   getTokenOwner,
@@ -24,10 +22,6 @@ const shopifyRestClient = new Shopify.Clients.Rest(SHOPIFY_HOST, adminToken);
 export const handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
-    // const sizeToWeight = {
-    //   12: 4.5,
-    //   24: 21.5,
-    // };
 
     const {
       ethAddress,
@@ -68,7 +62,6 @@ export const handler = async (event) => {
       }
     }
 
-    // let ShippingPrice = 0;
     for (const item of items) {
       if (!item) {
         console.debug("item null or undefined");
@@ -83,10 +76,6 @@ export const handler = async (event) => {
         tokens.push(...item.selectedTokens);
       }
 
-      //   let ItemWeight = sizeToWeight[item.size];
-      //   ShippingPrice += Number(
-      //     await getShippingPrice(ItemWeight, address.country)
-      //   );
       shipitems.push({
         price: 0,
         quantity: 1,
@@ -109,9 +98,7 @@ export const handler = async (event) => {
 
     // update tokens to have redeemed status, but don't update metadata
     for (let index = 0; index < tokens.length; index++) {
-      // await updateFile(tokens[index].tokenID, redeemItems[index].size);
       await updateToken(tokens[index].tokenID, { redeemed: true });
-      // await refreshMeta(tokens[index].tokenID);
     }
     if (hasBlack) {
       await userRedeemBlack(normalizedAddress);
@@ -148,7 +135,6 @@ export const handler = async (event) => {
             address2: address.address2,
             province: address.province,
             zip: address.zip,
-            // phone: address.phone,
             city: address.city,
             country: address.country,
           },
