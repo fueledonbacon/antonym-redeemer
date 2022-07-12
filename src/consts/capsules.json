@@ -1,218 +1,217 @@
 [
 	{
 		"capsule_trait": "abstract",
-    "capsule_number": "001",
+		"capsule_number": "001",
 		"image": "/images/catalogue/abstract.png",
 		"name": "Send Me Flowers",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "analog",
-    "capsule_number": "002",
+		"capsule_number": "002",
 		"image": "/images/catalogue/analog.png",
 		"name": "Ctrlfreak",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "arcade",
-    "capsule_number": "003",
+		"capsule_number": "003",
 		"image": "/images/catalogue/arcade.png",
 		"name": "Akihabara",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "azul",
-    "capsule_number": "004",
+		"capsule_number": "004",
 		"image": "/images/catalogue/azul.png",
 		"name": "Azul",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "bc",
-    "capsule_number": "005",
+		"capsule_number": "005",
 		"image": "/images/catalogue/bc.png",
 		"name": "Eat Prey",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "carousel",
-    "capsule_number": "006",
+		"capsule_number": "006",
 		"image": "/images/catalogue/carousel.png",
 		"name": "Bad Day",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "cr3ature",
-    "capsule_number": "007",
+		"capsule_number": "007",
 		"image": "/images/catalogue/cr3ature.png",
 		"name": "Leer",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "dante",
-    "capsule_number": "008",
+		"capsule_number": "008",
 		"image": "/images/catalogue/dante.png",
 		"name": "I Was Wrong",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "deco",
-    "capsule_number": "009",
+		"capsule_number": "009",
 		"image": "/images/catalogue/deco.png",
 		"name": "La Verre De Vin",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "dos",
-    "capsule_number": "010",
+		"capsule_number": "010",
 		"image": "/images/catalogue/dos.png",
 		"name": "Dos",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "elements",
-    "capsule_number": "011",
+		"capsule_number": "011",
 		"image": "/images/catalogue/elements.png",
 		"name": "Wisp",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "emo",
-    "capsule_number": "012",
+		"capsule_number": "012",
 		"image": "/images/catalogue/emo.png",
 		"name": "Lolita",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "feudal",
-    "capsule_number": "013",
+		"capsule_number": "013",
 		"image": "/images/catalogue/feudal.png",
 		"name": "Cavalier",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "fright",
-    "capsule_number": "014",
+		"capsule_number": "014",
 		"image": "/images/catalogue/fright.png",
 		"name": "Incantations",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "g3ometric",
-    "capsule_number": "015",
+		"capsule_number": "015",
 		"image": "/images/catalogue/g3ometric.png",
 		"name": "Inception",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "galaxy",
-    "capsule_number": "016",
+		"capsule_number": "016",
 		"image": "/images/catalogue/galaxy.png",
 		"name": "Galaxy",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "gallery",
-    "capsule_number": "017",
+		"capsule_number": "017",
 		"image": "/images/catalogue/gallery.png",
 		"name": "Munch",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "greenpoint",
-    "capsule_number": "018",
+		"capsule_number": "018",
 		"image": "/images/catalogue/greenpoint.png",
 		"name": "You Can Fly",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "gross",
-    "capsule_number": "019",
+		"capsule_number": "019",
 		"image": "/images/catalogue/gross.png",
 		"name": "Opinion",
 		"type": "rubberized matte"
 	},
-    {
+	{
 		"capsule_trait": "moma",
-    "capsule_number": "020",
+		"capsule_number": "020",
 		"image": "/images/catalogue/moma.png",
 		"name": "Dole Money",
 		"type": "high-gloss"
 	},
-
 	{
 		"capsule_trait": "nirvana",
-    "capsule_number": "021",
+		"capsule_number": "021",
 		"image": "/images/catalogue/nirvana.png",
 		"name": "Psycho",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "sand",
-    "capsule_number": "022",
+		"capsule_number": "022",
 		"image": "/images/catalogue/sand.png",
 		"name": "Eye Of Horus",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "scribbles",
-    "capsule_number": "023",
+		"capsule_number": "023",
 		"image": "/images/catalogue/scribbles.png",
 		"name": "Rough Notes",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "signs",
-    "capsule_number": "024",
+		"capsule_number": "024",
 		"image": "/images/catalogue/signs.png",
 		"name": "Revolving Constelations",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "st3am",
-    "capsule_number": "025",
+		"capsule_number": "025",
 		"image": "/images/catalogue/st3am.png",
 		"name": "Mechanism",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "stickers",
-    "capsule_number": "026",
+		"capsule_number": "026",
 		"image": "/images/catalogue/stickers.png",
 		"name": "Happy",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "uwu",
-    "capsule_number": "027",
+		"capsule_number": "027",
 		"image": "/images/catalogue/uwu.png",
 		"name": "Rainbow Road",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "vhs",
-    "capsule_number": "028",
+		"capsule_number": "028",
 		"image": "/images/catalogue/vhs.png",
 		"name": "Shippit",
 		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "woodstock",
-    "capsule_number": "029",
+		"capsule_number": "029",
 		"image": "/images/catalogue/woodstock.png",
 		"name": "Loves Me Not",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "harajuku",
-    "capsule_number": "030",
+		"capsule_number": "030",
 		"image": "/images/catalogue/harajuku.png",
 		"name": "Harajuku",
 		"type": "high-gloss"
 	},
 	{
 		"capsule_trait": "black",
-    "capsule_number": "031",
+		"capsule_number": "031",
 		"image": "/images/catalogue/black.png",
 		"name": "Antonym: Black",
 		"type": "high-gloss",
