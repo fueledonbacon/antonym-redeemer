@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isHome"
+    v-if="validRoute"
     v-bind="$attrs"
     class="status-checker"
   >
@@ -76,7 +76,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const open = ref(false)
-const isHome = computed(() => route.name === 'Home')
+const validRoute = computed(() => route.name === 'Home' || route.name === 'Catalogue')
 
 const form = reactive({
   tokenID: '',
