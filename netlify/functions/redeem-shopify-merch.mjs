@@ -73,6 +73,9 @@ export const handler = async (event) => {
         if (item.size == 24 && item.selectedTokens.length < 4) {
           return { statusCode: 401, body: "NEED_MORE_ITEMS." };
         }
+        if (item.size == 60 && item.selectedTokens.length < 20) {
+          return { statusCode: 401, body: "NEED_MORE_ITEMS." };
+        }
         tokens.push(...item.selectedTokens);
       }
 
@@ -100,6 +103,7 @@ export const handler = async (event) => {
     for (let index = 0; index < tokens.length; index++) {
       await updateToken(tokens[index].tokenID, { redeemed: true });
     }
+
     if (hasBlack) {
       await userRedeemBlack(normalizedAddress);
     }
@@ -143,7 +147,17 @@ export const handler = async (event) => {
       type: DataType.JSON,
     });
 
-    await storeOrder(data.body.draft_order.id, normalizedAddress);
+    let tokenIDs = tokens.map((token) => token.tokenID);
+
+    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs);
+
+    // update tokens to have draft order ID
+    for (let index = 0; index < tokens.length; index++) {
+      await updateToken(tokens[index].tokenID, {
+        draft_order_id: data.body.draft_order.id,
+      });
+    }
+
     if ((await getUser(normalizedAddress)) == null) {
       await createUser({
         address: normalizedAddress,
