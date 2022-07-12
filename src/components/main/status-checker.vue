@@ -31,12 +31,24 @@
         </p>
         <div class="flex items-center mt-8">
           <div
-            v-if="form.message"
+            v-if="form.status !== null"
             class="flex items-center flex-grow bg-lightgrey h-10 text-xs px-4 cursor-pointer"
             @click="clear"
           >
-            <i class="mdi mdi-check-circle mr-1" />
-            {{ form.message }}
+            <i
+              v-if="form.status"
+              class="text-base mdi mdi-close-circle mr-1"
+            />
+            <i
+              v-else
+              class="text-base mdi mdi-check-circle mr-1"
+            />
+            <span v-if="form.status">
+              STATUS: REDEEMED
+            </span>
+            <span v-else>
+              STATUS: UNREDEEMED
+            </span>
           </div>
           <input
             v-else
@@ -68,15 +80,15 @@ const validRoute = computed(() => route.name === 'Home' || route.name === 'Catal
 
 const form = reactive({
   tokenID: '',
-  message: ''
+  status: null as boolean | null
 })
 
 const check = async () => {
   const response = await request()
   if (response === true) {
-    form.message = 'STATUS: REDEEMED'
+    form.status = true
   } else {
-    form.message = 'STATUS: UNREDEEMED'
+    form.status = false
   }
 }
 
@@ -94,7 +106,7 @@ const request = async () => {
 }
 
 const clear = () => {
-  form.message = ''
+  form.status = null
   form.tokenID = ''
 }
 </script>
