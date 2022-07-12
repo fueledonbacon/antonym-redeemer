@@ -45,13 +45,13 @@
                 v-if="token.redeemed"
                 class="text-black/30"
               >
-                REDEEMED
+                PENDING
               </div>
               <div
                 v-else-if="alreadyInCart(token.tokenID)"
                 class="text-black/30"
               >
-                PENDING REDEMPTION
+                IN CART
               </div>
               <router-link
                 v-else
