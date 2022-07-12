@@ -25,8 +25,8 @@ module.exports = [
     "MATERIA", //Token Name
     "MAT", //Token Symbol
     "https://antonymnft.s3.us-west-1.amazonaws.com/json/", //Token URI
-    parseInt(Date.now()/1000) + 60*10, //starts in 10 minutes, 
-    parseInt(Date.now()/1000) + 1*60*60*10 ,//ends in 10 hrs,
+    1657661327, //starts in July 12, 2022 4:28:47 PM GMT-05:00 
+    1657834127 ,//ends in Thursday, July 14, 2022 4:28:47 PM GMT-05:00,
     merkleRoot.getHexRoot(),
     SIGNER,
     ANTONYM

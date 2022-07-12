@@ -13,8 +13,8 @@ npx hardhat verify 0xb60bB63a5FE952A69e966be5d7f7eDd12209910c --network mainnet 
 npx hardhat verify --network rinkeby 0x21DF2893835edc34606E8808600611e54f5cFC77 "https://antonymnft.s3.us-west-1.amazonaws.com/json/"
 ## Rinkeby
 Antonym Mock deployed to address: 0x21DF2893835edc34606E8808600611e54f5cFC77b
-VerifySignature Lib deployed to address: 0x6294c942A060807009Bfe8C0EA18bC39151d7fdE
-Materia deployed to address: 0xcbDBB600E004c03F6Bae36162f2628CEf3E24999
+VerifySignature Lib deployed to address: 0xEb7b43EC25957e8b2EbCC342faA2fc3A925fA8B0
+Materia deployed to address: 0x57966f291eb9Aa4095cBa71Ba9e3f5A04EBAda4F
 
 # Mainnet Deployment step by step guide
 <div>

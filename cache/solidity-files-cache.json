@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155.sol": {
-      "lastModificationDate": 1657220409985,
+      "lastModificationDate": 1657311257530,
       "contentHash": "f954f4334eaaea783389040f48fbe0ac",
       "sourceName": "contracts/erc1155/ERC1155.sol",
       "solcConfig": {
@@ -43,7 +43,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/IERC1155.sol": {
-      "lastModificationDate": 1657220404285,
+      "lastModificationDate": 1657311257530,
       "contentHash": "3935e77078173060ac6772587675b8c3",
       "sourceName": "contracts/erc1155/IERC1155.sol",
       "solcConfig": {
@@ -257,7 +257,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Tradable.sol": {
-      "lastModificationDate": 1657236390190,
+      "lastModificationDate": 1657311257530,
       "contentHash": "4980970f7d7cd680ff34487f228f35c8",
       "sourceName": "contracts/erc1155/ERC1155Tradable.sol",
       "solcConfig": {
@@ -370,7 +370,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Metadata.sol": {
-      "lastModificationDate": 1657220404285,
+      "lastModificationDate": 1657311257530,
       "contentHash": "74b1d42b69f1126e6f7c06c5d3792e19",
       "sourceName": "contracts/erc1155/ERC1155Metadata.sol",
       "solcConfig": {
@@ -408,7 +408,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/ERC1155Mint.sol": {
-      "lastModificationDate": 1657233451916,
+      "lastModificationDate": 1657311257530,
       "contentHash": "e7eb3241d654d691bb48b13f4a8d3973",
       "sourceName": "contracts/erc1155/ERC1155Mint.sol",
       "solcConfig": {
@@ -480,7 +480,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/erc1155/IERC1155Metadata.sol": {
-      "lastModificationDate": 1657220404285,
+      "lastModificationDate": 1657311257530,
       "contentHash": "f6a15a428aa4dae1014e7e934d7a6d83",
       "sourceName": "contracts/erc1155/IERC1155Metadata.sol",
       "solcConfig": {
@@ -515,7 +515,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
-      "lastModificationDate": 1657646245693,
+      "lastModificationDate": 1657646829759,
       "contentHash": "62f6b051d73b52055977d3f36d6eab7d",
       "sourceName": "contracts/mocks/MateriaMock.sol",
       "solcConfig": {
@@ -627,10 +627,10 @@
         "Antonym"
       ]
     },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/VerifySignature.sol": {
-      "lastModificationDate": 1657255649996,
-      "contentHash": "7f2f38593fcb32ca5018b972179a2974",
-      "sourceName": "contracts/VerifySignature.sol",
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/VerifySignatureMock.sol": {
+      "lastModificationDate": 1657657814629,
+      "contentHash": "39e41088a8aa200c628fe9906c185f98",
+      "sourceName": "contracts/mocks/VerifySignatureMock.sol",
       "solcConfig": {
         "version": "0.8.13",
         "settings": {
@@ -659,7 +659,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "VerifySignature"
+        "VerifySignatureMock"
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/ERC721A.sol": {
@@ -853,7 +853,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657646100074,
+      "lastModificationDate": 1657646596044,
       "contentHash": "cb5ba1bb63670780e9c749ae68dbf49e",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
@@ -892,8 +892,43 @@
         "Materia"
       ]
     },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/VerifySignature.sol": {
+      "lastModificationDate": 1657311257530,
+      "contentHash": "7f2f38593fcb32ca5018b972179a2974",
+      "sourceName": "contracts/VerifySignature.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "VerifySignature"
+      ]
+    },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/TheMutantMushies.sol": {
-      "lastModificationDate": 1657219166811,
+      "lastModificationDate": 1657311257530,
       "contentHash": "16aba2ef4a42ae2d368e8c8d5cbfc507",
       "sourceName": "contracts/TheMutantMushies.sol",
       "solcConfig": {
@@ -1010,7 +1045,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/AntonymMock.sol": {
-      "lastModificationDate": 1657238093438,
+      "lastModificationDate": 1657311257530,
       "contentHash": "b7aa6d17842c9c71c9e9b9bfcde2d277",
       "sourceName": "contracts/mocks/AntonymMock.sol",
       "solcConfig": {
@@ -1048,7 +1083,7 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/MultisigOwnable.sol": {
-      "lastModificationDate": 1657219103461,
+      "lastModificationDate": 1657311257530,
       "contentHash": "622f4c889c5cecb0b69bf1faef646436",
       "sourceName": "contracts/MultisigOwnable.sol",
       "solcConfig": {
@@ -1082,41 +1117,6 @@
       ],
       "artifacts": [
         "MultisigOwnable"
-      ]
-    },
-    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/VerifySignatureMock.sol": {
-      "lastModificationDate": 1657305124863,
-      "contentHash": "03d30fc66665ec6bd8c5ecc691a0739e",
-      "sourceName": "contracts/mocks/VerifySignatureMock.sol",
-      "solcConfig": {
-        "version": "0.8.13",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "VerifySignatureMock"
       ]
     }
   }
