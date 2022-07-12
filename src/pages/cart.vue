@@ -15,13 +15,10 @@
       <cart-list class="w-full md:mr-8 lg:mr-12 2xl:mr-20" />
       <div class="w-full mb-4 sm:mb-8 lg:mb-0">
         <p class="text-sm sm:text-base md:text-lg 2xl:text-xl">
-          Once you're ready to redeem your physicals,
+          Once you're ready to reserve your physicals,
           we'll collect your shipping information to ensure that your order is fulfilled.
           We take your privacy seriously, and do not share, sell,
           or otherwise distribute this information to any third parties.
-          <br><br>
-          Please remember that once an Antonym has been redeemed,
-          it can no longer be used for redemption in the future.
           <br><br>
           Welcome to Brand3.
         </p>
@@ -31,7 +28,7 @@
           class="block w-1/2 <lg:hidden bg-hex-252525 text-white text-base text-center py-8 uppercase ml-auto"
           :to="{ name: 'Shipping' }"
         >
-          Redeem
+          Reserve
         </router-link>
       </div>
     </div>
