@@ -9,7 +9,7 @@ const path = "./scripts/materia.js";
 async function main() {
 
   console.log("Deploying Lib contract")
-  const Lib = await ethers.getContractFactory("VerifySignatureMock");
+  const Lib = await ethers.getContractFactory("VerifySignature");
   const lib = await Lib.deploy();
   await lib.deployed();
   console.log("VerifySignature Lib deployed to address:", lib.address)
@@ -18,9 +18,9 @@ async function main() {
   await new Promise(r => setTimeout(r, 60000));
   await verifyLib(lib.address, "rinkeby", path)
 
-  const Materia = await ethers.getContractFactory("MateriaMock", {
+  const Materia = await ethers.getContractFactory("Materia", {
       libraries: {
-          VerifySignatureMock: lib.address,
+          VerifySignature: lib.address,
       },
   });
   console.log(args)

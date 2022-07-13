@@ -17,21 +17,20 @@ import "./VerifySignature.sol";
  */
 contract Materia is ERC1155Tradable {
 
-    uint16 private constant MAX_MATERIA = 10000;
-    uint16 private constant MAX_PRIMA_MATERIA = 52;
+    uint256 private constant MAX_MATERIA = 100;
+    uint256 private constant MAX_PRIMA_MATERIA = 5;
 
     // gas optimization we pack these in a 256 bits slot
     uint64 private _start;
     uint64 private _end;
-
-    bytes32 private _merkleRoot;
-    address private _signer;
-    address private _antonym;
-
     bool private _allowMinting = true;
 
-    mapping(uint256 => bool) private isAntonymTokenUsed;
-    mapping(uint256 => bool) private isAntonym1on1TokenUsed;
+    address private _signer;
+    address private _antonym;
+    bytes32 private _merkleRoot;
+
+    mapping(uint256 => uint256) private _isAntonymTokenUsed;
+    mapping(uint256 => uint256) private _isAntonym1of1TokenUsed;
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
@@ -51,7 +50,7 @@ contract Materia is ERC1155Tradable {
         address antonym
     ) ERC1155Tradable(_name, _symbol, _metadataURI) {
         require(start > block.timestamp, "Start cannot be in the past");
-        require(end > start && end > block.timestamp, "Wrong end deadline");
+        require(end > start, "Wrong end deadline");
         require(signer != address(0), "Wrong signer");
         require(merkleRoot != "", "Wrong MerkleRoot");
         require(antonym != address(0), "Wrong NFT");
@@ -67,11 +66,11 @@ contract Materia is ERC1155Tradable {
     /// @param signature received from the server
     function mintMateria(uint256 antonymTokenId, bytes memory signature) external canMint {
         require(tokenSupply[1] + 1 <= MAX_MATERIA, "Amount Materia exceeded");
-        require(!isAntonymTokenUsed[antonymTokenId], "Token already used");
+        require(_isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
-        isAntonymTokenUsed[antonymTokenId] = true;
+        _isAntonymTokenUsed[antonymTokenId] = 1;
         if (!_exists(1)) {
             _create(account, 1);
         } else {
@@ -85,14 +84,14 @@ contract Materia is ERC1155Tradable {
     /// @param proof merkleproof of the 1/1 skin token
     function mintPrimaMateria(uint256 antonymTokenId, bytes memory signature, bytes32[] calldata proof) external canMint {
         require(tokenSupply[2] + 1 <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
-        require(!isAntonym1on1TokenUsed[antonymTokenId], "Token already used");
+        require(_isAntonym1of1TokenUsed[antonymTokenId] == 0, "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
         require(_exists(1), "A Materia should be created first");
         bytes32 leaf = keccak256(abi.encodePacked(antonymTokenId));
         require(_verifyMerkle(leaf, proof), "Invalid merkle proof");
-        isAntonym1on1TokenUsed[antonymTokenId] = true;
+        _isAntonym1of1TokenUsed[antonymTokenId] = 1;
         if (!_exists(2)) {
             _create(account, 1);
         } else {
@@ -132,7 +131,7 @@ contract Materia is ERC1155Tradable {
     ///@param to the batch tokens receiver
     ///@param amountMateria amount to mint
     ///@param amountPrimaMateria amount of prima materia to mint
-    function mintBatchMateria(address to, uint16 amountMateria, uint16 amountPrimaMateria) external onlyOwner {
+    function mintBatchMateria(address to, uint256 amountMateria, uint256 amountPrimaMateria) external onlyOwner {
         require(_allowMinting, "Minting is Paused");
         require(_end < block.timestamp, "Deadline not yet over");
         require(tokenSupply[1] + amountMateria <= MAX_MATERIA, "Amount Materia exceeded");

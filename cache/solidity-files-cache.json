@@ -515,8 +515,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/MateriaMock.sol": {
-      "lastModificationDate": 1657646829759,
-      "contentHash": "62f6b051d73b52055977d3f36d6eab7d",
+      "lastModificationDate": 1657726521727,
+      "contentHash": "eb1049b829a3f5b651fff2bcf2927592",
       "sourceName": "contracts/mocks/MateriaMock.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -853,8 +853,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657646596044,
-      "contentHash": "cb5ba1bb63670780e9c749ae68dbf49e",
+      "lastModificationDate": 1657726591989,
+      "contentHash": "96b02a4e3f209e4276143aaf72e392aa",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -1117,6 +1117,41 @@
       ],
       "artifacts": [
         "MultisigOwnable"
+      ]
+    },
+    "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/IMateria.sol": {
+      "lastModificationDate": 1657748943186,
+      "contentHash": "972b1bd2e5fb16e12e088aab37eda204",
+      "sourceName": "contracts/IMateria.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IMateria"
       ]
     }
   }

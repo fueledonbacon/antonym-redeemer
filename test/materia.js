@@ -272,7 +272,8 @@ describe("Materia ERC1155 Contract", function () {
         ).to.be.revertedWith("Amount Prima Materia exceeded")
 
 
-        await materia.mintBatchMateria(signers[0].address, 98, 3)
+        let tx = await materia.mintBatchMateria(signers[0].address, 98, 3)
+        tx = await tx.wait();
         let totalSupply = await materia.totalSupply(1);
         expect(totalSupply).to.be.equal(100);
 
