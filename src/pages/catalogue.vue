@@ -70,7 +70,7 @@
             Antonym: Black
           </h2>
           <p class="font-light md:text-xl xl:text-2xl 2xl:text-3xl">
-            Holders with 4 or more Antonyms are eligible to redeem a limited-edition 24” Antonym: Black.
+            Holders of 4 or more Antonyms are eligible to redeem a limited-edition 12" Antonym: Black. Holders of 20+ Antonyms are eligible to redeem a limited-edition 24" Antonym: Black.
             We appreciate your early support.
           </p>
           <div class="font-light md:text-xl xl:text-2xl 2xl:text-3xl underline mt-18 xl:mt-auto">
