@@ -9,7 +9,7 @@ export default defineConfig({
     extend: {
       backgroundImage: {
         home: 'url(/images/home-bg.jpg)',
-        'home-mobile': 'url(/images/home-bg-mobile.jpg)',
+        'home-mobile': 'url(/images/home-bg-mobile.svg)'
       },
       colors: {
         error: '#D81515',
@@ -36,21 +36,22 @@ export default defineConfig({
   ],
   shortcuts: {
     // Common
-    'header': 'fixed top-0 left-0 w-full flex items-center px-4 py-4 lg:px-8 2xl:px-12 z-50',
-    'footer': 'relative z-20 mt-4 lg:mt-8 2xl:mt-10',
-    'page': 'min-h-screen pt-12 lg:pt-16 2xl:pt-24 px-4 pb-6 lg:px-8 lg:pb-8 2xl:px-12 2xl:pb-10',
+    header: 'fixed top-0 left-0 w-full px-4 py-4 lg:px-8 2xl:px-12 z-50',
+    'status-checker': 'h-9 lg:h-10 2xl:h-13 w-full md:w-100 2xl:w-120',
+    footer: 'relative z-20 mt-4 lg:mt-8 2xl:mt-10',
+    page: 'min-h-screen pt-12 lg:pt-16 2xl:pt-24 px-4 pb-6 lg:px-8 lg:pb-8 2xl:px-12 2xl:pb-10',
     'page-title': 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl mb-8 sm:mb-12 lg:mb-16 2xl:mb-20',
     'button-connect': 'bg-dark text-white text-xs sm:text-sm lg:text-base 2xl:text-lg uppercase px-4 py-1 md:px-6 md:py-2 2xl:px-8 2xl:py-3 rounded-full',
     'button-connect--small': 'border border-darkgrey px-3 py-2 text-xs rounded-full uppercase',
     'order-count': 'flex items-center justify-center w-8 h-8 bg-darkgrey text-white font-bold text-md rounded-full',
-    'checkbox': 'h-4 w-4 appearance-none rounded-full border border-black/50 ring-inset ring-white checked:bg-black/70 checked:ring-2',
+    checkbox: 'h-4 w-4 appearance-none rounded-full border border-black/50 ring-inset ring-white checked:bg-black/70 checked:ring-2',
     'toggle-button': {
       '@apply': 'flex items-center justify-center border border-black/50 text-black/50 text-xs rounded-l rounded-r',
       '&[disabled]': { '@apply': 'opacity-50 cursor-not-allowed' }
     },
     'toggle-button--active': 'bg-black text-white',
     'scroll-up': 'flex items-center justify-center w-20 h-20 md:w-24 md:h-24 lg:w-30 lg:h-30 border border-black rounded-full cursor-pointer',
-    'hoverable': 'relative hover:before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-black/5 cursor-pointer',
+    hoverable: 'relative hover:before:content-[""] before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-black/5 cursor-pointer',
 
     'theme--dark': {
       '@apply': 'bg-darkgrey text-white duration-300',
@@ -69,15 +70,15 @@ export default defineConfig({
     'legal-tab--active': 'bg-black text-white',
 
     // Home Page
-    'home': 'relative flex flex-col items-stretch bg-home <md:bg-home-mobile bg-white bg-bottom bg-no-repeat <md:bg-center <md:bg-cover',
-    'home__title': 'my-auto mix-blend-exclusion text-white font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center uppercase',
-    'home__link': 'text-dark text-sm md:text-md lg:text-lg 2xl:text-2xl uppercase',
+    home: 'relative flex flex-col items-stretch md:bg-home <md:bg-home-mobile bg-white bg-bottom bg-no-repeat <md:bg-center',
+    home__title: 'my-auto md:mix-blend-exclusion text-black md:text-white font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-center uppercase',
+    home__link: 'text-dark text-sm md:text-md lg:text-lg 2xl:text-2xl uppercase',
 
     // Catalogue Page
-    'catalogue__description': '<md:hidden md:ml-20 lg:ml-40 xl:ml-60 md:mt-1 lg:mt-2 xl:mt-3 max-w-100 before:content-["‣"] before:-ml-[10px]',
+    catalogue__description: '<md:hidden md:ml-20 lg:ml-40 xl:ml-60 md:mt-1 lg:mt-2 xl:mt-3 max-w-100 before:content-["‣"] before:-ml-[10px]',
 
     // Redeem Page
-    'redeem__back': 'text-black/40',
-    'redeem__trait': 'text-black/60'
+    redeem__back: 'text-black/40',
+    redeem__trait: 'text-black/60'
   }
 })
