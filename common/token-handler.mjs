@@ -105,9 +105,10 @@ export const fetchNftById = async (tokenId) => {
         .on("error", reject);
     });
   };
-  return await httpRequest(
+  const text = await httpRequest(
     "https://antonymnft.s3.us-west-1.amazonaws.com/json/" + tokenId
   );
+  return JSON.parse(text);
 };
 
 export const findToken = async (tokenID) => {
