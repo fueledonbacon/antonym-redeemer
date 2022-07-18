@@ -8,15 +8,24 @@ const path = "./scripts/materia.js";
 
 async function main() {
 
+  // const Antonym = await ethers.getContractFactory("AntonymMock");
+  // const antonym = await Antonym.deploy()
+  // await antonym.deployed();
+  // console.log("Antonym deployed to address:", antonym.address)
+  // console.log("Waiting for one minute for contract propagation")
+  // await new Promise(r => setTimeout(r, 60000));
+  // await verifyLib(antonym.address, "rinkeby", path)
+
+
   console.log("Deploying Lib contract")
   const Lib = await ethers.getContractFactory("VerifySignature");
   const lib = await Lib.deploy();
   await lib.deployed();
   console.log("VerifySignature Lib deployed to address:", lib.address)
 
-  console.log("Waiting for one minute for library contract propagation")
-  await new Promise(r => setTimeout(r, 60000));
-  await verifyLib(lib.address, "rinkeby", path)
+  // console.log("Waiting for one minute for library contract propagation")
+  // await new Promise(r => setTimeout(r, 60000));
+  // await verifyLib(lib.address, "rinkeby", path)
 
   const Materia = await ethers.getContractFactory("Materia", {
       libraries: {

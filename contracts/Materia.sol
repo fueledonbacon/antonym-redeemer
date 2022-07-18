@@ -9,6 +9,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
+
 import "./erc1155/ERC1155Tradable.sol";
 import "./FashionNFT.sol";
 import "./VerifySignature.sol";
@@ -29,8 +30,8 @@ contract Materia is ERC1155Tradable {
     address private _antonym;
     bytes32 private _merkleRoot;
 
-    mapping(uint256 => uint256) private _isAntonymTokenUsed;
-    mapping(uint256 => uint256) private _isAntonym1of1TokenUsed;
+    mapping(uint256 => uint256) public isAntonymTokenUsed;
+    mapping(uint256 => uint256) public isAntonym1of1TokenUsed;
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
@@ -66,11 +67,11 @@ contract Materia is ERC1155Tradable {
     /// @param signature received from the server
     function mintMateria(uint256 antonymTokenId, bytes memory signature) external canMint {
         require(tokenSupply[1] + 1 <= MAX_MATERIA, "Amount Materia exceeded");
-        require(_isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
+        require(isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
-        _isAntonymTokenUsed[antonymTokenId] = 1;
+        isAntonymTokenUsed[antonymTokenId] = 1;
         if (!_exists(1)) {
             _create(account, 1);
         } else {
@@ -84,14 +85,14 @@ contract Materia is ERC1155Tradable {
     /// @param proof merkleproof of the 1/1 skin token
     function mintPrimaMateria(uint256 antonymTokenId, bytes memory signature, bytes32[] calldata proof) external canMint {
         require(tokenSupply[2] + 1 <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
-        require(_isAntonym1of1TokenUsed[antonymTokenId] == 0, "Token already used");
+        require(isAntonym1of1TokenUsed[antonymTokenId] == 0, "Token already used");
         address account = _msgSender();
         require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
         require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
         require(_exists(1), "A Materia should be created first");
         bytes32 leaf = keccak256(abi.encodePacked(antonymTokenId));
         require(_verifyMerkle(leaf, proof), "Invalid merkle proof");
-        _isAntonym1of1TokenUsed[antonymTokenId] = 1;
+        isAntonym1of1TokenUsed[antonymTokenId] = 1;
         if (!_exists(2)) {
             _create(account, 1);
         } else {

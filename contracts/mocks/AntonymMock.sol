@@ -9,8 +9,8 @@ contract AntonymMock is ERC721A, Ownable {
 
     string private baseURI;
 
-    constructor(string memory _baseURI) ERC721A("Antonym", "ANTONYM") {
-        baseURI = _baseURI;
+    constructor() ERC721A("Antonym", "ANTONYM") {
+        baseURI = "https://antonymnft.s3.us-west-1.amazonaws.com/json/";
     }
 
   

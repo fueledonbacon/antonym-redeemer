@@ -663,8 +663,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/ERC721A.sol": {
-      "lastModificationDate": 1657216399421,
-      "contentHash": "4e4b456c250498baaa6d386720f3c39c",
+      "lastModificationDate": 1657909041067,
+      "contentHash": "838f98cf0e376f21b6ff6a2ce4b5c470",
       "sourceName": "contracts/ERC721A.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -853,8 +853,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1657726591989,
-      "contentHash": "96b02a4e3f209e4276143aaf72e392aa",
+      "lastModificationDate": 1658170895252,
+      "contentHash": "2af8928f0bbfcab34ca43b7a9950ebc6",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -1045,8 +1045,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/AntonymMock.sol": {
-      "lastModificationDate": 1657311257530,
-      "contentHash": "b7aa6d17842c9c71c9e9b9bfcde2d277",
+      "lastModificationDate": 1657907548567,
+      "contentHash": "60af53d835961460dc39e0af0abf695d",
       "sourceName": "contracts/mocks/AntonymMock.sol",
       "solcConfig": {
         "version": "0.8.13",

@@ -31,6 +31,7 @@
     "vue-tippy": "^6.0.0-alpha.58",
     "vue-toastification": "^2.0.0-rc.5"
   },
+
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@ehutch79/vite-eslint": "^0.0.1",
