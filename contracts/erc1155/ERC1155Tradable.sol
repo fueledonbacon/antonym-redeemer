@@ -14,12 +14,12 @@ import './ERC1155Mint.sol';
   like _exists(), name(), symbol(), and totalSupply()
  */
 contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
-  using Strings for uint8;
+  using Strings for uint256;
 
   
   uint8 private _currentTokenID;
 
-  mapping (uint8 => uint16) public tokenSupply;
+  mapping (uint256 => uint256) public tokenSupply;
 
   // Contract name
   string public name;
@@ -37,9 +37,9 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
   }
 
   function uri(
-    uint8 _id
-  ) public view returns (string memory) {
-    require(_exists(_id), "ERC721Tradable#uri: NONEXISTENT_TOKEN");
+    uint256 _id
+  ) public view override returns (string memory) {
+    require(_exists(_id), "ERC1155Tradeable#uri: NONEXISTENT_TOKEN");
     return bytes(baseMetadataURI).length > 0 ? string(abi.encodePacked(baseMetadataURI, _id.toString())) : "";
   }
 
@@ -49,8 +49,8 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
     * @return amount of token in existence
     */
   function totalSupply(
-    uint8 _id
-  ) public view returns (uint16) {
+    uint256 _id
+  ) public view returns (uint256) {
     return tokenSupply[_id];
   }
 
@@ -73,7 +73,7 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
     */
   function _create(
     address _initialOwner,
-    uint16 _initialSupply
+    uint256 _initialSupply
   ) internal returns (uint8) {
 
     uint8 _id = getNextTokenID(); 
@@ -93,7 +93,7 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
   function _mint(
     address _to,
     uint8 _id,
-    uint16 _quantity
+    uint256 _quantity
   ) internal {
     _mint(_to, _id, _quantity, "");
     tokenSupply[_id] += _quantity;
@@ -124,7 +124,7 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
     * @return bool whether the token exists
     */
   function _exists(
-    uint8 _id
+    uint256 _id
   ) internal view returns (bool) {
     return tokenSupply[_id] > 0;
   }
