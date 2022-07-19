@@ -67,6 +67,14 @@ contract Materia is ERC1155Tradable {
         _antonym = antonym;
     }
 
+    /// @notice mints tokens and 1of1 tokens
+    /// @param antonymTokenIds array of Antonym regular token Ids
+    /// @param antonym1of1TokensIds array of Antonym 1of1 token Ids
+    /// @param antonymSignature signature of Antonym regular token Ids, send 0x0 if antonymTokenIds is empty array
+    /// @param antonym1of1Signature signature of Antonym 1of1 token Ids, send 0x0 if antonym1of1TokensIds is empty array
+    /// @param proof merkle proof of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
+    /// @param leaves merkle leaves of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
+    /// @param proofFlag merkle proof flags of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
     function mint(
         uint256[] memory antonymTokenIds, 
         uint256[] memory antonym1of1TokensIds, 
