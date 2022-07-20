@@ -6,8 +6,6 @@ https://fueledonbacon.com
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-
 import "./erc1155/ERC1155Tradable.sol";
 import "./VerifySignature.sol";
 
@@ -32,11 +30,10 @@ contract Materia is ERC1155Tradable {
 
     address private _signer;
     address private _antonym;
-    bytes32 private _merkleRoot;
     bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;
 
+    mapping(uint256 => uint256) private _isAntonym1of1Token;
     mapping(uint256 => uint256) public isAntonymTokenUsed;
-    mapping(uint256 => uint256) public isAntonym1of1TokenUsed;
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
@@ -51,67 +48,59 @@ contract Materia is ERC1155Tradable {
         string memory _metadataURI,
         uint256 start,
         uint256 end,
-        bytes32 merkleRoot,
         address signer,
-        address antonym
+        address antonym,
+        uint256[] memory antonym1of1Tokens
     ) ERC1155Tradable(_name, _symbol, _metadataURI) {
         require(start > block.timestamp, "Start cannot be in the past");
         require(end > start, "Wrong end deadline");
         require(signer != address(0), "Wrong signer");
-        require(merkleRoot != "", "Wrong MerkleRoot");
         require(antonym != address(0), "Wrong NFT");
         _start = start;
         _end = end;
         _signer = signer;
-        _merkleRoot = merkleRoot;
         _antonym = antonym;
+        for(uint256 t; t < antonym1of1Tokens.length; t++) {
+            _isAntonym1of1Token[antonym1of1Tokens[t]] = 1;
+        }
+
     }
 
     /// @notice mints tokens and 1of1 tokens
-    /// @param antonymTokenIds array of Antonym regular token Ids
-    /// @param antonym1of1TokensIds array of Antonym 1of1 token Ids
-    /// @param antonymSignature signature of Antonym regular token Ids, send 0x0 if antonymTokenIds is empty array
-    /// @param antonym1of1Signature signature of Antonym 1of1 token Ids, send 0x0 if antonym1of1TokensIds is empty array
-    /// @param proof merkle proof of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
-    /// @param leaves merkle leaves of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
-    /// @param proofFlag merkle proof flags of Antonym 1of1 token Ids, send '[]' if antonym1of1TokensIds is empty array
+    /// @param tokenIds array of Antonym Token Ids
+    /// @param signature signature of Antonym Token Ids array
+    // //TODO: fronend, backend: filter for tokens already used
     function mint(
-        uint256[] memory antonymTokenIds, 
-        uint256[] memory antonym1of1TokensIds, 
-        bytes memory antonymSignature,
-        bytes memory antonym1of1Signature,
-        bytes32[] calldata proof,
-        bytes32[] memory leaves,
-        bool[] memory proofFlag
+        uint256[] calldata tokenIds, 
+        bytes memory signature
     ) external canMint {
         address account = _msgSender();
-        uint256 tokenIdsLength = uint256(antonymTokenIds.length);
-        if(tokenIdsLength > 0) {
-            require(tokenSupply[1] + tokenIdsLength <= MAX_MATERIA, "Amount Materia exceeded");
-            require(_verifySignature(account, antonymTokenIds, antonymSignature), "Wrong Materia Signature");
-            for(uint256 t; t < tokenIdsLength; t++) {
-                uint256 antonymTokenId = antonymTokenIds[t];
-                require(isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
-                require(IAntonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
-                isAntonymTokenUsed[antonymTokenId] = 1;
-            }
-            _mintTokens(account, 1, tokenIdsLength);
+        require(_verifySignature(account, tokenIds, signature), "Wrong Materia Signature");
+       
+        uint256 tokenIdsLength = tokenIds.length;
+        require(tokenIdsLength > 0, "No tokens specified");
+        uint256 materiaTokens;
+        uint256 primaTokens;
+
+        for(uint256 t; t < tokenIdsLength; t++) {
+            uint256 antonymTokenId = tokenIds[t];
+            require(isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
+            require(IAntonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
+            isAntonymTokenUsed[antonymTokenId] = 1;
+            if(_isAntonym1of1Token[antonymTokenId] == 1) primaTokens += 1;
+            else materiaTokens += 1;
         }
-        uint256 tokenIds1of1Length = uint256(antonym1of1TokensIds.length);
-        if(tokenIds1of1Length > 0) {
+        if(materiaTokens > 0) {
+            require(tokenSupply[1] + materiaTokens <= MAX_MATERIA, "Amount Materia exceeded");
+            _mintTokens(account, 1, materiaTokens);
+        }
+        if(primaTokens > 0) {
             require(_exists(1), "A Materia should be created first");
-            require(tokenSupply[2] + tokenIds1of1Length <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
-            require(_verifySignature(account, antonym1of1TokensIds, antonym1of1Signature), "Wrong Prima Signature");
-            for(uint256 t; t < tokenIds1of1Length; t++) {
-                uint256 antonym10f1TokenId = antonym1of1TokensIds[t];
-                require(isAntonym1of1TokenUsed[antonym10f1TokenId] == 0, "Prima Token already used");
-                require(IAntonym(_antonym).ownerOf(antonym10f1TokenId) == account, "Not Prima token owner");
-                require(_verifyMerkle(proof, proofFlag, leaves), "Invalid merkle proof");
-                isAntonym1of1TokenUsed[antonym10f1TokenId] = 1;
-            }
-            _mintTokens(account, 2, tokenIds1of1Length);
+            require(tokenSupply[2] + primaTokens <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
+            _mintTokens(account, 2, primaTokens);
         }
     }
+
 
     function _mintTokens(address to, uint8 tokenId, uint256 quantity) private {
         if (!_exists(tokenId)) {
@@ -119,11 +108,6 @@ contract Materia is ERC1155Tradable {
         } else {
             _mint(to, tokenId, quantity);
         }
-    }
-
-    /**Private and Internal Functions */
-    function _verifyMerkle(bytes32[] memory proof, bool[] memory proofFlag, bytes32[] memory leaves) private view returns (bool) {
-        return MerkleProof.multiProofVerify(proof, proofFlag, _merkleRoot, leaves);
     }
 
     function _verifySignature(address account, uint256[] memory tokenIds, bytes memory signature) private view returns (bool) {

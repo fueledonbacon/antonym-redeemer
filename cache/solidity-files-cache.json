@@ -1045,8 +1045,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/Materia.sol": {
-      "lastModificationDate": 1658270821759,
-      "contentHash": "226cfb975c1aa425c3ac528eced166e9",
+      "lastModificationDate": 1658348200981,
+      "contentHash": "cf4669a820a9e94ef81f3ef7de4f09b3",
       "sourceName": "contracts/Materia.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -1072,7 +1072,6 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
         "./erc1155/ERC1155Tradable.sol",
         "./VerifySignature.sol"
       ],
@@ -1155,8 +1154,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/MerkleProofWrapper.sol": {
-      "lastModificationDate": 1658267809550,
-      "contentHash": "d012029fab745883724eaea9b4f0f9dc",
+      "lastModificationDate": 1658344650061,
+      "contentHash": "01db30b3af0230060253ebfc970703dd",
       "sourceName": "contracts/MerkleProofWrapper.sol",
       "solcConfig": {
         "version": "0.8.13",

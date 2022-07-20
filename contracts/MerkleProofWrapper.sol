@@ -31,12 +31,28 @@ contract MerkleProofWrapper {
     }
 
     function multiProofVerify(
+        uint256[] calldata tokenIds,
         bytes32[] memory proofs,
         bool[] memory proofFlag,
-        bytes32 root,
-        bytes32[] memory leaves
+        bytes32 root
     ) public pure returns (bool) {
+        uint256 size =  tokenIds.length;
+        bytes32[] memory leaves = new bytes32[](size);
+        for(uint256 t; t < size; t++) {
+            leaves[t] = keccak256(abi.encodePacked(tokenIds[t]));
+        } 
         return MerkleProof.multiProofVerify(proofs, proofFlag, root, leaves);
+    }
+
+
+    function getLeaves(
+        uint256[] memory tokenIds
+    ) public pure returns (bytes32[] memory leaves) {
+        leaves = new bytes32[](tokenIds.length);
+        for(uint256 t; t < tokenIds.length; t++) {
+            uint256 tokenId = tokenIds[t];
+            leaves[t] = keccak256(abi.encode(tokenId));
+        }
     }
 
     function multiProofVerifyCalldata(

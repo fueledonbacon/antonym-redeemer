@@ -17,21 +17,17 @@ async function main() {
   // await verifyLib(antonym.address, "rinkeby", path)
 
 
-  console.log("Deploying Lib contract")
-  const Lib = await ethers.getContractFactory("VerifySignature");
-  const lib = await Lib.deploy();
-  await lib.deployed();
-  console.log("VerifySignature Lib deployed to address:", lib.address)
+  // console.log("Deploying Lib contract")
+  // const Lib = await ethers.getContractFactory("VerifySignature");
+  // const lib = await Lib.deploy();
+  // await lib.deployed();
+  // console.log("VerifySignature Lib deployed to address:", lib.address)
 
   // console.log("Waiting for one minute for library contract propagation")
   // await new Promise(r => setTimeout(r, 60000));
   // await verifyLib(lib.address, "rinkeby", path)
 
-  const Materia = await ethers.getContractFactory("Materia", {
-      libraries: {
-          VerifySignature: lib.address,
-      },
-  });
+  const Materia = await ethers.getContractFactory("Materia");
   console.log(args)
   console.log("Deploying Materia contract")
   const materia = await Materia.deploy(...args)
