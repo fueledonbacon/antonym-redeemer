@@ -36,8 +36,20 @@ export const handler = async function (event, context) {
   try {
     const { tokens, address } = JSON.parse(event.body);
     const signedMessage = await getSignature(tokens, address);
-    return { statusCode: 200, body: JSON.stringify(signedMessage) };
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      statusCode: 200,
+      body: JSON.stringify(signedMessage),
+    };
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      statusCode: 500,
+      body: error.toString(),
+    };
   }
 };
