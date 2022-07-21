@@ -41,7 +41,7 @@ export const handler = async function (event, context) {
         "Access-Control-Allow-Origin": "*",
       },
       statusCode: 200,
-      body: JSON.stringify(signedMessage),
+      body: JSON.stringify({ signature: signedMessage }),
     };
   } catch (error) {
     return {
