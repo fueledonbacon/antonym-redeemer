@@ -11,13 +11,8 @@ const provider = waffle.provider;
 
 const antonym1on1TokenIdsMock = [
     1,  5,  10,  15, 19, 20, 25,
-   1275, 1280, 1940, 2598, 2626, 2657, 2670,
-   2818, 2928, 3138, 3147, 3288, 3333, 3516,
-   3681, 3760, 4297, 4336, 4501, 4509, 4513,
-   4864, 5229, 5537, 5769, 6271, 6307, 6448,
-   6531, 6554, 7012, 7132, 7165, 7495, 7555,
-   7627, 7724, 7764, 8301, 8387, 8397, 8492,
-   8683, 8763, 8876
+   35, 45, 50, 55, 60, 65, 70,
+   75
   ]
 
 
@@ -50,7 +45,7 @@ describe("Materia ERC1155 Contract", function () {
         const lib = await Lib.deploy();
         await lib.deployed();
 
-        const Materia = await ethers.getContractFactory("Materia");
+        const Materia = await ethers.getContractFactory("MateriaMock");
 
         timestamp = (await getLatestTimestamp()).toNumber()
         start = timestamp + 60*5 //starts in 5 minutes
@@ -71,17 +66,6 @@ describe("Materia ERC1155 Contract", function () {
         const receipt = await provider.getTransactionReceipt(txHash)
         console.log(receipt.gasUsed.toNumber())
     })
-
-    // it("Checks arrays", async function() {
-    //     const arr = [1, 2];
-    //     const flag = 1;
-    //     const res = await materia.getSlicedArrays(arr, 1);
-    //     const res1 = res[0].map(r => r.toNumber())
-    //     const res2 = res[1].map(r => r.toNumber())
-    //     console.log(res1)
-    //     console.log(res2)
-    // })
-
 
     it("CanMint Modifier", async function() {
         expect(true).to.be.true
@@ -227,7 +211,7 @@ describe("Materia ERC1155 Contract", function () {
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
         await materia.connect(signers[1]).mint([2, 3], signature)
 
-         //tries to batch mint whre deadline not over
+         //tries to batch mint where deadline not over
          await expect(
             materia.mintBatchMateria(signers[0].address, 50, 10)
         ).to.be.revertedWith("Deadline not yet over")
@@ -241,22 +225,22 @@ describe("Materia ERC1155 Contract", function () {
         
         // //tries to mint more than max per token
         await expect(
-            materia.mintBatchMateria(signers[0].address, 99, 1)
+            materia.mintBatchMateria(signers[0].address, 84, 1)
         ).to.be.revertedWith("Amount Materia exceeded")
 
         await expect(
-            materia.mintBatchMateria(signers[0].address, 1, 4)
+            materia.mintBatchMateria(signers[0].address, 1, 14)
         ).to.be.revertedWith("Amount Prima Materia exceeded")
 
 
-        let tx = await materia.mintBatchMateria(signers[0].address, 98, 3)
+        let tx = await materia.mintBatchMateria(signers[0].address, 83, 13)
         tx = await tx.wait();
-        console.log("Mint batch, 98 tokens: ", tx.gasUsed.toNumber())
+        console.log("Mint batch, 83 tokens: ", tx.gasUsed.toNumber())
         let totalSupply = await materia.totalSupply(1);
-        expect(totalSupply).to.be.equal(100);
+        expect(totalSupply).to.be.equal(85);
 
         totalSupply = await materia.totalSupply(2);
-        expect(totalSupply).to.be.equal(5);
+        expect(totalSupply).to.be.equal(15);
 
 
         //tries to mint one more materia

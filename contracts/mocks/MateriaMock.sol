@@ -6,31 +6,34 @@ https://fueledonbacon.com
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-
 import "../erc1155/ERC1155Tradable.sol";
-import "../FashionNFT.sol";
-import "./VerifySignatureMock.sol";
+import "../VerifySignature.sol";
+
+interface IAntonym {
+    function ownerOf(uint256) external returns (address);
+}
 /**
  * @title Materia
  */
 contract MateriaMock is ERC1155Tradable {
 
-    uint256 private constant MAX_MATERIA = 100;
-    uint256 private constant MAX_PRIMA_MATERIA = 5;
+    uint256 private constant MAX_MATERIA = 100-15;
+    uint256 private constant MAX_PRIMA_MATERIA = 15;
 
-    // gas optimization we pack these in a 256 bits slot
-    uint64 private _start;
-    uint64 private _end;
+    uint256 private _start;
+    uint256 private _end;
+    uint256 private _royaltyBasisPoints;
+
     bool private _allowMinting = true;
+
+    address private _royaltyAddress;
 
     address private _signer;
     address private _antonym;
-    bytes32 private _merkleRoot;
+    bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;
 
-    mapping(uint256 => uint256) private _isAntonymTokenUsed;
-    mapping(uint256 => uint256) private _isAntonym1of1TokenUsed;
+    mapping(uint256 => uint256) private _isAntonym1of1Token;
+    mapping(uint256 => uint256) public isAntonymTokenUsed;
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
@@ -43,73 +46,77 @@ contract MateriaMock is ERC1155Tradable {
         string memory _name,    
         string memory _symbol,
         string memory _metadataURI,
-        uint64 start,
-        uint64 end,
-        bytes32 merkleRoot,
+        uint256 start,
+        uint256 end,
         address signer,
-        address antonym
+        address antonym,
+        uint256[] memory antonym1of1Tokens
     ) ERC1155Tradable(_name, _symbol, _metadataURI) {
         require(start > block.timestamp, "Start cannot be in the past");
         require(end > start, "Wrong end deadline");
         require(signer != address(0), "Wrong signer");
-        require(merkleRoot != "", "Wrong MerkleRoot");
         require(antonym != address(0), "Wrong NFT");
+        require(antonym1of1Tokens.length == MAX_PRIMA_MATERIA, "Wrong array size");
         _start = start;
         _end = end;
         _signer = signer;
-        _merkleRoot = merkleRoot;
         _antonym = antonym;
+        for(uint256 t; t < antonym1of1Tokens.length; t++) {
+            _isAntonym1of1Token[antonym1of1Tokens[t]] = 1;
+        }
+
     }
 
-    /// @notice mints materia 
-    /// @param antonymTokenId used for the minting process
-    /// @param signature received from the server
-    function mintMateria(uint256 antonymTokenId, bytes memory signature) external canMint {
-        require(tokenSupply[1] + 1 <= MAX_MATERIA, "Amount Materia exceeded");
-        require(_isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
+    /// @notice mints tokens and 1of1 tokens
+    /// @param tokenIds array of Antonym Token Ids
+    /// @param signature signature of Antonym Token Ids array
+    // //TODO: fronend, backend: filter for tokens already used
+    function mint(
+        uint256[] memory tokenIds, 
+        bytes memory signature
+    ) external canMint {
         address account = _msgSender();
-        require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
-        require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
-        _isAntonymTokenUsed[antonymTokenId] = 1;
-        if (!_exists(1)) {
-            _create(account, 1);
-        } else {
-            _mint(account, 1, 1);
+        require(_verifySignature(account, tokenIds, signature), "Wrong Materia Signature");
+       
+        uint256 tokenIdsLength = tokenIds.length;
+        require(tokenIdsLength > 0, "No tokens specified");
+        uint256 materiaTokens;
+        uint256 primaTokens;
+
+        for(uint256 t; t < tokenIdsLength; t++) {
+            uint256 antonymTokenId = tokenIds[t];
+            require(isAntonymTokenUsed[antonymTokenId] == 0, "Token already used");
+            require(IAntonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
+            isAntonymTokenUsed[antonymTokenId] = 1;
+            if(_isAntonym1of1Token[antonymTokenId] == 1) primaTokens += 1;
+            else materiaTokens += 1;
+        }
+        if(materiaTokens > 0) {
+            require(tokenSupply[1] + materiaTokens <= MAX_MATERIA, "Amount Materia exceeded");
+            _mintTokens(account, 1, materiaTokens);
+        }
+        if(primaTokens > 0) {
+            require(_exists(1), "A Materia should be created first");
+            require(tokenSupply[2] + primaTokens <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
+            _mintTokens(account, 2, primaTokens);
         }
     }
 
-    /// @notice mints prima materia 
-    /// @param antonymTokenId used for the minting process, this should be a 1/1 skin token
-    /// @param signature received from the server
-    /// @param proof merkleproof of the 1/1 skin token
-    function mintPrimaMateria(uint256 antonymTokenId, bytes memory signature, bytes32[] calldata proof) external canMint {
-        require(tokenSupply[2] + 1 <= MAX_PRIMA_MATERIA, "Amount Prima Materia exceeded");
-        require(_isAntonym1of1TokenUsed[antonymTokenId] == 0, "Token already used");
-        address account = _msgSender();
-        require(Antonym(_antonym).ownerOf(antonymTokenId) == account, "Not token owner");
-        require(_verifySignature(account, antonymTokenId, signature), "Wrong signature");
-        require(_exists(1), "A Materia should be created first");
-        bytes32 leaf = keccak256(abi.encodePacked(antonymTokenId));
-        require(_verifyMerkle(leaf, proof), "Invalid merkle proof");
-        _isAntonym1of1TokenUsed[antonymTokenId] = 1;
-        if (!_exists(2)) {
-            _create(account, 1);
+
+    function _mintTokens(address to, uint8 tokenId, uint256 quantity) private {
+        if (!_exists(tokenId)) {
+            _create(to, quantity);
         } else {
-            _mint(account, 2, 1);
+            _mint(to, tokenId, quantity);
         }
     }
 
-    /**Private and Internal Functions */
-    function _verifyMerkle(bytes32 leaf, bytes32[] memory proof) private view returns (bool) {
-        return MerkleProof.verify(proof, _merkleRoot, leaf);
+    function _verifySignature(address account, uint256[] memory tokenIds, bytes memory signature) private view returns (bool) {
+        return VerifySignature._verify(_signer, account, tokenIds, signature); 
     }
 
-    function _verifySignature(address account, uint256 tokenId, bytes memory signature) private view returns (bool) {
-        return VerifySignatureMock.verify(_signer, account, tokenId, signature);
-    }
-
-    function messageHash(address account, uint256 tokenId) public pure returns (bytes32) {
-        return VerifySignatureMock.getMessageHash(account, tokenId);
+    function messageHash(address account, uint256[] memory tokenIds) public pure returns (bytes32) {
+        return VerifySignature._getMessageHash(account, tokenIds);
     }
 
     /** OnlyOwner Functions */
@@ -122,9 +129,17 @@ contract MateriaMock is ERC1155Tradable {
         _signer = signer;
     }
 
-    function setDeadline(uint64 end) external onlyOwner {
+    function setDeadline(uint256 end) external onlyOwner {
         require(end > _start && end > block.timestamp, "Wrong end deadline");
         _end = end;
+    }
+
+    function setRoyaltyAddress(address royaltyAddress) external onlyOwner {
+        _royaltyAddress = royaltyAddress;
+    }
+
+    function setRoyaltyRate(uint256 royaltyBasisPoints) external onlyOwner {
+        _royaltyBasisPoints = royaltyBasisPoints;
     }
 
     ///@notice mints batches of materia and prima materia after minting deadline is over
@@ -146,6 +161,28 @@ contract MateriaMock is ERC1155Tradable {
         amounts[1] = amountPrimaMateria;
 
         _batchMint(to, tokenIds, amounts);
+    }
+
+    function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
+        external
+        view
+        returns (address receiver, uint256 royaltyAmount)
+    {
+        require(_exists(_tokenId), "INVALID_TOKENID");
+        return (_royaltyAddress, (_salePrice * _royaltyBasisPoints) / 10000);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC1155Tradable)
+        returns (bool)
+    {
+        if (interfaceId == _INTERFACE_ID_ERC2981) {
+            return true;
+        }
+        return super.supportsInterface(interfaceId);
     }
 
 

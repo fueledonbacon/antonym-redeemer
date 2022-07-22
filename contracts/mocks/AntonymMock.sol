@@ -20,7 +20,6 @@ contract AntonymMock is ERC721A, Ownable {
      */
     function releaseReserve(address _account, uint256 _quantity)
         external
-        onlyOwner
     {
         _safeMint(_account, _quantity);
     }

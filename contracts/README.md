@@ -10,7 +10,7 @@ npx hardhat verify 0x92543Ff16D69277788259535B256acFb84bBbE28 --network rinkeby 
 npx hardhat verify 0xb60bB63a5FE952A69e966be5d7f7eDd12209910c --network mainnet --constructor-args ./scripts/cyberlionz_merger.js
 
 
-npx hardhat verify --network rinkeby 0x21DF2893835edc34606E8808600611e54f5cFC77 "https://antonymnft.s3.us-west-1.amazonaws.com/json/"
+npx hardhat verify --network rinkeby 0xC147BaC2162B53af4b985213cEF8c5359c0C9D09 "https://antonymnft.s3.us-west-1.amazonaws.com/json/"
 ## Rinkeby
 Antonym Mock deployed to address: 0x21DF2893835edc34606E8808600611e54f5cFC77b
 VerifySignature Lib deployed to address: 0xEb7b43EC25957e8b2EbCC342faA2fc3A925fA8B0

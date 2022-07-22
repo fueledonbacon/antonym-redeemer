@@ -17,8 +17,8 @@ interface IAntonym {
  */
 contract Materia is ERC1155Tradable {
 
-    uint256 private constant MAX_MATERIA = 100;
-    uint256 private constant MAX_PRIMA_MATERIA = 5;
+    uint256 private constant MAX_MATERIA = 10000-52;
+    uint256 private constant MAX_PRIMA_MATERIA = 52;
 
     uint256 private _start;
     uint256 private _end;
@@ -56,6 +56,7 @@ contract Materia is ERC1155Tradable {
         require(end > start, "Wrong end deadline");
         require(signer != address(0), "Wrong signer");
         require(antonym != address(0), "Wrong NFT");
+        require(antonym1of1Tokens.length == MAX_PRIMA_MATERIA, "Wrong array size");
         _start = start;
         _end = end;
         _signer = signer;
@@ -71,7 +72,7 @@ contract Materia is ERC1155Tradable {
     /// @param signature signature of Antonym Token Ids array
     // //TODO: fronend, backend: filter for tokens already used
     function mint(
-        uint256[] calldata tokenIds, 
+        uint256[] memory tokenIds, 
         bytes memory signature
     ) external canMint {
         address account = _msgSender();
