@@ -4,17 +4,24 @@ import {
   getMateriaAbi,
 } from "../../common/materia-functions.mjs";
 
+const {
+  MATERIA_NETWORK,
+  MATERIA_SIGNING_KEY,
+  MATERIA_ALCHEMY_API_KEY,
+  MATERIA_CONTRACT_ADDRESS,
+  MATERIA_GENESIS_ADDRESS,
+} = process.env;
+
 async function getSignature(tokens, address) {
   const provider = new ethers.providers.AlchemyProvider(
-    "rinkeby",
-    "zd8NKfBhzD-IV3B9YSpMd1rTMxqBBe3E"
+    MATERIA_NETWORK,
+    MATERIA_ALCHEMY_API_KEY
   );
-  const privateKey =
-    "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+  const privateKey = MATERIA_SIGNING_KEY;
   const signer = new ethers.Wallet(privateKey, provider);
 
-  const materiaAdd = "0x65dDF3952AEFbe94e223715caC15f5C86bAe9F5a";
-  const antonymAdd = "0xA0B69178DDc67E8870C39Ea8589b2A8dBf28CBD2";
+  const materiaAdd = MATERIA_CONTRACT_ADDRESS;
+  const antonymAdd = MATERIA_GENESIS_ADDRESS;
 
   const materia = new ethers.Contract(materiaAdd, getMateriaAbi(), signer);
 
