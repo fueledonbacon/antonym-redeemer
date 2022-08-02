@@ -22,21 +22,20 @@ Materia deployed to address: 0x57966f291eb9Aa4095cBa71Ba9e3f5A04EBAda4F
     <p>Go to the materia.js file located in the scripts folder and fill the values in the module.exports array</p>
     <ul>
         <li>Start and end time are unix like values, you can use https://www.epochconverter.com/ to calculate the values in seconds</li>
-        <li>The merkleroot value corresponds to the 1/1 skin name antonym tokens, make sure these values are ok</li>
-        <li>The merkleroot value corresponds to the 1/1 skin name antonym tokens, make sure these values are ok (there has to be 52 1/1 tokens), 
-        a script was written to obtain these tokens, just make sure these are ok</li>
         <li>Leave the SIGNER value as it is, this one is in charge of signing metadata on the server side</li>
-        <li>Leave the ANTONYM value as it is, just make sure that in the .env file the value corresponds to the antonym token address</li>
+        <li>Leave the ANTONYM value as it is, just make sure that in the .env file the value corresponds to the Antonym ERC721 token address</li>
+        <li>Make sure the array of the 1of1 skin tokens is correct</li>
     </ul>
     <p>From the root folder run the following script:</p>
     <ul>
         <li>npx hardhat run --network mainnet ./scripts/mainnet_deploy.js</li>
-        <li>This will launch both the VerifySignature library and the Materia contract, make sure you copy-paste the contract addresses below and the args values, this will be used for contract verification on etherscan, dont miss these values, they are really important</li>
-        <li>Once everything is deployed, let fueledOnBacon know these values</li>
+        <li>This will launch both the VerifySignature library and the Materia contract, it will auto verify contracts</li>
+        <li>Once everything is deployed and process verification fails, let fueledOnBacon know these values so they can verify the contract</li>
     </ul>
 </div>
 
 ## Mainnet
+Antonym 0x7e3Ef31186D1BEc0D3f35aD701D065743B84C790
 Paste in the contracts deployed on mainnet (VerifySignature, Materia)
 
 
