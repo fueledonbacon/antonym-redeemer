@@ -1,9 +1,6 @@
 <template>
   <main class="page py-16 sm:py-20 md:py-24 xl:py-32">
-    <router-link
-      class="inline-flex items-center opacity-40 mr-auto"
-      :to="{ name: 'Catalogue' }"
-    >
+    <router-link class="inline-flex items-center opacity-40 mr-auto" :to="{ name: 'Catalogue' }">
       <i class="text-2xl mdi mdi-arrow-left-thin mr-2" />
       Keep Browsing
     </router-link>
@@ -18,25 +15,14 @@
           </h3>
           <div class="mt-6 flex-grow flex flex-wrap items-start -m-1">
             <div class="w-full p-1">
-              <base-input
-                v-model="form.email"
-                title="e-mail"
-                :invalid="!form.fresh && validation.email"
-              />
+              <base-input v-model="form.email" title="e-mail" :invalid="!form.fresh && validation.email" />
             </div>
             <div class="w-full p-1">
-              <base-input
-                v-model="form.discord"
-                title="Discord ID"
-              />
+              <base-input v-model="form.discord" title="Discord ID" />
             </div>
             <div class="w-full p-1">
-              <base-input
-                v-model="form.country"
-                title="Country/Region"
-                :invalid="!form.fresh && validation.country"
-                :options="zones"
-              />
+              <base-input v-model="form.country" title="Country/Region" :invalid="!form.fresh && validation.country"
+                :options="zones" />
             </div>
           </div>
 
@@ -45,58 +31,46 @@
           </h3>
           <div class="mt-6 flex-grow flex flex-wrap items-start -m-1">
             <div class="w-full sm:w-1/2 p-1">
-              <base-input
-                v-model="form.firstName"
-                title="First name"
-                :invalid="!form.fresh && validation.firstName"
-              />
+              <base-input v-model="form.firstName" title="First name" :invalid="!form.fresh && validation.firstName" />
             </div>
             <div class="w-full sm:w-1/2 p-1">
-              <base-input
-                v-model="form.lastName"
-                title="Last name"
-                :invalid="!form.fresh && validation.lastName"
-              />
+              <base-input v-model="form.lastName" title="Last name" :invalid="!form.fresh && validation.lastName" />
             </div>
             <div class="w-full p-1">
-              <base-input
+              <input id="autocomplete" v-model="form.address1"
+                class="w-full bg-lightgrey outline-none px-2 py-3 border border-lightgrey <lg:text-xs"
+                :class="{ 'border-error': !form.fresh && validation.address1 }" type="text">
+              <div class="text-xs text-error py-1">
+                <span v-if="!form.fresh && validation.address1">
+                  {{ 'error' }}
+                </span>
+                &nbsp;
+              </div>
+              <!-- <base-input
                 v-model="form.address1"
+                ref="autocomplete"
                 title="Address Line 1"
                 :invalid="!form.fresh && validation.address1"
-              />
+              /> -->
             </div>
+
             <div class="w-full p-1">
-              <base-input
-                v-model="form.address2"
-                title="Address Line 2"
-              />
+
+              <base-input v-model="form.address2" title="Address Line 2" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input
-                v-model="form.city"
-                title="City"
-                :invalid="!form.fresh && validation.city"
-              />
+              <base-input v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input
-                v-model="form.state"
-                title="Province/State"
-                :invalid="!form.fresh && validation.state"
-              />
+              <base-input v-model="form.state" title="Province/State" :invalid="!form.fresh && validation.state" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input
-                v-model="form.zip"
-                title="Zip/Postal Code"
-                :invalid="!form.fresh && validation.zip"
-              />
+              <base-input v-model="form.zip" title="Zip/Postal Code" :invalid="!form.fresh && validation.zip" />
             </div>
           </div>
         </div>
         <div
-          class="lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0"
-        >
+          class="lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
           <h6 class="font-bold uppercase">
             Pre-Order Request
           </h6>
@@ -107,27 +81,15 @@
             order!
           </p>
 
-          <label
-            class="h-6 flex items-center mt-24 lg:mt-10"
-            for="agree"
-          >
-            <input
-              id="agree"
-              v-model="form.agree"
-              class="checkbox"
-              type="checkbox"
-            >
+          <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
+            <input id="agree" v-model="form.agree" class="checkbox" type="checkbox">
             <span class="ml-2 text-xs">
               I have read and understood the above
             </span>
           </label>
           <hr class="mt-4 mb-8">
-          <button
-            class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
-            :class="{ 'cursor-not-allowed': !form.agree }"
-            :disabled="!form.agree"
-            @click="confirm"
-          >
+          <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
+            :class="{ 'cursor-not-allowed': !form.agree }" :disabled="!form.agree" @click="confirm">
             Submit Pre-Order
           </button>
         </div>
@@ -137,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { computed, reactive, nextTick, onMounted, ref } from 'vue'
 import * as Toast from 'vue-toastification'
 import { JsonRpcSigner } from '@ethersproject/providers'
 
@@ -283,8 +245,38 @@ const confirm = async () => {
     })
   }
 }
-</script>
 
+onMounted(() => {
+  // eslint-disable-next-line
+  let autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('autocomplete')
+  )
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace()
+    form.address1 = place.formatted_address
+    // eslint-disable-next-line
+    for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
+      const componentType = component.types[0]
+      switch (componentType) {
+        case 'postal_code': {
+          form.zip = component.long_name
+          break
+        }
+        case 'locality':
+          form.city = component.long_name
+          break
+        case 'administrative_area_level_1': {
+          form.state = component.long_name
+          break
+        }
+        case 'country':
+          form.country = component.short_name
+          break
+      }
+    }
+  })
+})
+</script>
 <route>
 {
   "name": "Shipping"
