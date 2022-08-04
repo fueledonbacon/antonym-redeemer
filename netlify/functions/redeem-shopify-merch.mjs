@@ -104,9 +104,9 @@ export const handler = async (event) => {
     }
 
     // update tokens to have redeemed status, but don't update metadata
-    // for (let index = 0; index < tokens.length; index++) {
-    //   await updateToken(tokens[index].tokenID, { redeemed: true });
-    // }
+    for (let index = 0; index < tokens.length; index++) {
+      await updateToken(tokens[index].tokenID, { redeemed: true });
+    }
 
     if (hasBlack) {
       await userRedeemBlack(normalizedAddress);
@@ -154,14 +154,14 @@ export const handler = async (event) => {
 
     let tokenIDs = tokens.map((token) => token.tokenID);
 
-    // await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs);
+    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs);
 
     // update tokens to have draft order ID
-    // for (let index = 0; index < tokens.length; index++) {
-    //   await updateToken(tokens[index].tokenID, {
-    //     draft_order_id: data.body.draft_order.id,
-    //   });
-    // }
+    for (let index = 0; index < tokens.length; index++) {
+      await updateToken(tokens[index].tokenID, {
+        draft_order_id: data.body.draft_order.id,
+      });
+    }
 
     if ((await getUser(normalizedAddress)) == null) {
       await createUser({

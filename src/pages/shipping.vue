@@ -69,8 +69,8 @@
             </div>
           </div>
         </div>
-        <div
-          class="lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
+        <div v-if="!order.order.id"
+          class=" lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
           <h6 class="font-bold uppercase">
             Pre-Order Request
           </h6>
@@ -93,6 +93,89 @@
             Submit Pre-Order
           </button>
         </div>
+
+        <div v-else class="flex flex-col">
+          <div
+            class=" lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
+            <h6 class="font-bold uppercase">
+              CONFIRM ORDER
+            </h6>
+            <p class="flex flex-row justify-between items-center w-full mt-24 lg:mt-10">
+              Please select your preferred shipping option and complete your order by signing the transaction. Once your
+              order is fulfilled you will receive an e-mail with tracking information and your order confirmation
+            </p>
+            <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
+              <input id="agree" v-model="form.agree" class="checkbox" type="checkbox">
+              <span class="ml-2 text-xs">
+                I have read and understood the above
+              </span>
+            </label>
+          </div>
+
+          <div class=" lg:ml-12 2xl:ml-24 lg:p-5 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
+            <h6 class="font-bold uppercase">
+              Shipping Provider
+            </h6>
+            <hr class="mb-2 mt-24 lg:mt-20">
+            <label class="h-6 flex items-center " for="shipping_option">
+              <input id="shipping_option" v-model="shippingOption.provider" value="air" class="checkbox" type="radio"
+                name="option">
+              <p class="flex flex-row justify-between items-center w-full">
+                <span class="ml-2 text-xs">
+                  int. Air Parcel span
+                </span>
+                <span>
+                  ${{ order.order.price.air }}
+                </span>
+              </p>
+            </label>
+            <hr class="mt-2 mb-2">
+            <label class="h-6 flex items-center" for="shipping_option_ground">
+              <input id="shipping_option_ground" v-model="shippingOption.provider" value="bundled" class="checkbox"
+                type="radio" name="option">
+
+              <p class="flex flex-row justify-between items-center w-full">
+                <span class="ml-2 text-xs">
+                  Bundled
+                </span>
+                <span>
+                  ${{ order.order.price.bundled }}
+                </span>
+              </p>
+            </label>
+            <hr class="mt-2 mb-8">
+          </div>
+
+          <div
+            class=" lg:ml-12 2xl:ml-24 lg:p-5  lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
+            <h6 class="font-bold uppercase">
+              ORDER SUMMARY
+            </h6>
+              <div class="mb-2 mt-24 lg:mt-20 flex flex-col">
+                <div class="grid grid-cols-3">
+                  <span class="col-span-2">Subtotal</span>
+                  <span class="text-right">Complimentary</span>
+                </div>
+
+                <div class="grid grid-cols-3">
+                  <span class="col-span-2">Shipping and Handling</span>
+                  <span class="text-right">${{order.order.price[shippingOption.provider]|| 0}}</span>
+                </div>
+
+                <div class="grid grid-cols-3 mt-10">
+                  <span class="col-span-2">Total</span>
+                  <span class="text-right">${{order.order.price[shippingOption.provider]|| 0}} </span>
+                </div>
+              </div>
+
+              <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
+              :class="{ 'cursor-not-allowed': !shippingOption.provider }" :disabled="!shippingOption.provider"
+              @click="completeOrder">
+              CONFIRM TRANSACTION
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
@@ -133,6 +216,10 @@ const form = reactive({
   agree: false
 })
 
+const shippingOption = reactive({
+  provider: '',
+  price: 0
+})
 const validation = computed(() => ({
   email:
     !(form.email && isValidEmail(form.email)) && 'Please enter a valid email',
@@ -182,6 +269,7 @@ const createOrder = async () => {
 
   return res.json()
 }
+
 const getEthPrice = async () => {
   return await fetch(
     'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD',
@@ -192,25 +280,28 @@ const getEthPrice = async () => {
 // TODO: Move this to order completion page
 const completeOrder = async () => {
   try {
-    const orderDetails = order.order
+    const shippingFee = order.order.price[shippingOption.provider]
     // CHANGE: removing shipping charge for now
-    // const ethPrice = await getEthPrice()
-    // const txdata = {
-    //   address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
-    //   amount: (orderDetails.price / ethPrice.USD).toString()
-    // }
-    // const txHash = account.createTransaction(txdata)
-
+    const ethPrice = await getEthPrice()
+    const txdata = {
+      address: '0x47c63f02C412ba48DbA7374917275dE50B2C747D',
+      amount: (shippingFee / ethPrice.USD).toString()
+    }
+    const txHash = account.createTransaction(txdata)
     const orderCompletion = await fetch('/.netlify/functions/complete-order', {
       method: 'POST',
       headers: { Accept: 'application/json' },
       body: JSON.stringify({
-        id: orderDetails.id,
+        id: order.order.id,
         address: account.activeAccount,
-        // txhash: txHash,
+        txhash: txHash,
         redeemItems: cart.items
       })
     })
+    if (orderCompletion.status !== 200) {
+      throw new Error('Could not create draft order')
+    }
+    setTimeout(() => router.push({ name: 'Thanks' }), 1000)// redirect to thanks
   } catch (e) {
     throw new Error('Order could not be completed')
   }
@@ -225,15 +316,15 @@ const confirm = async () => {
   try {
     await account.provider?.getSigner()
     const orderDetails = await createOrder()
+
     const orderInfo = {
-      id: orderDetails.id,
-      price: orderDetails.total_price,
+      id: orderDetails.orderID,
+      price: orderDetails.shipping,
       status: 'unpaid'
     }
     order.order = orderInfo
-
     cart.clear()
-    setTimeout(() => router.push({ name: 'Thanks' }), 1000)
+    // setTimeout(() => router.push({ name: 'Thanks' }), 1000)// redirect to thanks
     await account.getAccountNFT(true)
   } catch (err: any) {
     toast.error(err.message || 'Something went wrong. Try again.', {
