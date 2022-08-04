@@ -18,11 +18,13 @@ export const { PrivacyPolicy, TermsOfUse } = legal
 
 const {
   VITE_CONTRACT_ADDRESS = '',
-  VITE_CHAIN_ID = '4'
+  VITE_CHAIN_ID = '4',
+  VITE_PAYMENT_ADDRESS = ''
 } = import.meta.env
 
 export const smartContract = {
   contractAddress: VITE_CONTRACT_ADDRESS,
   chainId: VITE_CHAIN_ID,
-  abi: antonym_abi.abi
+  abi: antonym_abi.abi,
+  paymentAddress: VITE_PAYMENT_ADDRESS
 }

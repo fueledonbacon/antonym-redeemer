@@ -1,5 +1,5 @@
 import { updateFile } from "../../common/aws-helper.mjs";
-import { completeOrder, updateOrder } from "../../common/orders-helper.mjs";
+import { completeOrder, updateOrder,setShipping } from "../../common/orders-helper.mjs";
 import {
   updateToken,
   refreshMeta,
@@ -9,7 +9,9 @@ import { userRedeemBlack } from "../../common/users.mjs";
 import { utils } from "ethers";
 
 export const handler = async function (event, context) {
-  const { id, address, txhash, redeemItems } = JSON.parse(event.body);
+  const { id, address, txhash, redeemItems,shippingDetails } = JSON.parse(event.body);
+
+
   let ethAddress = utils.getAddress(address);
 
   try {
@@ -46,6 +48,7 @@ export const handler = async function (event, context) {
     	txhash: txhash,
     }
 
+    await setShipping(id, shippingDetails)
     await updateOrder(id, paymentData); // UPDATE RECORD IN OUR COLLECTION
     await completeOrder(id) // UPDATE FROM DRAFT TO ORDER SHOPIFY
     if (hasBlack) {

@@ -7,55 +7,60 @@ const adminToken = process.env.VITE_SHOPIFY_ADMIN_TOKEN;
 const SHOPIFY_HOST = process.env.VITE_SHOPIFY_HOST;
 const shopifyRestClient = new Shopify.Clients.Rest(SHOPIFY_HOST, adminToken);
 
-export const getShippingPrice = async (_weight, _country) => {
-  try {
-    const shipingZones = await shopifyRestClient.get({
-      path: "shipping_zones",
-      type: DataType.JSON,
-    });
-    const result = shipingZones.body["shipping_zones"]
-      .filter((item) => item.countries[0].code === _country)
-      .map((zone) => zone.weight_based_shipping_rates);
-    return result[0].filter((item) => item.weight_high == _weight)[0].price;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const storeOrder = async (orderID, address, tokenIDs) => {
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection("orders");
+	const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+	const db = client.db(dbName);
+	const collection = db.collection("orders");
 
-  await collection.insertOne({
-    userAddress: address,
-    payerAddress: null,
-    payment_tx: null,
-    order_id: orderID,
-    token_ids: tokenIDs,
-  });
-  await client.close();
-  return true;
+	await collection.insertOne({
+		userAddress: address,
+		payerAddress: null,
+		payment_tx: null,
+		order_id: orderID,
+		token_ids: tokenIDs,
+	});
+	await client.close();
+	return true;
 };
 
 export const updateOrder = async (orderID, _data) => {
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection("orders");
+	const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+	const db = client.db(dbName);
+	const collection = db.collection("orders");
 
-  await collection.updateOne({ order_id: orderID }, { $set: { ..._data } });
-  await client.close();
-  return true;
+	await collection.updateOne({ order_id: orderID }, { $set: { ..._data } });
+	await client.close();
+	return true;
+};
+export const setShipping = async (orderID, _data) => {
+  console.log(orderID);
+  console.log(_data.provider);
+	const order = await shopifyRestClient.put({
+		path: `draft_orders/${orderID}`,
+		data: {
+      draft_order: {
+      id: orderID,
+      shipping_line: {
+			  custom: true,
+			  title: `${_data.provider} - ${_data.country}`,
+			  price: _data.price,
+			  code: `${_data.provider}-${_data.country}`
+      }}
+		},
+		type: DataType.JSON,
+	});
+	return order;
 };
 
-export const completeOrder = async (orderID) => {
-  const order = await shopifyRestClient.put({
-    path: `draft_orders/${orderID}/complete`,
-    data: {
-      draft_order_id: orderID,
-      payment_pending: false,
-    },
-    type: DataType.JSON,
-  });
-  return order;
+export const completeOrder = async orderID => {
+	const order = await shopifyRestClient.put({
+		path: `draft_orders/${orderID}/complete`,
+		data: {
+			draft_order_id: orderID,
+			payment_pending: false,
+		},
+		type: DataType.JSON,
+	});
+	return order;
 };

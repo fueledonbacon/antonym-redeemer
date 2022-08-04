@@ -281,7 +281,6 @@ const getEthPrice = async () => {
 const completeOrder = async () => {
   try {
     const shippingFee = order.order.price[shippingOption.provider]
-    // CHANGE: removing shipping charge for now
     const ethPrice = await getEthPrice()
     const txdata = {
       address: smartContract.paymentAddress,
@@ -295,7 +294,12 @@ const completeOrder = async () => {
         id: order.order.id,
         address: account.activeAccount,
         txhash: txHash,
-        redeemItems: cart.items
+        redeemItems: cart.items,
+        shippingDetails: {
+          price: shippingFee,
+          country: form.country,
+          provider: shippingOption.provider
+        }
       })
     })
     if (orderCompletion.status !== 200) {
