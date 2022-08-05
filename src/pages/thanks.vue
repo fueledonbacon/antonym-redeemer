@@ -4,18 +4,13 @@
       <div
         class="text-3xl my-12 md:text-4xl lg:text-5xl xl:text-6xl text-black font-medium uppercase"
       >
-        Your Reservation is Confirmed
+        Your order is Confirmed
       </div>
       <div
         class="font-light sm:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-black text-center flex flex-col items-center"
       >
-        <p>
-          This is a reservation order.
-        </p>
         <p class="mt-6">
-          We are working with our fulfillment partners to retrieve the best
-          possible shipping rates to customers. To accomplish this, we will be
-          working in waves to process reserved orders and send out shipping options.
+          We are working with our fulfillment partners to process reserved orders.
         </p>
         <!-- <div class="grid >xs:grid-rows-3 sm:grid-cols-3 gap-4 my-12 font-bold text-base sm:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] w-full max-w-[34rem]">
           <div>
@@ -31,16 +26,6 @@
             <p>ONGOING</p>
           </div>
         </div> -->
-        <p class="mt-4">
-          Once your order is queued for fulfillment, you will receive an e-mail
-          with instructions to complete redemption, requiring you to select your
-          shipping option and submit your order.
-        </p>
-        <p class="mt-4">
-          Redemption is not completed until this final step. Further, the
-          metadata of your NFT will not reflect a change to “redeemed” until
-          this shipping transaction is completed.
-        </p>
         <p class="mt-4">
           In order to finalize your order, the Antonym NFT(s) used at the time
           of reservation must remain in your wallet until your final
