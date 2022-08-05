@@ -59,13 +59,13 @@
               <base-input v-model="form.address2" title="Address Line 2" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
+              <base-input disabled v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input v-model="form.state" title="Province/State" :invalid="!form.fresh && validation.state" />
+              <base-input disabled v-model="form.state" title="Province/State" :invalid="!form.fresh && validation.state" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input v-model="form.zip" title="Zip/Postal Code" :invalid="!form.fresh && validation.zip" />
+              <base-input disabled v-model="form.zip" title="Zip/Postal Code" :invalid="!form.fresh && validation.zip" />
             </div>
           </div>
         </div>
@@ -286,7 +286,7 @@ const completeOrder = async () => {
       address: smartContract.paymentAddress,
       amount: (shippingFee / ethPrice.USD).toString()
     }
-    const txHash = account.createTransaction(txdata)
+    const txHash = await account.createTransaction(txdata)
     const orderCompletion = await fetch('/.netlify/functions/complete-order', {
       method: 'POST',
       headers: { Accept: 'application/json' },
