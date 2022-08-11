@@ -24,6 +24,17 @@ export const storeOrder = async (orderID, address, tokenIDs) => {
 	return true;
 };
 
+export const getOrder = async (orderID) => {
+	const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+	await client.connect()
+	const db = client.db(dbName)
+	const collection = db.collection('orders')
+	const document = await collection.findOne({order_id: orderID })
+	console.log(document);
+	await client.close()
+	return document
+}
+
 export const updateOrder = async (orderID, _data) => {
 	const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
 	const db = client.db(dbName);

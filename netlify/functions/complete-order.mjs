@@ -1,7 +1,8 @@
 import { updateFile } from "../../common/aws-helper.mjs";
-import { completeOrder, updateOrder,setShipping } from "../../common/orders-helper.mjs";
+import { completeOrder, updateOrder,setShipping, getOrder } from "../../common/orders-helper.mjs";
 import {
   updateToken,
+  updateTokens,
   refreshMeta,
   findToken,
 } from "../../common/token-handler.mjs";
@@ -15,19 +16,12 @@ export const handler = async function (event, context) {
   let ethAddress = utils.getAddress(address);
 
   try {
+    
     let hasBlack = redeemItems.some((item) => item.trait_type === "black");
-    // UPDATE EACH AWS KEYs FILE
+  const { token_ids } =  await getOrder(id)
 
-    let regularItems = redeemItems.filter(
-      (item) => item.trait_type !== "black"
-    );
-    let tokens = regularItems.map((item) =>
-      item.selectedTokens?.reduce((token) => token)
-    );
-
-
-    for (let index = 0; index < tokens.length; index++) {
-      const token = await findToken(tokens[index]);
+    for (let index = 0; index < token_ids.length; index++) {
+      const token = await findToken(token_ids[index]);
       if (token && token.redeemed) {
         return {
           statusCode: 400,
@@ -36,12 +30,20 @@ export const handler = async function (event, context) {
       }
     }
 
-    for (let index = 0; index < tokens.length; index++) {
-      await updateFile(tokens[index].tokenID, redeemItems[index].size);
-      await updateToken(tokens[index].tokenID, { redeemed: true });
-      await refreshMeta(tokens[index].tokenID);
-    }
 
+    let updateQuery = {
+      $set: {
+        redeemed: true
+      }
+    }
+    let filter = {draft_order_id: id}
+    await updateTokens(filter, updateQuery);
+    for (let index = 0; index < token_ids.length; index++) {
+      const element = token_ids[index];
+      await updateFile(element);
+      await refreshMeta(element);
+    }
+    
     paymentData = {
     	payerAddress: ethAddress,
     	confirmed: true,
@@ -51,9 +53,9 @@ export const handler = async function (event, context) {
     await setShipping(id, shippingDetails)
     await updateOrder(id, paymentData); // UPDATE RECORD IN OUR COLLECTION
     await completeOrder(id) // UPDATE FROM DRAFT TO ORDER SHOPIFY
-    if (hasBlack) {
-      await userRedeemBlack(ethAddress);
-    }
+    // if (hasBlack) {
+    //   await userRedeemBlack(ethAddress);
+    // }
     return { statusCode: 200, body: "OK" };
   } catch (error) {
     return { statusCode: 500, body: error.toString() };

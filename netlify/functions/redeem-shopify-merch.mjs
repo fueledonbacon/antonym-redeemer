@@ -104,9 +104,9 @@ export const handler = async (event) => {
     }
 
     // update tokens to have redeemed status, but don't update metadata
-    for (let index = 0; index < tokens.length; index++) {
-      await updateToken(tokens[index].tokenID, { redeemed: true });
-    }
+    // for (let index = 0; index < tokens.length; index++) {
+    //   await updateToken(tokens[index].tokenID, { redeemed: true });
+    // }
 
     if (hasBlack) {
       await userRedeemBlack(normalizedAddress);
