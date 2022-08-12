@@ -74,7 +74,7 @@
             We appreciate your early support.
           </p>
           <div class="font-light md:text-xl xl:text-2xl 2xl:text-3xl underline mt-18 xl:mt-auto">
-            Learn More
+            Add to Cart
           </div>
         </div>
         <img
