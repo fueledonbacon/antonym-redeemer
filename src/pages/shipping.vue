@@ -79,13 +79,11 @@
         <div v-if="!order.order.id"
           class=" lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
           <h6 class="font-bold uppercase">
-            Pre-Order Request
+            CONFIRM DETAILS
           </h6>
           <p class="text-sm mt-4">
-            Once your submit your transaction, your order will be reserved and
-            queued for processing. Once your order is ready for fulfillment, you
-            will receive instructions to configure shipping and complete your
-            order!
+            Please ensure that your shipping details are correct. If you encounter any issues, please
+            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
           </p>
 
           <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
@@ -121,7 +119,7 @@
 
           <div class=" lg:ml-12 2xl:ml-24 lg:p-5 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
             <h6 class="font-bold uppercase">
-              Shipping Provider
+              Configure Shipping
             </h6>
             <hr class="mb-2 mt-24 lg:mt-20">
             <label class="h-6 flex items-center " for="shipping_option">
@@ -129,7 +127,7 @@
                 name="option">
               <p class="flex flex-row justify-between items-center w-full">
                 <span class="ml-2 text-xs">
-                  int. Air Parcel span
+                  Express Shipping
                 </span>
                 <span>
                   ${{ order.order.price.air }}
@@ -143,7 +141,7 @@
 
               <p class="flex flex-row justify-between items-center w-full">
                 <span class="ml-2 text-xs">
-                  Bundled
+                  Standard Shipping
                 </span>
                 <span>
                   ${{ order.order.price.bundled }}
@@ -160,7 +158,7 @@
             <div class="mb-2 mt-24 lg:mt-20 flex flex-col">
               <div class="grid grid-cols-3">
                 <span class="col-span-2">Subtotal</span>
-                <span class="text-right">Complimentary</span>
+                <span class="text-right">$0</span>
               </div>
 
               <div class="grid grid-cols-3">
