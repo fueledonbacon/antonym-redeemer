@@ -88,7 +88,7 @@
               :disabled="!isBlackEnligible && !isEligible"
               @click="redeem"
             >
-              RESERVE
+              REDEEM
             </button>
           </div>
           <div class="mt-12">

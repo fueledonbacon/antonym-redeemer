@@ -28,7 +28,7 @@
           class="block w-1/2 <lg:hidden bg-hex-252525 text-white text-base text-center py-8 uppercase ml-auto"
           :to="{ name: 'Shipping' }"
         >
-          Reserve
+          CHECK OUT
         </router-link>
       </div>
     </div>
