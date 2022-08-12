@@ -6,23 +6,6 @@
       </div>
       <div
         class="font-light sm:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-black text-center flex flex-col items-center">
-        <p class="mt-6">
-          We are working with our fulfillment partners to process reserved orders.
-        </p>
-        <!-- <div class="grid >xs:grid-rows-3 sm:grid-cols-3 gap-4 my-12 font-bold text-base sm:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] w-full max-w-[34rem]">
-          <div>
-            <h4>Wave 1</h4>
-            <p>July 11-20, 2022</p>
-          </div>
-          <div>
-            <h4>Wave 2</h4>
-            <p>July 21-31, 2022</p>
-          </div>
-          <div>
-            <h4>Wave 3</h4>
-            <p>ONGOING</p>
-          </div>
-        </div> -->
         <p class="mt-4">
           Thank you for finalizing redemption of your Antonym Genesis physical. An order confirmation has been
           sent to your email.
