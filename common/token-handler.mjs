@@ -14,6 +14,16 @@ const client = new MongoClient(URI, {
   serverApi: ServerApiVersion.v1,
 });
 
+
+export const getTokens = async (filter) => {
+  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+  const db = client.db(dbName);
+  const tokens = db.collection("tokens");
+  const document = await tokens.find(filter).toArray();
+  await client.close();
+  return document;
+};
+
 export const find = async (tokenID) => {
   await client.connect();
   const db = client.db(dbName);

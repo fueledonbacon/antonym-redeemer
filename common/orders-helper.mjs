@@ -8,7 +8,7 @@ const SHOPIFY_HOST = process.env.VITE_SHOPIFY_HOST;
 const shopifyRestClient = new Shopify.Clients.Rest(SHOPIFY_HOST, adminToken);
 
 
-export const storeOrder = async (orderID, address, tokenIDs) => {
+export const storeOrder = async (orderID, address, tokenIDs, hasBlack) => {
 	const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
 	const db = client.db(dbName);
 	const collection = db.collection("orders");
@@ -19,6 +19,7 @@ export const storeOrder = async (orderID, address, tokenIDs) => {
 		payment_tx: null,
 		order_id: orderID,
 		token_ids: tokenIDs,
+		hasBlack: hasBlack
 	});
 	await client.close();
 	return true;
