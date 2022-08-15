@@ -14,6 +14,16 @@ const client = new MongoClient(URI, {
   serverApi: ServerApiVersion.v1,
 });
 
+
+export const getTokens = async (filter) => {
+  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+  const db = client.db(dbName);
+  const tokens = db.collection("tokens");
+  const document = await tokens.find(filter).toArray();
+  await client.close();
+  return document;
+};
+
 export const find = async (tokenID) => {
   await client.connect();
   const db = client.db(dbName);
@@ -45,6 +55,16 @@ export const findOrFetch = async (tokenuri, ownerAddress) => {
   return document;
 };
 
+export const updateTokens = async (filter, data) => {
+
+  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
+  const db = client.db(dbName);
+  const collection = db.collection("tokens");
+  await collection.updateMany(filter, data);
+  await client.close();
+  return true;
+};
+
 export const updateToken = async (tokenID, _data) => {
   const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
   const db = client.db(dbName);
@@ -64,10 +84,7 @@ export const getTokenOwner = async (tokenID) => {
     process.env.VITE_CHAIN_NETWORK,
     process.env.VITE_INFURA_PROJECT
   );
-  // const signer = new ethers.Wallet(
-  //   process.env.VITE_CONTRACT_OWNER_PRIVATE_KEY,
-  //   provider
-  // )
+
   const contract = new ethers.Contract(
     process.env.VITE_CONTRACT_ADDRESS,
     abi,
