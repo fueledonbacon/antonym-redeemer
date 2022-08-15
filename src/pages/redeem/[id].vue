@@ -1,12 +1,6 @@
 <template>
-  <main
-    class="page py-16 sm:py-20 md:py-24 xl:py-32"
-    :class="{ 'theme--dark': route.params.id === 'black' }"
-  >
-    <router-link
-      class="inline-flex items-center opacity-40 mr-auto"
-      :to="{ name: 'Catalogue' }"
-    >
+  <main class="page py-16 sm:py-20 md:py-24 xl:py-32" :class="{ 'theme--dark': route.params.id === 'black' }">
+    <router-link class="inline-flex items-center opacity-40 mr-auto" :to="{ name: 'Catalogue' }">
       <i class="text-2xl mdi mdi-arrow-left-thin mr-2" />
       Keep Browsing
     </router-link>
@@ -15,11 +9,7 @@
       <div class="flex flex-col md:flex-row md:items-start">
         <img
           class="w-4/5 md:w-80 lg:w-100 xl:w-140 2xl:w-200 <md:mx-auto md:mr-8 <md:mt-6 object-cover flex-grow-0 flex-shrink-0"
-          :src="capsule?.image"
-          width="800"
-          height="800"
-          :alt="capsule?.capsule_trait"
-        >
+          :src="capsule?.image" width="800" height="800" :alt="capsule?.capsule_trait">
         <div>
           <h1 class="text-2xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl uppercase">
             {{ capsule?.name }}
@@ -27,18 +17,13 @@
           <div class="text-xs uppercase opacity-60">
             /{{ capsule?.capsule_trait }}
           </div>
-          <p
-            v-if="capsule?.limited"
-            class="mt-5"
-          >
-            {{ capsule.name }} is a limited edition run 12” and 24” only accesible to holders of 4+ and 20+ Antonym NFTs.
-            Holders of 4+ NFTs can claim a complimentary {{ capsule.name }} 12”.
-            20+ holders can claim a complimentary {{ capsule.name }} 24”.
+          <p v-if="capsule?.limited" class="mt-5">
+            {{ capsule.name }} is a limited edition run 12” and 24” only accessible to holders of 4+ and 20+
+            Antonym NFTs. Holders of 4+ NFTs can claim a complimentary Antonym: Black 12”. 20+ holders.<br><br>
+            Limited to one 12” and one 24” per person. Attempting to redeem multiple Antonym: Black,
+            including from multiple wallets, may result in your order being canceled.
           </p>
-          <p
-            v-else
-            class="mt-5"
-          >
+          <p v-else class="mt-5">
             First-edition Antonym physical art toy.
             <span class="uppercase">“{{ capsule?.capsule_trait }}”</span> is the final
             capsule in a series of 30 Antonym physical editions, available for
@@ -48,10 +33,7 @@
           </p>
 
           <div class="mt-12">
-            <v-tippy
-              placement="top-start"
-              max-width="540"
-            >
+            <v-tippy placement="top-start" max-width="540">
               <i class="mdi mdi-help-circle-outline" />
 
               <template #content>
@@ -73,22 +55,16 @@
             </v-tippy> Size
           </div>
           <div class="flex flex-wrap items-center mt-2">
-            <button
-              v-for="size in (capsule?.limited ? ['12', '24'] : ['12', '24', '60'])"
-              :key="size"
+            <button v-for="size in (capsule?.limited ? ['12', '24'] : ['12', '24', '60'])" :key="size"
               class="toggle-button md:text-base mr-4 py-2 px-5 lg:px-8"
-              :class="{ 'toggle-button--active': size === options.size }"
-              :disabled="!hasMinItmes(size)"
-              @click="selectSize(size)"
-            >
+              :class="{ 'toggle-button--active': size === options.size }" :disabled="!hasMinItmes(size)"
+              @click="selectSize(size)">
               {{ size }}"
             </button>
             <button
               class="toggle-button toggle-button--active md:text-base py-2 px-8 lg:w-50 <sm:py-7 <sm:w-full <sm:mt-2 <sm:rounded-lg"
-              :disabled="!isBlackEnligible && !isEligible"
-              @click="redeem"
-            >
-              RESERVE
+              :disabled="!isBlackEnligible && !isEligible" @click="redeem">
+              REDEEM
             </button>
           </div>
           <div class="mt-12">
@@ -122,13 +98,8 @@
       </div>
     </div>
 
-    <catalogue-nft-modal
-      v-if="capsule && !capsule.limited && isEligible"
-      v-model="options.showNFTModal"
-      :capsule="capsule"
-      :size="options.size"
-      @redeem="continueOrder"
-    />
+    <catalogue-nft-modal v-if="capsule && !capsule.limited && isEligible" v-model="options.showNFTModal"
+      :capsule="capsule" :size="options.size" @redeem="continueOrder" />
   </main>
 </template>
 
