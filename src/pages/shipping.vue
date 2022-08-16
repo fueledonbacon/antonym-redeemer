@@ -20,10 +20,7 @@
             <div class="w-full p-1">
               <base-input v-model="form.discord" title="Discord ID" />
             </div>
-            <div class="w-full p-1">
-              <base-input v-model="form.country" title="Country/Region" :invalid="!form.fresh && validation.country"
-                :options="zones" />
-            </div>
+
           </div>
 
           <h3 class="font-bold text-xl uppercase mt-12">
@@ -37,7 +34,10 @@
               <base-input v-model="form.lastName" title="Last name" :invalid="!form.fresh && validation.lastName" />
             </div>
             <div class="w-full p-1">
-              <input id="autocomplete" v-model="form.address1"
+              <div class="text-base uppercase mb-2">
+                Address
+              </div>
+              <input id="autocomplete" v-model="form.address1" placeholder="Find My Address"
                 class="w-full bg-lightgrey outline-none px-2 py-3 border border-lightgrey <lg:text-xs"
                 :class="{ 'border-error': !form.fresh && validation.address1 }" type="text">
               <div class="text-xs text-error py-1">
@@ -56,29 +56,34 @@
 
             <div class="w-full p-1">
 
-              <base-input v-model="form.address2" title="Address Line 2" />
+              <base-input v-model="form.address2" title="ADDRESS LINE 2 (UNIT / APT NUMBER)" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
               <base-input disabled v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input disabled v-model="form.state" title="Province/State" :invalid="!form.fresh && validation.state" />
+              <base-input disabled v-model="form.state" title="Province/State"
+                :invalid="!form.fresh && validation.state" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input disabled v-model="form.zip" title="Zip/Postal Code" :invalid="!form.fresh && validation.zip" />
+              <base-input disabled v-model="form.zip" title="Zip/Postal Code"
+                :invalid="!form.fresh && validation.zip" />
+            </div>
+            <div class="w-full p-1">
+              <base-input v-model="form.country" title="Country/Region" :invalid="!form.fresh && validation.country"
+                :options="zones" />
             </div>
           </div>
+
         </div>
         <div v-if="!order.order.id"
           class=" lg:ml-12 2xl:ml-24 lg:p-5 mt-10 md:mt-16 lg:mt-22 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
           <h6 class="font-bold uppercase">
-            Pre-Order Request
+            CONFIRM DETAILS
           </h6>
           <p class="text-sm mt-4">
-            Once your submit your transaction, your order will be reserved and
-            queued for processing. Once your order is ready for fulfillment, you
-            will receive instructions to configure shipping and complete your
-            order!
+            Please ensure that your shipping details are correct. If you encounter any issues, please
+            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
           </p>
 
           <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
@@ -114,7 +119,7 @@
 
           <div class=" lg:ml-12 2xl:ml-24 lg:p-5 lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
             <h6 class="font-bold uppercase">
-              Shipping Provider
+              Configure Shipping
             </h6>
             <hr class="mb-2 mt-24 lg:mt-20">
             <label class="h-6 flex items-center " for="shipping_option">
@@ -122,7 +127,7 @@
                 name="option">
               <p class="flex flex-row justify-between items-center w-full">
                 <span class="ml-2 text-xs">
-                  int. Air Parcel span
+                  Express Shipping
                 </span>
                 <span>
                   ${{ order.order.price.air }}
@@ -136,7 +141,7 @@
 
               <p class="flex flex-row justify-between items-center w-full">
                 <span class="ml-2 text-xs">
-                  Bundled
+                  Standard Shipping
                 </span>
                 <span>
                   ${{ order.order.price.bundled }}
@@ -146,29 +151,28 @@
             <hr class="mt-2 mb-8">
           </div>
 
-          <div
-            class=" lg:ml-12 2xl:ml-24 lg:p-5  lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
+          <div class=" lg:ml-12 2xl:ml-24 lg:p-5  lg:border border-black lg:w-100 2xl:w-130 flex-shrink-0">
             <h6 class="font-bold uppercase">
               ORDER SUMMARY
             </h6>
-              <div class="mb-2 mt-24 lg:mt-20 flex flex-col">
-                <div class="grid grid-cols-3">
-                  <span class="col-span-2">Subtotal</span>
-                  <span class="text-right">Complimentary</span>
-                </div>
-
-                <div class="grid grid-cols-3">
-                  <span class="col-span-2">Shipping and Handling</span>
-                  <span class="text-right">${{order.order.price[shippingOption.provider]|| 0}}</span>
-                </div>
-
-                <div class="grid grid-cols-3 mt-10">
-                  <span class="col-span-2">Total</span>
-                  <span class="text-right">${{order.order.price[shippingOption.provider]|| 0}} </span>
-                </div>
+            <div class="mb-2 mt-24 lg:mt-20 flex flex-col">
+              <div class="grid grid-cols-3">
+                <span class="col-span-2">Subtotal</span>
+                <span class="text-right">$0</span>
               </div>
 
-              <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
+              <div class="grid grid-cols-3">
+                <span class="col-span-2">Shipping and Handling</span>
+                <span class="text-right">${{ order.order.price[shippingOption.provider] || 0 }}</span>
+              </div>
+
+              <div class="grid grid-cols-3 mt-10">
+                <span class="col-span-2">Total</span>
+                <span class="text-right">${{ order.order.price[shippingOption.provider] || 0 }} </span>
+              </div>
+            </div>
+
+            <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
               :class="{ 'cursor-not-allowed': !shippingOption.provider }" :disabled="!shippingOption.provider"
               @click="completeOrder">
               CONFIRM TRANSACTION
@@ -294,7 +298,6 @@ const completeOrder = async () => {
         id: order.order.id,
         address: account.activeAccount,
         txhash: txHash,
-        redeemItems: cart.items,
         shippingDetails: {
           price: shippingFee,
           country: form.country,
