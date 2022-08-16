@@ -37,7 +37,7 @@ export const handler = async (event) => {
 
     let normalizedAddress = utils.getAddress(ethAddress);
 
-    // verify valid user
+    // verify valid address a d signature. 
     try {
       let verified = await verifySignature(
         normalizedAddress,
@@ -62,7 +62,7 @@ export const handler = async (event) => {
         throw new Error("User has already redeemed black");
       }
     }
-
+    // Calculate the shipping fees for all the items in the order, will return json 
     const Shippingfees = calculateShipping(items, address)
 
     for (const item of items) {
@@ -82,7 +82,6 @@ export const handler = async (event) => {
         tokens.push(...item.selectedTokens);
       }
 
-      
       shipitems.push({
         price: 0,
         quantity: 1,
@@ -103,15 +102,6 @@ export const handler = async (event) => {
       }
     }
 
-    // update tokens to have redeemed status, but don't update metadata
-    for (let index = 0; index < tokens.length; index++) {
-      await updateToken(tokens[index].tokenID, { redeemed: true });
-    }
-
-    if (hasBlack) {
-      await userRedeemBlack(normalizedAddress);
-    }
-
     // verify ownership
     tokens.forEach(async (element) => {
       if ((await getTokenOwner(element.tokenID)) != normalizedAddress) {
@@ -119,7 +109,7 @@ export const handler = async (event) => {
       }
     });
 
-    // // create the draft order
+    // create the draft order
     const data = await shopifyRestClient.post({
       path: "draft_orders",
       data: {
@@ -154,7 +144,7 @@ export const handler = async (event) => {
 
     let tokenIDs = tokens.map((token) => token.tokenID);
 
-    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs);
+    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs, hasBlack);
 
     // update tokens to have draft order ID
     for (let index = 0; index < tokens.length; index++) {
