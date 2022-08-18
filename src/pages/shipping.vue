@@ -46,12 +46,7 @@
                 </span>
                 &nbsp;
               </div>
-              <!-- <base-input
-                v-model="form.address1"
-                ref="autocomplete"
-                title="Address Line 1"
-                :invalid="!form.fresh && validation.address1"
-              /> -->
+
             </div>
 
             <div class="w-full p-1">
@@ -83,7 +78,8 @@
           </h6>
           <p class="text-sm mt-4">
             Please ensure that your shipping details are correct. If you encounter any issues, please
-            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
+            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping
+            FAQ.</a>
           </p>
 
           <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
@@ -94,7 +90,7 @@
           </label>
           <hr class="mt-4 mb-8">
           <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
-            :class="{ 'cursor-not-allowed': !form.agree }" :disabled="!form.agree" @click="confirm">
+            :class="{ 'cursor-not-allowed': !form.agree || !hasShipping }" :disabled="!form.agree || !hasShipping" @click="confirm">
             Submit Pre-Order
           </button>
         </div>
@@ -122,7 +118,7 @@
               Configure Shipping
             </h6>
             <hr class="mb-2 mt-24 lg:mt-20">
-            <label class="h-6 flex items-center " for="shipping_option">
+            <label class="h-6 flex items-center " for="shipping_option" v-if="shippingFees.air!=null">
               <input id="shipping_option" v-model="shippingOption.provider" value="air" class="checkbox" type="radio"
                 name="option">
               <p class="flex flex-row justify-between items-center w-full">
@@ -130,12 +126,12 @@
                   Express Shipping
                 </span>
                 <span>
-                  ${{ order.order.price.air }}
+                  ${{ shippingFees.air }}
                 </span>
               </p>
             </label>
-            <hr class="mt-2 mb-2">
-            <label class="h-6 flex items-center" for="shipping_option_ground">
+
+            <label class="h-6 flex items-center" for="shipping_option_ground" v-if="shippingFees.bundled!=null">
               <input id="shipping_option_ground" v-model="shippingOption.provider" value="bundled" class="checkbox"
                 type="radio" name="option">
 
@@ -144,7 +140,7 @@
                   Standard Shipping
                 </span>
                 <span>
-                  ${{ order.order.price.bundled }}
+                  ${{ shippingFees.bundled }}
                 </span>
               </p>
             </label>
@@ -163,12 +159,12 @@
 
               <div class="grid grid-cols-3">
                 <span class="col-span-2">Shipping and Handling</span>
-                <span class="text-right">${{ order.order.price[shippingOption.provider] || 0 }}</span>
+                <span class="text-right">${{ shippingFees[shippingOption.provider] || 0 }}</span>
               </div>
 
               <div class="grid grid-cols-3 mt-10">
                 <span class="col-span-2">Total</span>
-                <span class="text-right">${{ order.order.price[shippingOption.provider] || 0 }} </span>
+                <span class="text-right">${{ shippingFees[shippingOption.provider] || 0 }} </span>
               </div>
             </div>
 
@@ -199,6 +195,14 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const toast = Toast.useToast && Toast.useToast()
+
+const shippingFees = reactive({
+  air: 0,
+  bundled: 0
+
+})
+
+const hasShipping = computed(() => shippingFees.air != null || shippingFees.bundled != null)
 
 const zones = countries.map(({ name, code }) => ({
   label: name,
@@ -344,12 +348,25 @@ const confirm = async () => {
   }
 }
 
+const getShippingFee = async () => {
+  const res = await fetch('/.netlify/functions/shipping-price', {
+    method: 'POST',
+    headers: { Accept: 'application/json' },
+    body: JSON.stringify({
+      address: { country: form.country },
+      items: [...cart.items]
+    })
+  })
+
+  return await res.json()
+}
+
 onMounted(() => {
   // eslint-disable-next-line
   let autocomplete = new google.maps.places.Autocomplete(
     document.getElementById('autocomplete')
   )
-  autocomplete.addListener('place_changed', () => {
+  autocomplete.addListener('place_changed', async () => {
     const place = autocomplete.getPlace()
     form.address1 = place.formatted_address
     // eslint-disable-next-line
@@ -372,6 +389,10 @@ onMounted(() => {
           break
       }
     }
+    const data = await getShippingFee()
+    const { air, bundled } = data?.shippingOptions
+    shippingFees.air = air
+    shippingFees.bundled = bundled
   })
 })
 </script>
