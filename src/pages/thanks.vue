@@ -6,10 +6,12 @@
       </div>
       <div
         class="font-light sm:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-black text-center flex flex-col items-center">
-        <p class="mt-4">
+        <p class="mt-4 text-center">
           Thank you for finalizing redemption of your Antonym Genesis physical. An order confirmation has been
           sent to your email.
-          Your Antonym Genesis physical will be serialized and tied immutably to the NFT(s) used for redemption.
+        </p>
+        <p class="mt-4 text-center">
+          Your Antonym Genesis physical will be serialized and tied immutably to the NFT(s) used for redemption. <br> <br>
           By redeeming your NFT(s), you are eligible to claim Materia. Materia claim will open at a later date. For
           more on Materia, please refer to our <a class="text-blue-800 underline" href="https://mirror.xyz/0xF1221282Da12b74Ba3D869E68CB13a28d7fee64C/lBfIf2SdcEEtbQqVlnQczJihl7nHsBnXH1wt9lPZIKM">Mirror Article</a>.
         </p>
