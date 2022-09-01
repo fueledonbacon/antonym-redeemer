@@ -105,7 +105,7 @@
             <h6 class="font-bold uppercase">
               CONFIRM ORDER
             </h6>
-            <p class="text-justify inline-block  w-full mt-24 lg:mt-10">
+            <p class="inline-block  w-full mt-24 lg:mt-10">
               Please select one of the available shipping options. <br> <br>
               Shipping prices are shown in USD and will be collected in ETH. Please have sufficient ETH in your wallet to complete the transaction.
               Discounted shipping rates for bulk orders may be available on a case-by-case basis. For details, please refer to our <a class="text-blue-800" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
