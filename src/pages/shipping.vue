@@ -15,10 +15,10 @@
           </h3>
           <div class="mt-6 flex-grow flex flex-wrap items-start -m-1">
             <div class="w-full p-1">
-              <base-input v-model="form.email" title="e-mail" :invalid="!form.fresh && validation.email" />
+              <base-input :disabled="isDisabled" v-model="form.email" title="e-mail" :invalid="!form.fresh && validation.email" />
             </div>
             <div class="w-full p-1">
-              <base-input v-model="form.discord" title="Discord ID" />
+              <base-input :disabled="isDisabled" v-model="form.discord" title="Discord ID" />
             </div>
 
           </div>
@@ -28,10 +28,10 @@
           </h3>
           <div class="mt-6 flex-grow flex flex-wrap items-start -m-1">
             <div class="w-full sm:w-1/2 p-1">
-              <base-input v-model="form.firstName" title="First name" :invalid="!form.fresh && validation.firstName" />
+              <base-input :disabled="isDisabled" v-model="form.firstName" title="First name" :invalid="!form.fresh && validation.firstName" />
             </div>
             <div class="w-full sm:w-1/2 p-1">
-              <base-input v-model="form.lastName" title="Last name" :invalid="!form.fresh && validation.lastName" />
+              <base-input  :disabled="isDisabled" v-model="form.lastName" title="Last name" :invalid="!form.fresh && validation.lastName" />
             </div>
             <div class="w-full p-1">
               <div class="text-base uppercase mb-2">
@@ -56,7 +56,7 @@
 
             <div class="w-full p-1">
 
-              <base-input v-model="form.address2" title="ADDRESS LINE 2 (UNIT / APT NUMBER)" />
+              <base-input :disabled="isDisabled" v-model="form.address2" title="ADDRESS LINE 2 (UNIT / APT NUMBER)" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
               <base-input disabled v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
@@ -105,9 +105,10 @@
             <h6 class="font-bold uppercase">
               CONFIRM ORDER
             </h6>
-            <p class="flex flex-row justify-between items-center w-full mt-24 lg:mt-10">
-              Please select your preferred shipping option and complete your order by signing the transaction. Once your
-              order is fulfilled you will receive an e-mail with tracking information and your order confirmation
+            <p class="inline-block  w-full mt-24 lg:mt-10">
+              Please select one of the available shipping options. <br> <br>
+              Shipping prices are shown in USD and will be collected in ETH. Please have sufficient ETH in your wallet to complete the transaction.
+              Discounted shipping rates for bulk orders may be available on a case-by-case basis. For details, please refer to our <a class="text-blue-800" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
             </p>
             <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
               <input id="agree" v-model="form.agree" class="checkbox" type="checkbox">
@@ -239,6 +240,8 @@ const validation = computed(() => ({
 const isValidForm = computed(
   () => !Object.values(validation.value).find((invalid) => !!invalid)
 )
+
+const isDisabled = computed(() => order.order.id)
 
 const createOrder = async () => {
   const signer = (await account.provider?.getSigner()) as JsonRpcSigner
