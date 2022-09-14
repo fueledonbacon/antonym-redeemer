@@ -82,8 +82,9 @@
             CONFIRM DETAILS
           </h6>
           <p class="text-sm mt-4">
-            Please ensure that your shipping details are correct. If you encounter any issues, please
-            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a>
+            Please ensure that your shipping details are correct. 
+            <!-- If you encounter any issues, please
+            refer to our <a class="text-blue-800 underline" href="https://www.antonymnft.com/redemption-faq">shipping FAQ.</a> -->
           </p>
 
           <label class="h-6 flex items-center mt-24 lg:mt-10" for="agree">
