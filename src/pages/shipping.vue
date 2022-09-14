@@ -96,7 +96,7 @@
           <hr class="mt-4 mb-8">
           <button class="toggle-button toggle-button--active w-full lg:text-base py-5 lg:py-6 rounded-none uppercase"
             :class="{ 'cursor-not-allowed': !form.agree }" :disabled="!form.agree" @click="confirm">
-            Submit Pre-Order
+            Submit Redemption
           </button>
         </div>
 
@@ -123,7 +123,7 @@
             <h6 class="font-bold uppercase">
               Configure Shipping
             </h6>
-            <hr class="mb-2 mt-24 lg:mt-20">
+            <!-- <hr class="mb-2 mt-24 lg:mt-20">
             <label class="h-6 flex items-center " for="shipping_option">
               <input id="shipping_option" v-model="shippingOption.provider" value="air" class="checkbox" type="radio"
                 name="option">
@@ -135,8 +135,8 @@
                   ${{ order.order.price.air }}
                 </span>
               </p>
-            </label>
-            <hr class="mt-2 mb-2">
+            </label> -->
+            <hr class="mt-24 lg:mt-20 mb-2">
             <label class="h-6 flex items-center" for="shipping_option_ground">
               <input id="shipping_option_ground" v-model="shippingOption.provider" value="bundled" class="checkbox"
                 type="radio" name="option">
