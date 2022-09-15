@@ -118,8 +118,8 @@
             <h6 class="font-bold uppercase">
               Configure Shipping
             </h6>
-            <!-- <hr class="mb-2 mt-24 lg:mt-20">
-            <label class="h-6 flex items-center " for="shipping_option">
+            <hr class="mb-2 mt-24 lg:mt-20">
+            <label class="h-6 flex items-center " for="shipping_option" v-if="order.order.price.air>0">
               <input id="shipping_option" v-model="shippingOption.provider" value="air" class="checkbox" type="radio"
                 name="option">
               <p class="flex flex-row justify-between items-center w-full">
@@ -130,9 +130,9 @@
                   ${{ order.order.price.air }}
                 </span>
               </p>
-            </label> -->
+            </label>
             <hr class="mt-24 lg:mt-20 mb-2">
-            <label class="h-6 flex items-center" for="shipping_option_ground">
+            <label class="h-6 flex items-center" for="shipping_option_ground"  v-if="order.order.price.bundled>0">
               <input id="shipping_option_ground" v-model="shippingOption.provider" value="bundled" class="checkbox"
                 type="radio" name="option">
 
