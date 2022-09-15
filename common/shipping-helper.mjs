@@ -3,23 +3,28 @@ export const calculateShipping = (items,address) => {
   try {
     let air = 0
     let bundled = 0
+    items = items.sort()
+    items = items.reverse()
     items.forEach((item) => {
+      console.log(item)
       if(prices["AIR"][address.country][item.size]==0){
         air=null
         console.log("error");
-        return false;
+        
+
+        return  air=0
       } else {
         air += prices["AIR"][address.country][item.size]
       }
     })
     items.forEach((item) => {
-      if(prices["BUNDLED"][address.country][item.size]==0){
-        console.log("error");
+      console.log(item)
+      if(prices["BUNDLED"][address.country][item.size]==0) {
         bundled=null
-        return false;
+
+        return bundled=0
       } else {
-        console.log('entro')
-        bundled += prices["BUNDLED"][address.country][item.size]
+        bundled+= prices["BUNDLED"][address.country][item.size]
       }
     })
     
