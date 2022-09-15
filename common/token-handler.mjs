@@ -76,7 +76,7 @@ export const updateToken = async (tokenID, _data) => {
 };
 export const refreshMeta = async (tokenID) => {
   https.get(
-    `https://testnets-api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
+    `https://opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
   );
 };
 export const getTokenOwner = async (tokenID) => {
