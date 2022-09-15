@@ -13,20 +13,29 @@ const client = new MongoClient(URI, {
   serverApi: ServerApiVersion.v1,
 });
 
+const useCollection = async (collectionName) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName);
+  return collection
+}
 
 export const getTokens = async (filter) => {
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const tokens = db.collection("tokens");
+  const tokens = await useCollection("tokens");
   const document = await tokens.find(filter).toArray();
   await client.close();
   return document;
 };
 
+export const listRedeemedTokens = async () => {
+  const tokens = await useCollection("tokens");
+  const document = await tokens.find(filter).toArray();
+  await client.close();
+  return document;
+}
+
 export const find = async (tokenID) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = await useCollection("tokens");
   let document = await collection.findOne({ tokenID: tokenID });
   if (!document) {
     document = await fetchNftById(tokenID);
@@ -35,10 +44,8 @@ export const find = async (tokenID) => {
 };
 
 export const findOrFetch = async (tokenuri, ownerAddress) => {
-  await client.connect();
   const nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = await useCollection("tokens");
   const document = await collection.findOne({ tokenID: nftID });
   if (document == null) {
     try {
@@ -55,20 +62,14 @@ export const findOrFetch = async (tokenuri, ownerAddress) => {
 };
 
 export const updateTokens = async (filter, data) => {
-
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = await useCollection("tokens");
   await collection.updateMany(filter, data);
   await client.close();
   return true;
 };
 
 export const updateToken = async (tokenID, _data) => {
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
-
+  const collection = await useCollection("tokens");
   await collection.updateOne({ tokenID }, { $set: { ..._data } });
   await client.close();
   return true;
@@ -128,9 +129,7 @@ export const fetchNftById = async (tokenId) => {
 };
 
 export const findToken = async (tokenID) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = await useCollection("tokens");
   const document = await collection.findOne({ tokenID });
   return document;
 };
