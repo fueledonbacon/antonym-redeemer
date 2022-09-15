@@ -7,7 +7,6 @@ const https = require("https");
 const URI = process.env.VITE_MONGODB_URL;
 const dbName = process.env.VITE_MONGODB_NAME;
 const scAddress = process.env.VITE_CONTRACT_ADDRESS;
-const isTestnet = true;
 const client = new MongoClient(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -76,7 +75,7 @@ export const updateToken = async (tokenID, _data) => {
 };
 export const refreshMeta = async (tokenID) => {
   https.get(
-    `https://opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
+    `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
   );
 };
 export const getTokenOwner = async (tokenID) => {

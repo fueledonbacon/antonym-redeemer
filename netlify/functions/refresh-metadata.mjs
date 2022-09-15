@@ -2,14 +2,9 @@ import { post } from 'axios'
 
 export const handler = async (event, context) => {
 	try {
-		const body = JSON.parse(event.body)
-
-		const { contractAddress, tokenID, isTestnet } = body
-
+		const id = event.queryStringParameters.id
 		const data = await post(
-			`https://${
-				isTestnet ? 'testnets-' : ''
-			}api.opensea.io/api/v1/asset/${contractAddress}/${tokenID}/?force_update=true`
+			`https://api.opensea.io/api/v1/asset/${process.env.VITE_CONTRACT_ADDRESS}/${id}/?force_update=true`
 		)
 
 		return {
