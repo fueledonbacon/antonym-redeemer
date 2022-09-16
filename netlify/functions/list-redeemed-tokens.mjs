@@ -5,7 +5,10 @@ export const handler = async (event, context) => {
 		const data = await listRedeemedTokens()
 		return {
 			statusCode: 200,
-			body: JSON.stringify({ data }),
+			body: JSON.stringify({
+				count: data.length,
+				tokens: data
+			}),
 		}
 	} catch (error) {
 		console.log('Error:', error)
