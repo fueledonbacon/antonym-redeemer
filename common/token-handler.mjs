@@ -7,11 +7,13 @@ const https = require("https");
 const URI = process.env.VITE_MONGODB_URL;
 const dbName = process.env.VITE_MONGODB_NAME;
 const scAddress = process.env.VITE_CONTRACT_ADDRESS;
+
 const client = new MongoClient(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
+
 
 const useCollection = async (collectionName) => {
   await client.connect();

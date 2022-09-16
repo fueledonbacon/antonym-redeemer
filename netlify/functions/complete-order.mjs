@@ -1,10 +1,8 @@
 import { updateFile } from "../../common/aws-helper.mjs";
 import { completeOrder, updateOrder,setShipping, getOrder } from "../../common/orders-helper.mjs";
 import {
-  updateToken,
   updateTokens,
   refreshMeta,
-  findToken,
   getTokens,
 } from "../../common/token-handler.mjs";
 import { userRedeemBlack } from "../../common/users.mjs";
@@ -18,8 +16,8 @@ export const handler = async function (event, context) {
 
   try {
 
-    let fitler = { draft_order_id: id}
-    const tokens = await getTokens(fitler)
+    const tokensAssociatedWithOrder = { draft_order_id: id}
+    const tokens = await getTokens(tokensAssociatedWithOrder)
     const order = await getOrder(id)
     const token_ids = tokens.map((token) => token.tokenID)
 
@@ -36,11 +34,10 @@ export const handler = async function (event, context) {
         redeemed: true
       }
     }    
-    let filter = {draft_order_id: id}
     if(order.hasBlack){
       await userRedeemBlack(order.userAddress);
     }
-    await updateTokens(filter, updateQuery);
+    await updateTokens(tokensAssociatedWithOrder, updateQuery);
 
     for (let index = 0; index < token_ids.length; index++) {
       const element = token_ids[index];
