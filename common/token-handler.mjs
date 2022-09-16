@@ -28,10 +28,11 @@ export const getTokens = async (filter) => {
 };
 
 export const listRedeemedTokens = async () => {
-  const tokens = await useCollection("tokens");
-  const document = await tokens.find(filter).toArray();
+  const collection = await useCollection("tokens");
+  const arr = await collection.find({ redeemed: true }).toArray();
   await client.close();
-  return document;
+  const ids = arr.map(doc => doc.tokenID)
+  return ids;
 }
 
 export const find = async (tokenID) => {
@@ -74,11 +75,13 @@ export const updateToken = async (tokenID, _data) => {
   await client.close();
   return true;
 };
+
 export const refreshMeta = async (tokenID) => {
   https.get(
     `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
   );
 };
+
 export const getTokenOwner = async (tokenID) => {
   const provider = new ethers.providers.InfuraProvider(
     process.env.VITE_CHAIN_NETWORK,

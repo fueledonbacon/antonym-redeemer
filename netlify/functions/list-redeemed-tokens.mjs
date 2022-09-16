@@ -1,14 +1,11 @@
-import { refreshMeta } from "../../common/token-handler.mjs"
+import { listRedeemedTokens } from "../../common/token-handler.mjs"
 
 export const handler = async (event, context) => {
 	try {
-		const data = await refreshMeta(event.queryStringParamters.id)
+		const data = await listRedeemedTokens()
 		return {
 			statusCode: 200,
-			body: JSON.stringify({
-				called: uri,
-				data
-			}),
+			body: JSON.stringify({ data }),
 		}
 	} catch (error) {
 		console.log('Error:', error)
