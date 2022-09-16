@@ -78,7 +78,11 @@ export const updateToken = async (tokenID, _data) => {
 
 export const refreshMeta = async (tokenID) => {
   https.get(
-    `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
+    `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`,{
+      headers: {
+        'X-API-KEY': process.env.OPENSEA_API_KEY
+      }
+    }
   );
 };
 
