@@ -8,11 +8,7 @@
         <h1 class="text--4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl uppercase">
           Catalogue
         </h1>
-        <p class="catalogue__description">
-          Capsules eligible for redemption are marked with the A symbol.
-          To redeem a physical, select your desired capsule.
-          All available capsules are listed below.
-        </p>
+
       </div>
 
       <div class="flex items-center justify-between max-w-sm md:max-w-md mb-6">
@@ -70,11 +66,11 @@
             Antonym: Black
           </h2>
           <p class="font-light md:text-xl xl:text-2xl 2xl:text-3xl">
-            Holders with 4 or more Antonyms are eligible to redeem a limited-edition 24” Antonym: Black.
+            Holders of 4 or more Antonyms are eligible to redeem a limited-edition 12" Antonym: Black. Holders of 20+ Antonyms are eligible to redeem a limited-edition 24" Antonym: Black.
             We appreciate your early support.
           </p>
           <div class="font-light md:text-xl xl:text-2xl 2xl:text-3xl underline mt-18 xl:mt-auto">
-            Learn More
+            Add to Cart
           </div>
         </div>
         <img
