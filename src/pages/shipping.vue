@@ -59,14 +59,14 @@
               <base-input :disabled="isDisabled" v-model="form.address2" title="ADDRESS LINE 2 (UNIT / APT NUMBER)" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input disabled v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
+              <base-input :disabled="isDisabled"  v-model="form.city" title="City" :invalid="!form.fresh && validation.city" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input disabled v-model="form.state" title="Province/State"
+              <base-input :disabled="isDisabled" v-model="form.state" title="Province/State"
                 :invalid="!form.fresh && validation.state" />
             </div>
             <div class="w-full sm:w-1/2 xl:w-1/3 p-1">
-              <base-input disabled v-model="form.zip" title="Zip/Postal Code"
+              <base-input :disabled="isDisabled" v-model="form.zip" title="Zip/Postal Code"
                 :invalid="!form.fresh && validation.zip" />
             </div>
             <div class="w-full p-1">
