@@ -45,7 +45,7 @@ export const handler = async function (event, context) {
     for (let index = 0; index < token_ids.length; index++) {
       const element = token_ids[index];
       await updateFile("json/" + element);
-      await refreshMeta();
+      await refreshMeta(element);
     }
     
 
