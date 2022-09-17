@@ -6,7 +6,7 @@
     >
       {{ title }}
     </div>
-    <select disabled
+    <select 
       v-if="options"
       v-model="value"
       class="w-full bg-lightgrey outline-none px-2 py-3 border border-lightgrey <lg:text-xs"
