@@ -9,8 +9,7 @@ import { userRedeemBlack } from "../../common/users.mjs";
 import { utils } from "ethers";
 
 export const handler = async function (event, context) {
-  const { id, address, txhash,shippingDetails } = JSON.parse(event.body);
-
+  const { id, address, txhash, shippingDetails } = JSON.parse(event.body);
 
   let ethAddress = utils.getAddress(address);
 

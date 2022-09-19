@@ -19,7 +19,7 @@
           </div>
           <p v-if="capsule?.limited" class="mt-5">
             {{ capsule.name }} is a limited edition run 12” and 24” only accessible to holders of 4+ and 20+
-            Antonym NFTs. Holders of 4+ NFTs can claim a complimentary Antonym: Black 12”. 20+ holders.<br><br>
+            Antonym NFTs. Holders of 4+ NFTs can claim a complimentary Antonym: Black 12”. 20+ holders can claim a complimentary Antonym: Black 24".<br><br>
             Limited to one 12” and one 24” per person. Attempting to redeem multiple Antonym: Black,
             including from multiple wallets, may result in your order being canceled.
           </p>
