@@ -110,7 +110,8 @@ const hasOneTrait = computed(() => selectedItems.value.map(
 ))
 
 const canRedeem = computed(() => {
-  if (!hasOneTrait.value) { return false }
+
+  if (hasOneTrait.value[0]) { return true } 
   if (selectedItems.value.length < itemsLimit.value) { return false }
   for (const item of selectedItems.value) {
     if (getCapsuleTrait(item) === props.capsule.capsule_trait) {
