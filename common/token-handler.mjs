@@ -7,18 +7,48 @@ const https = require("https");
 const URI = process.env.VITE_MONGODB_URL;
 const dbName = process.env.VITE_MONGODB_NAME;
 const scAddress = process.env.VITE_CONTRACT_ADDRESS;
-const isTestnet = true;
+
 const client = new MongoClient(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
 
-export const findOrFetch = async (tokenuri, ownerAddress) => {
+
+const useCollection = async (collectionName) => {
   await client.connect();
-  const nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
   const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = db.collection(collectionName);
+  return collection
+}
+
+export const getTokens = async (filter) => {
+  const tokens = await useCollection("tokens");
+  const document = await tokens.find(filter).toArray();
+  await client.close();
+  return document;
+};
+
+export const listRedeemedTokens = async () => {
+  const collection = await useCollection("tokens");
+  const arr = await collection.find({ redeemed: true }).toArray();
+  await client.close();
+  const ids = arr.map(doc => doc.tokenID)
+  return ids;
+}
+
+export const find = async (tokenID) => {
+  const collection = await useCollection("tokens");
+  let document = await collection.findOne({ tokenID: tokenID });
+  if (!document) {
+    document = await fetchNftById(tokenID);
+  }
+  return document;
+};
+
+export const findOrFetch = async (tokenuri, ownerAddress) => {
+  const nftID = tokenuri.substring(tokenuri.lastIndexOf("/") + 1);
+  const collection = await useCollection("tokens");
   const document = await collection.findOne({ tokenID: nftID });
   if (document == null) {
     try {
@@ -34,29 +64,36 @@ export const findOrFetch = async (tokenuri, ownerAddress) => {
   return document;
 };
 
-export const updateToken = async (tokenID, _data) => {
-  const client = await MongoClient.connect(URI, { useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+export const updateTokens = async (filter, data) => {
+  const collection = await useCollection("tokens");
+  await collection.updateMany(filter, data);
+  await client.close();
+  return true;
+};
 
+export const updateToken = async (tokenID, _data) => {
+  const collection = await useCollection("tokens");
   await collection.updateOne({ tokenID }, { $set: { ..._data } });
   await client.close();
   return true;
 };
+
 export const refreshMeta = async (tokenID) => {
   https.get(
-    `https://testnets-api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`
+    `https://api.opensea.io/api/v1/asset/${scAddress}/${tokenID}/?force_update=true`,{
+      headers: {
+        'X-API-KEY': process.env.OPENSEA_API_KEY
+      }
+    }
   );
 };
+
 export const getTokenOwner = async (tokenID) => {
   const provider = new ethers.providers.InfuraProvider(
     process.env.VITE_CHAIN_NETWORK,
     process.env.VITE_INFURA_PROJECT
   );
-  // const signer = new ethers.Wallet(
-  //   process.env.VITE_CONTRACT_OWNER_PRIVATE_KEY,
-  //   provider
-  // )
+
   const contract = new ethers.Contract(
     process.env.VITE_CONTRACT_ADDRESS,
     abi,
@@ -81,10 +118,27 @@ const fetchNft = async (tokenuri) => {
   return await httpRequest(tokenuri);
 };
 
+export const fetchNftById = async (tokenId) => {
+  const httpRequest = (url) => {
+    return new Promise((resolve, reject) => {
+      https
+        .get(url, (res) => {
+          res.setEncoding("utf8");
+          let body = "";
+          res.on("data", (chunk) => (body += chunk));
+          res.on("end", () => resolve(body));
+        })
+        .on("error", reject);
+    });
+  };
+  const text = await httpRequest(
+    "https://antonymnft.s3.us-west-1.amazonaws.com/json/" + tokenId
+  );
+  return JSON.parse(text);
+};
+
 export const findToken = async (tokenID) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("tokens");
+  const collection = await useCollection("tokens");
   const document = await collection.findOne({ tokenID });
   return document;
 };

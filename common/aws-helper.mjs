@@ -9,7 +9,8 @@ AWS.config.update({
 const bucketName = process.env.VITE_BUCKET_NAME
 const S3 = new AWS.S3()
 
-export const updateFile = async (_key, _phygital) => {
+export const updateFile = async (_key) => {
+  console.log(`key: ${_key}`);
   let content
   const getParams = {
     Bucket: bucketName,

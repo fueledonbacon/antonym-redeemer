@@ -18,7 +18,7 @@
 		"capsule_number": "003",
 		"image": "/images/catalogue/arcade.png",
 		"name": "Akihabara",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "azul",
@@ -60,7 +60,7 @@
 		"capsule_number": "009",
 		"image": "/images/catalogue/deco.png",
 		"name": "La Verre De Vin",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "dos",
@@ -137,7 +137,7 @@
 		"capsule_number": "020",
 		"image": "/images/catalogue/moma.png",
 		"name": "Dole Money",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "nirvana",
@@ -200,7 +200,7 @@
 		"capsule_number": "029",
 		"image": "/images/catalogue/woodstock.png",
 		"name": "Loves Me Not",
-		"type": "high-gloss"
+		"type": "rubberized matte"
 	},
 	{
 		"capsule_trait": "harajuku",

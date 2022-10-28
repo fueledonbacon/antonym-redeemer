@@ -44,7 +44,7 @@
               class="text-base mdi mdi-check-circle mr-1"
             />
             <span v-if="form.status">
-              STATUS: PENDING REDEMPTION
+              STATUS: REDEEMED
             </span>
             <span v-else>
               STATUS: UNREDEEMED

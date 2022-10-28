@@ -6,7 +6,7 @@
     >
       {{ title }}
     </div>
-    <select
+    <select disabled
       v-if="options"
       v-model="value"
       class="w-full bg-lightgrey outline-none px-2 py-3 border border-lightgrey <lg:text-xs"
@@ -27,6 +27,7 @@
       :class="{ 'border-error': invalid }"
       type="text"
       :data-mask="mask"
+      :disabled="disabled"
     >
     <div class="text-xs text-error py-1">
       <span v-if="invalid">
@@ -46,6 +47,7 @@ const emit = defineEmits<{
 const props = defineProps<{
   modelValue: string
   title: string,
+  disabled?: boolean
   invalid?: boolean | string,
   mask?: string,
   options?: { label: string, value: string }[]

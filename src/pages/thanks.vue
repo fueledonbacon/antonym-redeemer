@@ -1,50 +1,19 @@
 <template>
   <main class="page flex flex-col items-center text-center">
     <div class="max-w-2xl my-auto">
-      <div
-        class="text-3xl my-12 md:text-4xl lg:text-5xl xl:text-6xl text-black font-medium uppercase"
-      >
-        Your Reservation is Confirmed
+      <div class="text-3xl my-12 md:text-4xl lg:text-5xl xl:text-6xl text-black font-medium uppercase">
+        Your order is Confirmed
       </div>
       <div
-        class="font-light sm:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-black text-center flex flex-col items-center"
-      >
-        <p>
-          This is a reservation order.
+        class="font-light sm:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-black text-center flex flex-col items-center">
+        <p class="mt-4 text-center">
+          Thank you for finalizing redemption of your Antonym Genesis physical. An order confirmation has been
+          sent to your email.
         </p>
-        <p class="mt-6">
-          We are working with our fulfillment partners to retrieve the best
-          possible shipping rates to customers. To accomplish this, we will be
-          working in waves to process reserved orders and send out shipping options.
-        </p>
-        <!-- <div class="grid >xs:grid-rows-3 sm:grid-cols-3 gap-4 my-12 font-bold text-base sm:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] w-full max-w-[34rem]">
-          <div>
-            <h4>Wave 1</h4>
-            <p>July 11-20, 2022</p>
-          </div>
-          <div>
-            <h4>Wave 2</h4>
-            <p>July 21-31, 2022</p>
-          </div>
-          <div>
-            <h4>Wave 3</h4>
-            <p>ONGOING</p>
-          </div>
-        </div> -->
-        <p class="mt-4">
-          Once your order is queued for fulfillment, you will receive an e-mail
-          with instructions to complete redemption, requiring you to select your
-          shipping option and submit your order.
-        </p>
-        <p class="mt-4">
-          Redemption is not completed until this final step. Further, the
-          metadata of your NFT will not reflect a change to “redeemed” until
-          this shipping transaction is completed.
-        </p>
-        <p class="mt-4">
-          In order to finalize your order, the Antonym NFT(s) used at the time
-          of reservation must remain in your wallet until your final
-          transaction.
+        <p class="mt-4 text-center">
+          Your Antonym Genesis physical will be serialized and tied immutably to the NFT(s) used for redemption. <br> <br>
+          By redeeming your NFT(s), you are eligible to claim Materia. Materia claim will open at a later date. For
+          more on Materia, please refer to our <a class="text-blue-800 underline" href="https://mirror.xyz/0xF1221282Da12b74Ba3D869E68CB13a28d7fee64C/lBfIf2SdcEEtbQqVlnQczJihl7nHsBnXH1wt9lPZIKM">Mirror Article</a>.
         </p>
       </div>
       <div class="text-[10px] xl:text-[12px] 2xl:text-[14px]">

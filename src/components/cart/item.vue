@@ -58,7 +58,7 @@
       </div>
 
       <div class="<sm:text-xs flex items-center opacity-40 font-bold cursor-pointer">
-        Learn More
+        Add to Cart
         <img
           class="ml-2 <sm:hidden"
           src="/images/continue-white.svg"

@@ -6,6 +6,7 @@ import {
 } from "../../common/token-handler.mjs";
 import { verifySignature } from "../../common/verify-signer.mjs";
 import { storeOrder } from "../../common/orders-helper.mjs";
+import { calculateShipping } from "../../common/shipping-helper.mjs";
 import {
   createUser,
   getUser,
@@ -36,7 +37,7 @@ export const handler = async (event) => {
 
     let normalizedAddress = utils.getAddress(ethAddress);
 
-    // verify valid user
+    // verify valid address a d signature. 
     try {
       let verified = await verifySignature(
         normalizedAddress,
@@ -61,6 +62,8 @@ export const handler = async (event) => {
         throw new Error("User has already redeemed black");
       }
     }
+    // Calculate the shipping fees for all the items in the order, will return json 
+    const Shippingfees = calculateShipping(items, address)
 
     for (const item of items) {
       if (!item) {
@@ -97,15 +100,6 @@ export const handler = async (event) => {
           body: `Token ${token.tokenID} already redeemed`,
         };
       }
-    }
-
-    // update tokens to have redeemed status, but don't update metadata
-    for (let index = 0; index < tokens.length; index++) {
-      await updateToken(tokens[index].tokenID, { redeemed: true });
-    }
-
-    if (hasBlack) {
-      await userRedeemBlack(normalizedAddress);
     }
 
     // verify ownership
@@ -150,7 +144,7 @@ export const handler = async (event) => {
 
     let tokenIDs = tokens.map((token) => token.tokenID);
 
-    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs);
+    await storeOrder(data.body.draft_order.id, normalizedAddress, tokenIDs, hasBlack);
 
     // update tokens to have draft order ID
     for (let index = 0; index < tokens.length; index++) {
@@ -167,7 +161,11 @@ export const handler = async (event) => {
       });
     }
 
-    return { statusCode: 200, body: JSON.stringify(data.body.draft_order) };
+    const response = { 
+      orderID: data.body.draft_order.id,
+      shipping: Shippingfees
+    }
+    return { statusCode: 200, body: JSON.stringify(response)};
   } catch (error) {
     return { statusCode: 500, body: error.toString() };
   }
