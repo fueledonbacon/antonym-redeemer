@@ -8,7 +8,7 @@
  require('hardhat-contract-sizer');
 
  const { 
-  ALCHEMY_RINKEBY_API_KEY,
+  ALCHEMY_GOERLI_API_KEY,
   ALCHEMY_MAINNET_API_KEY,
   CONTRACT_OWNER_PRIVATE_KEY,
   ETHERSCAN_API_KEY
@@ -19,12 +19,12 @@ module.exports = {
   defaultNetwork: "localhost",
   networks: {
     localhost: {},
-    rinkeby: {
-      url: `https://eth-rinkeby.alchemyapi.io/v2/${ALCHEMY_RINKEBY_API_KEY}`,
-      accounts: [CONTRACT_OWNER_PRIVATE_KEY]
-    },
     mainnet: {
       url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_MAINNET_API_KEY}`,
+      accounts: [CONTRACT_OWNER_PRIVATE_KEY]
+    },
+    goerli: {
+      url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_GOERLI_API_KEY}`,
       accounts: [CONTRACT_OWNER_PRIVATE_KEY]
     }
   },
