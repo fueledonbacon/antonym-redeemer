@@ -15,6 +15,11 @@ const NETWORK = "goerli"
 
 async function main() {
 
+    // const Antonym = await ethers.getContractFactory("AntonymMock")
+    // const antonym = await Antonym.deploy();
+    // await antonym.deployed()
+    // updateOutput(outputPath, { ANTONYM: antonym.address })
+
     console.log("Deploying Materia contract")
     const Materia = await ethers.getContractFactory("Materia");
     const materia = await Materia.deploy(...args)
@@ -28,7 +33,7 @@ async function main() {
     console.log("Verifying Materia contract")
     try {
         await attemptVerification(
-            materia.address,
+            antonym.address,
             path
         );
     } catch (e) {
@@ -57,7 +62,7 @@ async function attemptVerification(address, path) {
 
 async function verify(address, path) {
     try {
-        const { stdout, stderr } = await exec(`npx hardhat verify ${address} --network ${NETWORK} --constructor-args ${path}  `);
+        const { stdout, stderr } = await exec(`npx hardhat verify ${address} --network ${NETWORK}   `);
         console.log('stdout:', stdout);
     } catch (e) {
         console.error(e); // should contain code (exit code) and signal (that caused the termination).

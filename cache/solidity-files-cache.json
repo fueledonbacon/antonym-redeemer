@@ -1452,8 +1452,8 @@
       ]
     },
     "/home/santiago/projects/fueled-on-bacon/antonym-redeemer/contracts/mocks/AntonymMock.sol": {
-      "lastModificationDate": 1658424006679,
-      "contentHash": "f9a8bc7b27f3cac415be565a2e3934eb",
+      "lastModificationDate": 1667328343979,
+      "contentHash": "01a7b3cfcb0bc8e965b8576df83ab54e",
       "sourceName": "contracts/mocks/AntonymMock.sol",
       "solcConfig": {
         "version": "0.8.13",

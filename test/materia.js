@@ -29,6 +29,8 @@ describe("Materia ERC1155 Contract", function () {
     this.beforeAll(async function() {
         signers = await ethers.getSigners();
         REVENUE_RECIPIENT = signers[0].address
+
+        
     })
   
     beforeEach(async function () {

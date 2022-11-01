@@ -9,16 +9,16 @@ const antonym1on1TokenIds = [
  8683, 8763, 8876
 ]
 
-const SIGNER = "0x05db46B2588ebB55B4525b5d6103F41a776f9ec2" //signer
-const ANTONYM = "0x1D261575254526B124B8382a1c0113a911733ce4"
+const SIGNER = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" //signer
+const ANTONYM = "0x1f31CAB258e28e32BFc8F4666a12f686dfD95b25"
 
 
 module.exports = [
     "MATERIA", //Token Name
     "MAT", //Token Symbol
     "https://antonymnft.s3.us-west-1.amazonaws.com/json/", //Token URI
-    1666998000, //starts Friday, October 28, 2022 6:00:00 PM GMT-05:00
-    1669676400, //ends Monday, November 28, 2022 6:00:00 PM GMT-05:00
+    1667340000, //starts Tuesday, November 1, 2022 5:00:00 PM GMT-05:00
+    1669932000, //ends Thursday, December 1, 2022 5:00:00 PM GMT-05:00
     SIGNER, //TODO: signer
     ANTONYM, //Antonym ERC721 Token
     antonym1on1TokenIds,

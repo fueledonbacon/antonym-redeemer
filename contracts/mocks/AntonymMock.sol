@@ -12,8 +12,6 @@ contract AntonymMock is ERC721A, Ownable {
     constructor() ERC721A("Antonym", "ANTONYM") {
         baseURI = "https://antonymnft.s3.us-west-1.amazonaws.com/json/";
     }
-
-  
     
     /**
      * @notice release reserve
@@ -23,10 +21,6 @@ contract AntonymMock is ERC721A, Ownable {
     {
         _safeMint(_account, _quantity);
     }
-
-  
-
-   
 
     /**
      * @notice token URI
