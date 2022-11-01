@@ -28,6 +28,7 @@ async function getSignature(tokens, address) {
   const antonym = new ethers.Contract(antonymAdd, getAntonymAbi(), signer);
 
   const verified = [];
+  console.log(tokens)
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
@@ -46,8 +47,11 @@ async function getSignature(tokens, address) {
 }
 
 export const handler = async function (event, context) {
+  console.log(event.body, materiaAdd, antonymAdd, MATERIA_NETWORK, MATERIA_SIGNING_KEY)
+  console.log(JSON.parse(event.body))
   try {
     const { tokens, address } = JSON.parse(event.body);
+    
     const signedMessage = await getSignature(tokens, address);
     return {
       headers: {
