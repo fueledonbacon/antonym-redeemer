@@ -28,6 +28,7 @@ async function getSignature(tokens, address) {
   const antonym = new ethers.Contract(antonymAdd, getAntonymAbi(), signer);
 
   const verified = [];
+  console.log(tokens)
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
