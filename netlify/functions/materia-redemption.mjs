@@ -29,9 +29,16 @@ async function getSignature(tokens, address) {
 
   const verified = [];
   console.log(tokens)
+  const antonymTokenURI = "https://redemption.fueledonbacon.co/.netlify/functions/metadata-proxy?id"
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
+      let res = await fetchResource(`${antonymTokenURI}=${t}`);
+      res.attributes.map(async a => {
+        if (a.value.toLowerCase() !== "redeemed") {
+          throw new Error(`Resource not redeemable #${t}`);
+        }
+      })
       if (owner.toLowerCase() !== address.toLowerCase())
         throw new Error(`You are not owner of token ID #${t}`);
       const redeemed = (await materia.isAntonymTokenUsed(t)).toNumber();
@@ -70,3 +77,14 @@ export const handler = async function (event, context) {
     };
   }
 };
+
+
+async function fetchResource(url) {
+  try {
+      let res = await fetch(url)
+      res = await res.json()
+      return res
+  } catch (e) {
+      console.log(e)
+  }
+}
