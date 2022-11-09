@@ -35,14 +35,14 @@ async function getSignature(tokens, address) {
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
-      let res = await fetchNftById(t);
-      console.log(res)
-      console.log(res)
-      res.attributes.map(async a => {
-        if (a.value.toLowerCase() !== "redeemed") {
-          throw new Error(`Resource not redeemable #${t}`);
-        }
-      })
+      // let res = await fetchNftById(t);
+      // console.log(res)
+      // console.log(res)
+      // res.attributes.map(async a => {
+      //   if (a.value.toLowerCase() !== "redeemed") {
+      //     throw new Error(`Resource not redeemable #${t}`);
+      //   }
+      // })
       if (owner.toLowerCase() !== address.toLowerCase())
         throw new Error(`You are not owner of token ID #${t}`);
       const redeemed = (await materia.isAntonymTokenUsed(t)).toNumber();
