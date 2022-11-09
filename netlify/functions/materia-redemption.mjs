@@ -3,8 +3,7 @@ import {
   getAntonymAbi,
   getMateriaAbi,
 } from "../../common/materia-functions.mjs";
-import axios from "axios"
-import { fetchNftById, findToken } from "../../common/token-handler.mjs";
+import { findToken } from "../../common/token-handler.mjs";
 
 const {
   MATERIA_NETWORK,
@@ -31,17 +30,13 @@ async function getSignature(tokens, address) {
 
   const verified = [];
   console.log(tokens)
-  const antonymTokenURI = "https://redemption.fueledonbacon.co/.netlify/functions/metadata-proxy?id"
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
       let res = await findToken(t.toString());
-      console.log("res" , res, t)
-      res.attributes.map(async a => {
-        if (a.value.toLowerCase() !== "redeemed") {
-          throw new Error(`Resource not redeemable #${t}`);
-        }
-      })
+      if (!res.redeemed) {
+        throw new Error(`Resource not redeemable #${t}`);
+      }
       if (owner.toLowerCase() !== address.toLowerCase())
         throw new Error(`You are not owner of token ID #${t}`);
       const redeemed = (await materia.isAntonymTokenUsed(t)).toNumber();
@@ -81,13 +76,3 @@ export const handler = async function (event, context) {
   }
 };
 
-
-async function fetchResource(url) {
-  try {
-      let res = await axios.get(url)
-      console.log(res.data)
-      return res.data
-  } catch (e) {
-      console.log(e)
-  }
-}
