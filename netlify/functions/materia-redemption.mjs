@@ -35,7 +35,7 @@ async function getSignature(tokens, address) {
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
-      let res = await findToken(t);
+      let res = await findToken(t.toString());
       console.log("res" , res, t)
       res.attributes.map(async a => {
         if (a.value.toLowerCase() !== "redeemed") {
