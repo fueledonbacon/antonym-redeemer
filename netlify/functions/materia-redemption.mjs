@@ -4,6 +4,7 @@ import {
   getMateriaAbi,
 } from "../../common/materia-functions.mjs";
 import axios from "axios"
+import { fetchNftById } from "../../common/token-handler.mjs";
 
 const {
   MATERIA_NETWORK,
@@ -34,7 +35,8 @@ async function getSignature(tokens, address) {
   await Promise.all(
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
-      let res = await fetchResource(`${antonymTokenURI}=${t}`);
+      let res = await fetchNftById(t);
+      console.log(res)
       res.attributes.map(async a => {
         if (a.value.toLowerCase() !== "redeemed") {
           throw new Error(`Resource not redeemable #${t}`);
