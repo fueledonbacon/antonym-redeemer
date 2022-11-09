@@ -39,7 +39,8 @@ export const listRedeemedTokens = async () => {
 
 export const find = async (tokenID) => {
   const collection = await useCollection("tokens");
-  let document = await collection.findOne({ tokenID: tokenID });
+  let document = null
+  // let document = await collection.findOne({ tokenID: tokenID });
   if (!document) {
     document = await fetchNftById(tokenID);
   }
