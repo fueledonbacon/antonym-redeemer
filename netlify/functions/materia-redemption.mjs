@@ -36,7 +36,7 @@ async function getSignature(tokens, address) {
     tokens.map(async (t) => {
       const owner = await antonym.ownerOf(t);
       let res = await findToken(t);
-      console.log(res)
+      console.log("res" , res, t)
       res.attributes.map(async a => {
         if (a.value.toLowerCase() !== "redeemed") {
           throw new Error(`Resource not redeemable #${t}`);
