@@ -83,9 +83,8 @@ export const handler = async function (event, context) {
 async function fetchResource(url) {
   try {
       let res = await axios.get(url)
-      console.log(res)
-      res = await res.json()
-      return res
+      console.log(res.data)
+      return res.data
   } catch (e) {
       console.log(e)
   }
