@@ -3,6 +3,7 @@ import {
   getAntonymAbi,
   getMateriaAbi,
 } from "../../common/materia-functions.mjs";
+import axios from "axios"
 
 const {
   MATERIA_NETWORK,
@@ -81,7 +82,7 @@ export const handler = async function (event, context) {
 
 async function fetchResource(url) {
   try {
-      let res = await fetch(url)
+      let res = await axios.get(url)
       res = await res.json()
       return res
   } catch (e) {
