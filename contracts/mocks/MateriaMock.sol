@@ -20,11 +20,10 @@ contract MateriaMock is ERC1155Tradable {
     uint256 private constant MAX_MATERIA = 100-15;
     uint256 private constant MAX_PRIMA_MATERIA = 15;
 
-    uint256 private _start;
     uint256 private _end;
     uint256 private _royaltyBasisPoints;
 
-    bool private _allowMinting = true;
+    bool private _allowMinting;
 
     address private _royaltyAddress;
 
@@ -37,7 +36,6 @@ contract MateriaMock is ERC1155Tradable {
 
     modifier canMint() {
         require(_allowMinting, "Minting is Paused");
-        require(_start <= block.timestamp, "Minting not yet started");
         require(_end > block.timestamp, "Minting already ended");
         _;
     }
@@ -46,18 +44,14 @@ contract MateriaMock is ERC1155Tradable {
         string memory _name,    
         string memory _symbol,
         string memory _metadataURI,
-        uint256 start,
         uint256 end,
         address signer,
         address antonym,
         uint256[] memory antonym1of1Tokens
     ) ERC1155Tradable(_name, _symbol, _metadataURI) {
-        require(start > block.timestamp, "Start cannot be in the past");
-        require(end > start, "Wrong end deadline");
         require(signer != address(0), "Wrong signer");
         require(antonym != address(0), "Wrong NFT");
         require(antonym1of1Tokens.length == MAX_PRIMA_MATERIA, "Wrong array size");
-        _start = start;
         _end = end;
         _signer = signer;
         _antonym = antonym;
@@ -130,7 +124,7 @@ contract MateriaMock is ERC1155Tradable {
     }
 
     function setDeadline(uint256 end) external onlyOwner {
-        require(end > _start && end > block.timestamp, "Wrong end deadline");
+        require(end > block.timestamp, "Wrong end deadline");
         _end = end;
     }
 

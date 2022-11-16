@@ -36,6 +36,10 @@ contract ERC1155Tradable is ERC1155, ERC1155Mint, ERC1155Metadata, Ownable {
     _setBaseMetadataURI(_metadataURI);
   }
 
+  function tokenURI(uint256 tokenId) public view returns (string memory) {
+    return uri(tokenId);
+  }
+
   function uri(
     uint256 _id
   ) public view override returns (string memory) {

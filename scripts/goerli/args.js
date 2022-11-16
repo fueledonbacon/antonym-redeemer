@@ -17,7 +17,6 @@ module.exports = [
     "MATERIA", //Token Name
     "MAT", //Token Symbol
     "https://antonymnft.s3.us-west-1.amazonaws.com/json/", //Token URI
-    1667340000, //starts Tuesday, November 1, 2022 5:00:00 PM GMT-05:00
     1669932000, //ends Thursday, December 1, 2022 5:00:00 PM GMT-05:00
     SIGNER, //TODO: signer
     ANTONYM, //Antonym ERC721 Token

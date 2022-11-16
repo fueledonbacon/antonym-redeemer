@@ -22,7 +22,6 @@ describe("Materia ERC1155 Contract", function () {
     let antonym;
     let materia;    
     let timestamp;
-    let start;
     let end;
    
   
@@ -50,14 +49,12 @@ describe("Materia ERC1155 Contract", function () {
         const Materia = await ethers.getContractFactory("MateriaMock");
 
         timestamp = (await getLatestTimestamp()).toNumber()
-        start = timestamp + 60*5 //starts in 5 minutes
         end = timestamp + 1*60*10; //ends in 10 minutes
 
         materia = await Materia.deploy(
             "MATERIA",
             "MAT",
             "https://antonymnft.s3.us-west-1.amazonaws.com/json/",
-            start,
             end,
             signers[0].address,
             antonym.address, 
@@ -70,17 +67,10 @@ describe("Materia ERC1155 Contract", function () {
     })
 
     it("CanMint Modifier", async function() {
-        expect(true).to.be.true
         let messageHash = await materia.messageHash(signers[1].address, [1, 2, 3]);
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
         
-        //tries to mint where minting is not yet started
-        await expect(
-            materia.connect(signers[1]).mint([1, 2, 3], signature)
-        ).to.be.revertedWith('Minting not yet started');
-
         //tries to mint where minting is paused
-        await materia.allowMinting(false)
         await expect(
             materia.connect(signers[1]).mint([1, 2, 3], signature)
         ).to.be.revertedWith('Minting is Paused');
@@ -94,7 +84,7 @@ describe("Materia ERC1155 Contract", function () {
     })
 
     it("Checks signatures", async function() {
-        await timeIncreaseTo(timestamp + 60*5+10)
+        await materia.allowMinting(true)
 
         let messageHash = await materia.messageHash(signers[1].address, [1, 2, 3]);
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
@@ -119,7 +109,7 @@ describe("Materia ERC1155 Contract", function () {
     })
 
     it("Mints Materia", async function() {
-        await timeIncreaseTo(timestamp + 60*5+10)
+        await materia.allowMinting(true)
 
         let messageHash = await materia.messageHash(signers[1].address, [11, 12, 13]);
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
@@ -161,7 +151,7 @@ describe("Materia ERC1155 Contract", function () {
     })
 
     it("Mints Prima Materia", async function() {
-        await timeIncreaseTo(timestamp + 60*5+10)
+        await materia.allowMinting(true)
 
 
         //tries to mint where not at least one Materia created
@@ -207,7 +197,7 @@ describe("Materia ERC1155 Contract", function () {
 
     it("Mints batch", async function() {
 
-        await timeIncreaseTo(timestamp + 60*5+10)
+        await materia.allowMinting(true)
         //mint materias
         let messageHash = await materia.messageHash(signers[1].address, [2, 3]);
         let signature = signers[0].signMessage(utils.arrayify(messageHash));
