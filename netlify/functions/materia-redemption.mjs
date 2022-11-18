@@ -52,8 +52,6 @@ async function getSignature(tokens, address) {
 }
 
 export const handler = async function (event, context) {
-  console.log(event.body, MATERIA_CONTRACT_ADDRESS, MATERIA_GENESIS_ADDRESS, MATERIA_NETWORK, MATERIA_SIGNING_KEY)
-  console.log(JSON.parse(event.body))
   try {
     const { tokens, address } = JSON.parse(event.body);
     

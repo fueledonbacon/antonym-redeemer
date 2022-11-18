@@ -20,20 +20,20 @@ async function main() {
     // await antonym.deployed()
     // updateOutput(outputPath, { ANTONYM: antonym.address })
 
-    console.log("Deploying Materia contract")
-    const Materia = await ethers.getContractFactory("Materia");
-    const materia = await Materia.deploy(...args)
-    await materia.deployed()
-    console.log("Materia deployed to address:", materia.address)
-    updateOutput(outputPath, { MATERIA: materia.address })
+    // console.log("Deploying Materia contract")
+    // const Materia = await ethers.getContractFactory("Materia");
+    // const materia = await Materia.deploy(...args)
+    // await materia.deployed()
+    // console.log("Materia deployed to address:", materia.address)
+    // updateOutput(outputPath, { MATERIA: materia.address })
 
-    console.log("Waiting for one minute for contracts propagation")
-    await new Promise(r => setTimeout(r, 30000));
+    // console.log("Waiting for one minute for contracts propagation")
+    // await new Promise(r => setTimeout(r, 30000));
 
     console.log("Verifying Materia contract")
     try {
         await attemptVerification(
-            antonym.address,
+            "0xd82a8294D3436F45377797c0Ea997a7BF35C3987",
             path
         );
     } catch (e) {
@@ -62,7 +62,7 @@ async function attemptVerification(address, path) {
 
 async function verify(address, path) {
     try {
-        const { stdout, stderr } = await exec(`npx hardhat verify ${address} --network ${NETWORK}   `);
+        const { stdout, stderr } = await exec(`npx hardhat verify ${address} --network ${NETWORK} --constructor-args ${path}  `);
         console.log('stdout:', stdout);
     } catch (e) {
         console.error(e); // should contain code (exit code) and signal (that caused the termination).

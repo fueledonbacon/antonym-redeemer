@@ -28,6 +28,8 @@ async function main() {
     //     }
 
     // }
+    let oneOnone = []
+    let found = false;
     await Promise.all(arr.map(async (el, index) => {
         try {
             const data = await fetch(`https://antonymnft.s3.us-west-1.amazonaws.com/json/${index}`)
@@ -35,12 +37,21 @@ async function main() {
             const att = jsonRes.attributes.map(att => {
                 return att.value
             }).find(v => v == '1/1')
-            if(att) el1on1.push(index)
+            if(att) {
+                el1on1.push(index)
+                const redeemed = jsonRes.attributes.map(att => {
+                    return att.value
+                }).find(v => v.toLowerCase() == 'redeemed')
+                if(redeemed) {
+                    oneOnone.push(index)
+                }
+            }
         } catch(e) {
 
         }
         
     }))
+    console.log("oneOnone", oneOnone)
     console.log(el1on1)
     console.log(el1on1.length)
     
