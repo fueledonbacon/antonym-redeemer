@@ -1,10 +1,13 @@
 import { schedule } from '@netlify/functions'
 import { getPaymentStatus } from '../../common/db-handlers.mjs'
 
-const adminToken = process.env.VITE_SHOPIFY_ADMIN_TOKEN
-const SHOPIFY_HOST = process.env.VITE_SHOPIFY_HOST
 
-const shopifyRestClient = new Shopify.Clients.Rest(SHOPIFY_HOST, adminToken)
+// const adminToken = process.env.VITE_SHOPIFY_ADMIN_TOKEN
+// const SHOPIFY_HOST = process.env.VITE_SHOPIFY_HOST
+
+// const Shopify = require('shopify-api-node');
+
+// const shopifyRestClient = new Shopify.Clients.Rest(SHOPIFY_HOST, adminToken)
 
 export const handler = schedule("15 * * * *", async (event, context) => {
 	try {
